@@ -37,9 +37,7 @@ def execute_trial(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
     # Returns the phenotype associated to given genome
-    t = 0
     for i in range(steps):
-        t += sim_dt
         action = net.activate(observation)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         final_rew += reward
@@ -50,6 +48,7 @@ def execute_trial(env, net, steps):
 
 def eval_genome(genome, config):
     # Returns the phenotype associated to given genome
+    env.reset(project=True, seed=None, obs_as_dict=False, init_pose=INIT_POSE)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
     return execute_trial(env, net, 1000)
 
