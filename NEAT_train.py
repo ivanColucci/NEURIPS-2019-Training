@@ -29,8 +29,8 @@ env = L2M2019Env(visualize=False, seed=None, difficulty=2)
 env.change_model(model='2D', difficulty=2, seed=None)
 env.reset(project=True, seed=None, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
-n_max_gen = 10
-n_workers = 1
+n_max_gen = 100
+n_workers = 32
 
 
 def execute_trial(env, net, steps):
