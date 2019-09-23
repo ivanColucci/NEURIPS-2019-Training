@@ -7,10 +7,11 @@ random.seed(1234)
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
+status = MPI.Status()
 prob = pg.problem(ball_catching())
-n_iterations = 10
+n_iterations = 1
 n_islands = comm.Get_size()
-n_gen_island = 5
+n_gen_island = 1
 pop_size_island = 5
 
 if rank == 0:
@@ -27,14 +28,16 @@ if rank == 0:
         # when all the slaves are done, evolve the population
         pop = algo.evolve(pop)
         # send the best element of the current population to the slaves
-        data = (pop.champion_f, pop.champion_x)
-        print("Best fitness: "+str(pop.champion_f))
-        for j in range(1, n_islands):
-            comm.send(data, dest=j)
-    #stop slaves
-    data = (None, None)
-    for j in range(1, n_islands):
-        comm.send(data, dest=j)
+        print("Best fitness: " + str(pop.champion_f))
+        if i == n_iterations-1:
+            # stop slaves
+            for j in range(1, n_islands):
+                comm.send(0, dest=j, tag=200)
+            break
+        else:
+            data = (pop.champion_f, pop.champion_x)
+            for j in range(1, n_islands):
+                comm.send(data, dest=j)
     with open("championPSO_Parallel2", "wb") as fout:
         pickle.dump(pop.champion_x, fout)
 else:
@@ -50,8 +53,10 @@ else:
     comm.send(data, dest=0)
     while(True):
         # wait for the best individual from master
-        data = comm.recv(source=0)
-        if data[0] is None:
+        data = comm.recv(source=0, tag=MPI.ANY_TAG, status=status)
+        print(status.Get_tag())
+        if status.Get_tag() == 200:
+            print("Chiusura del programma")
             break
         #replace a genome in the population
         pop.set_xf(random.randint(0, len(pop)-1), data[1], data[0])
@@ -60,6 +65,7 @@ else:
         # send best to master
         data = (pop.champion_f, pop.champion_x)
         comm.send(data, dest=0)
+    print("Ora chiudo")
 
 
 

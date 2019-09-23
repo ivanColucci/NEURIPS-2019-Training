@@ -64,7 +64,6 @@ class ball_catching:
         model = create_model(x)
 
         observation = env.reset(obs_as_dict=False)
-        i = 1
         for i in range(1, self.steps+1):
             obs = np.reshape(observation, (1, 1, 339))
             action = model.predict_on_batch(obs)
