@@ -6,6 +6,7 @@ import neat
 import pickle
 from parallel import ParallelEvaluator
 import numpy as np
+random.seed(1234)
 
 
 INIT_POSE = np.array([
@@ -25,9 +26,9 @@ sim_dt = 0.01
 sim_t = 10
 timstep_limit = int(round(sim_t/sim_dt))
 # Create the environment
-env = L2M2019Env(visualize=False, seed=None, difficulty=2)
+env = L2M2019Env(visualize=False, seed=1234, difficulty=2)
 env.change_model(model='2D', difficulty=2, seed=None)
-env.reset(project=True, seed=None, obs_as_dict=False, init_pose=INIT_POSE)
+env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
 n_max_gen = 100
 n_workers = 32
@@ -48,7 +49,7 @@ def execute_trial(env, net, steps):
 
 def eval_genome(genome, config):
     # Returns the phenotype associated to given genome
-    env.reset(project=True, seed=None, obs_as_dict=False, init_pose=INIT_POSE)
+    env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
     return execute_trial(env, net, 1000)
 
