@@ -38,8 +38,8 @@ if rank == 0:
             data = (pop.champion_f, pop.champion_x)
             for j in range(1, n_islands):
                 comm.send(data, dest=j)
-    with open("championPSO_Parallel2", "wb") as fout:
-        pickle.dump(pop.champion_x, fout)
+        with open("championPSO_Parallel2", "wb") as fout:
+            pickle.dump(pop.champion_x, fout)
 else:
     print("Slave")
     # initialize island
@@ -54,9 +54,7 @@ else:
     while(True):
         # wait for the best individual from master
         data = comm.recv(source=0, tag=MPI.ANY_TAG, status=status)
-        print(status.Get_tag())
         if status.Get_tag() == 200:
-            print("Chiusura del programma")
             break
         #replace a genome in the population
         pop.set_xf(random.randint(0, len(pop)-1), data[1], data[0])
