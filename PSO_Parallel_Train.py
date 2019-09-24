@@ -38,7 +38,7 @@ if rank == 0:
             data = (pop.champion_f, pop.champion_x)
             for j in range(1, n_islands):
                 comm.send(data, dest=j)
-        with open("championPSO_Parallel2", "wb") as fout:
+        with open("championPSO_Parallel_gen"+str(i), "wb") as fout:
             pickle.dump(pop.champion_x, fout)
 else:
     print("Slave")
