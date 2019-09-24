@@ -25,9 +25,9 @@ sim_dt = 0.01
 sim_t = 10
 timstep_limit = int(round(sim_t/sim_dt))
 # Create the environment
-env = L2M2019Env(visualize=True, seed=None, difficulty=2)
+env = L2M2019Env(visualize=True, seed=1234, difficulty=2)
 env.change_model(model='2D', difficulty=2, seed=None)
-env.reset(project=True, seed=None, obs_as_dict=False, init_pose=INIT_POSE)
+env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
 
 
