@@ -63,7 +63,7 @@ class ball_catching:
         final_rew = 0
         model = create_model(x)
 
-        observation = env.reset(obs_as_dict=False)
+        observation = env.reset(obs_as_dict=False, seed=1234)
         for i in range(1, self.steps+1):
             obs = np.reshape(observation, (1, 1, 339))
             action = model.predict_on_batch(obs)

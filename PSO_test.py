@@ -4,11 +4,11 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
 from keras.optimizers import Adam
 import numpy as np
-from osim.env import Arm2DEnv
+from osim.env import L2M2019Env
 import pickle
 import math
 import random
-random.seed(42)
+random.seed(1234)
 
 def from_arr_to_weights(x, model):
     index = 0
@@ -27,9 +27,9 @@ def from_arr_to_weights(x, model):
 
 
 if __name__ == "__main__":
-    env = Arm2DEnv(visualize=True)
+    env = L2M2019Env(visualize=True, seed=1234)
     model = Sequential()
-    env.reset(random_target=False)
+    env.reset(seed=1234)
     model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
     model.add(Dense(32))
     model.add(Activation('relu'))
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         if len(tempArr) > 0:
             num_of_weights += tempArr[0].shape[0] * tempArr[0].shape[1] + tempArr[0].shape[1]
 
-    with open("championPSO_100", "rb") as fin:
+    with open("championPSO_Parallel2", "rb") as fin:
         champion_x = pickle.load(fin)
     from_arr_to_weights(champion_x, model)
     final_rew = 0
