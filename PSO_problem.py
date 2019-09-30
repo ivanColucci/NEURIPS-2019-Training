@@ -12,25 +12,10 @@ random.seed(1234)
 # environment
 env = L2M2019Env(visualize=False, seed=1234, difficulty=2)
 
-#Create a model initialized with the weights passed by argument
-def create_model(weights=None):
-    model = Sequential()
-    model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
-    model.add(Dense(32))
-    model.add(Activation('relu'))
-    model.add(Dense(32))
-    model.add(Activation('relu'))
-    model.add(Dense(32))
-    model.add(Activation('relu'))
-    model.add(Dense(env.get_action_space_size()))
-    model.add(Activation('sigmoid'))
-    model.compile(Adam(lr=.001, clipnorm=1.), loss=['mae'])
-    if weights is not None:
-        set_model_weights(model, weights)
-    return model
 
 #Returns the number of the weights of the given model
 def count_weights(model):
+    # dimensione arr di pesi
     num_of_weights = 0
     for layer in model.layers:
         tempArr = layer.get_weights()
@@ -56,12 +41,42 @@ def set_model_weights(model, x):
 
 #Problem definition
 class ball_catching:
-    def __init__(self, steps=1000):
+    def __init__(self, steps=200, num_of_weights=79382):
         self.steps = steps
+        self.num_of_weights = num_of_weights
 
     def fitness(self, x):
         final_rew = 0
-        model = create_model(x)
+
+        #imports
+        import tensorflow as tf
+        from keras import backend as K
+        from keras.models import Sequential
+        from keras.layers import Dense, Activation, Flatten
+        from keras.optimizers import Adam
+
+        # session
+        config = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1,
+                                inter_op_parallelism_threads=1,
+                                allow_soft_placement=True)
+        session = tf.compat.v1.Session(config=config)
+        K.set_session(session)
+
+        # model
+        model = Sequential()
+        # input 339 output 22
+        model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
+        model.add(Dense(128))
+        model.add(Activation('relu'))
+        model.add(Dense(128))
+        model.add(Activation('relu'))
+        model.add(Dense(128))
+        model.add(Activation('relu'))
+        model.add(Dense(env.get_action_space_size()))
+        model.add(Activation('sigmoid'))
+        model.compile(Adam(lr=.001, clipnorm=1.), loss=['mae'])
+        now = count_weights(model)
+        set_model_weights(model, x[0])
 
         observation = env.reset(obs_as_dict=False, seed=1234)
         for i in range(1, self.steps+1):
@@ -75,14 +90,14 @@ class ball_catching:
             if done:
                 break
             final_rew += reward
+
+        K.clear_session()
         return [-final_rew]
 
     def get_bounds(self):
         bounds_up = []
         bounds_down = []
-        model = create_model()
-        num_of_weights = count_weights(model)
-        for i in range(num_of_weights):
+        for i in range(self.num_of_weights):
             bounds_up.append(1)
             bounds_down.append(-1)
         return (bounds_down, bounds_up)
