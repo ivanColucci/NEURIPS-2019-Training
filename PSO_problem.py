@@ -52,7 +52,7 @@ class ball_catching:
         import tensorflow as tf
         from keras import backend as K
         from keras.models import Sequential
-        from keras.layers import Dense, Activation, Flatten
+        from keras.layers import Dense, Activation, Flatten, Conv1D
         from keras.optimizers import Adam
 
         # session
@@ -62,9 +62,8 @@ class ball_catching:
         session = tf.compat.v1.Session(config=config)
         K.set_session(session)
 
-        # model
+        # old model
         model = Sequential()
-        # input 339 output 22
         model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
         model.add(Dense(128))
         model.add(Activation('relu'))
@@ -75,7 +74,8 @@ class ball_catching:
         model.add(Dense(env.get_action_space_size()))
         model.add(Activation('sigmoid'))
         model.compile(Adam(lr=.001, clipnorm=1.), loss=['mae'])
-        now = count_weights(model)
+
+
         set_model_weights(model, x[0])
 
         observation = env.reset(obs_as_dict=False, seed=1234)
@@ -93,6 +93,14 @@ class ball_catching:
 
         K.clear_session()
         return [-final_rew]
+
+    def fitness_manager(self, xs):
+        dimension = len(xs)
+        results = []
+        for i in range(dimension):
+            results.append(self.fitness([xs[i]])[0])
+        print(results)
+        return results
 
     def get_bounds(self):
         bounds_up = []

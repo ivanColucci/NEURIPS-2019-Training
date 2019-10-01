@@ -11,7 +11,7 @@ np.random.seed(1234)
 
 def set_value(argv):
     n_gen = 100
-    pop_size = 10
+    pop_size = 50
     g_best = True
     if len(argv) > 1:
         n_gen = int(sys.argv[1])
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
         optimizer = algo.LocalBestPSO(n_particles=pop_size, dimensions=dimension, options=options, bounds=bounds)
     # Perform optimization
-    cost, pos = optimizer.optimize(prob.fitness, iters=n_gen, n_processes=pop_size)
+    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=2)
     print(cost)
     with open("champion_pyswarms", "wb") as fout:
         pickle.dump(pos, fout)
