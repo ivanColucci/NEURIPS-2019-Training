@@ -4,7 +4,7 @@ random.seed(1234)
 from osim.env import L2M2019Env
 import neat
 import pickle
-from parallel import ParallelEvaluator
+from NEAT.parallel import ParallelEvaluator
 import numpy as np
 random.seed(1234)
 

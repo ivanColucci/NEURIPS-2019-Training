@@ -1,4 +1,4 @@
-from PSO_problem import ball_catching
+from PSO.PSO_problem import ball_catching
 from mpi4py import MPI
 import pickle
 import pyswarms.single as algo

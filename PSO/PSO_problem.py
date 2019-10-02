@@ -65,15 +65,14 @@ class ball_catching:
         # old model
         model = Sequential()
         model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
-        model.add(Dense(128))
+        model.add(Dense(256))
         model.add(Activation('relu'))
-        model.add(Dense(128))
+        model.add(Dense(256))
         model.add(Activation('relu'))
-        model.add(Dense(128))
+        model.add(Dense(256))
         model.add(Activation('relu'))
         model.add(Dense(env.get_action_space_size()))
         model.add(Activation('sigmoid'))
-        model.compile(Adam(lr=.001, clipnorm=1.), loss=['mae'])
 
 
         set_model_weights(model, x[0])

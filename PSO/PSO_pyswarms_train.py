@@ -2,7 +2,7 @@
 import sys
 import numpy as np
 import pickle
-from PSO_problem import ball_catching
+from PSO.PSO_problem import ball_catching
 import random
 import pyswarms.single as algo
 
