@@ -34,12 +34,30 @@ n_max_gen = 100
 n_workers = 32
 
 
+def add_action_for3D(action):
+    Fmax_ABD = 4460.290481
+    Fmax_ADD = 3931.8
+    r_leg, l_leg = action[:9], action[9:]
+    full_action = []
+    full_action.append(0.1)
+    full_action.append(0.1*Fmax_ADD/Fmax_ABD)
+    for el in r_leg:
+        full_action.append(el)
+    full_action.append(0.1)
+    full_action.append(0.1 * Fmax_ADD / Fmax_ABD)
+    for el in l_leg:
+        full_action.append(el)
+    return full_action
+
+
+
 def execute_trial(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
     # Returns the phenotype associated to given genome
     for i in range(steps):
         action = net.activate(observation)
+        action = add_action_for3D(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         final_rew += reward
         if done:
@@ -63,7 +81,7 @@ def run(config_file):
 
     # Create the population, which is the top-level object for a NEAT run.
     # p = neat.Population(config)
-    p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-198')
+    p = neat.Checkpointer.restore_checkpoint('../results/neat-checkpoint')
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(neat.StdOutReporter(True))
