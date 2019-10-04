@@ -31,6 +31,21 @@ env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
 
 
+def add_action_for3D(action):
+    Fmax_ABD = 4460.290481
+    Fmax_ADD = 3931.8
+    r_leg, l_leg = action[:9], action[9:]
+    full_action = []
+    full_action.append(0.1)
+    full_action.append(0.1*Fmax_ADD/Fmax_ABD)
+    for el in r_leg:
+        full_action.append(el)
+    full_action.append(0.1)
+    full_action.append(0.1 * Fmax_ADD / Fmax_ABD)
+    for el in l_leg:
+        full_action.append(el)
+    return full_action
+
 def execute_trial(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
@@ -78,6 +93,7 @@ t = 0
 for i in range(1000):
     t += sim_dt
     action = winner_net.activate(observation)
+    action = add_action_for3D(action)
     obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
     final_rew += reward
     if done:

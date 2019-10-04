@@ -22,6 +22,7 @@ INIT_POSE = np.array([
     -5.282323914341899296e-02, # hip flex
     -8.041966456860847323e-01, # knee extend
     -1.745329251994329478e-01]) # ankle flex
+
 sim_dt = 0.01
 sim_t = 10
 timstep_limit = int(round(sim_t/sim_dt))
@@ -31,7 +32,7 @@ env.change_model(model='2D', difficulty=2, seed=None)
 env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
 n_max_gen = 100
-n_workers = 32
+n_workers = 12
 
 
 def add_action_for3D(action):
@@ -66,6 +67,8 @@ def execute_trial(env, net, steps):
 
 
 def eval_genome(genome, config):
+    # for key_id in genome.connections.keys():
+    #     print(genome.connections[key_id].weight)
     # Returns the phenotype associated to given genome
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
