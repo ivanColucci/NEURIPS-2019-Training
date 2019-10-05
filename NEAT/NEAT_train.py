@@ -5,9 +5,10 @@ from osim.env import L2M2019Env
 import neat
 import pickle
 from NEAT.parallel import ParallelEvaluator
+from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
+import math
 random.seed(1234)
-
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -75,16 +76,21 @@ def eval_genome(genome, config):
     return execute_trial(env, net, 1000)
 
 
-def run(config_file):
+def run(config_file, rep_type=2):
 
     # Load configuration.
-    config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
+    if rep_type == 2:
+        rep_class = TournamentReproduction
+    else:
+        rep_class = neat.DefaultReproduction
+
+    config = neat.Config(neat.DefaultGenome, rep_class,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          config_file)
 
     # Create the population, which is the top-level object for a NEAT run.
-    # p = neat.Population(config)
-    p = neat.Checkpointer.restore_checkpoint('../results/neat-checkpoint')
+    p = neat.Population(config)
+    # p = neat.Checkpointer.restore_checkpoint('../results/neat-checkpoint')
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(neat.StdOutReporter(True))
@@ -98,11 +104,11 @@ def run(config_file):
     print('\nBest genome:\n{!s}'.format(winner))
 
     # Save the winner
-    with open('winner_genome', 'wb') as f:
+    with open('winner_genome_tournament', 'wb') as f:
         pickle.dump(winner, f)
 
 
 if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-osim')
-    run(config_path)
+    run(config_path, rep_type=2)
