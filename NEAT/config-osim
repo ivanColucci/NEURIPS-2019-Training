@@ -1,4 +1,4 @@
-#--- parameters for the Osim ARM training experiment ---#
+#--- parameters for the Osim L2Walk training experiment ---#
 
 [NEAT]
 fitness_criterion     = max
@@ -10,7 +10,7 @@ reset_on_extinction   = False
 # node activation options
 activation_default      = random
 activation_mutate_rate  = 0.0
-activation_options      = sigmoid relu tanh clamped selu
+activation_options      = sigmoid relu tanh
 
 # node aggregation options
 aggregation_default     = sum
