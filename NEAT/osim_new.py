@@ -480,6 +480,7 @@ class L2M2019Env(OsimEnv):
         self.spec.timestep_limit = self.time_limit
 
     def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None):
+        self.prev_distance = 0
         if difficulty not in [0, 1, 2]:
             raise ValueError("difficulty level should be in [0, 1, 2].")
         self.model_paths = {}
@@ -775,7 +776,15 @@ class L2M2019Env(OsimEnv):
         self.d_reward['footstep']['del_v'] = 0
 
     def get_reward(self):
-        return self.get_reward_1()
+        return self.get_reward_distance()
+
+    def get_reward_distance(self):
+        reward = self.get_reward_1()
+        total_distance = self.get_state_desc()['body_pos']['pelvis'][0]
+        delta = total_distance - self.prev_distance
+        reward += 100 * delta
+        self.prev_distance = total_distance
+        return reward
 
     def get_reward_1(self):
         state_desc = self.get_state_desc()
