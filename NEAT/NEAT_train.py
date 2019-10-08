@@ -2,6 +2,7 @@ import os
 import random
 random.seed(1234)
 from osim.env import L2M2019Env
+from NEAT.myenv import RewardShapingEnv
 import neat
 import pickle
 from NEAT.parallel import ParallelEvaluator
@@ -28,7 +29,10 @@ sim_dt = 0.01
 sim_t = 10
 timstep_limit = int(round(sim_t/sim_dt))
 # Create the environment
-env = L2M2019Env(visualize=False, seed=1234, difficulty=2)
+def my_reward():
+    return 1
+
+env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2, reward_function=my_reward)
 env.change_model(model='2D', difficulty=2, seed=None)
 env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
@@ -62,6 +66,7 @@ def execute_trial(env, net, steps):
         action = add_action_for3D(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         final_rew += reward
+        print(reward)
         if done:
             break
     return final_rew
