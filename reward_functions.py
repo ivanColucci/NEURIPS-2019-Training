@@ -1,5 +1,5 @@
 def keep_alive_reward():
-    pass
+    return 0.1
 
 def distance_reward():
     pass
