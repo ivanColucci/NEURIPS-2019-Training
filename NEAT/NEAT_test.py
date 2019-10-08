@@ -5,7 +5,7 @@ import random
 random.seed(1234)
 
 import neat
-from osim.env import L2M2019Env
+from myenv import RewardShapingEnv
 import pickle
 
 INIT_POSE = np.array([
@@ -25,7 +25,8 @@ sim_dt = 0.01
 sim_t = 10
 timstep_limit = int(round(sim_t/sim_dt))
 # Create the environment
-env = L2M2019Env(visualize=True, seed=1234, difficulty=2)
+env = RewardShapingEnv(visualize=True, seed=1234, difficulty=2)
+env.set_reward_function(env.distance_reward)
 env.change_model(model='2D', difficulty=2, seed=None)
 env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 env.spec.timestep_limit = timstep_limit
@@ -81,7 +82,7 @@ if load_from_checkpoint:
     with open('winner_genome_CP', 'wb') as f:
         pickle.dump(winner, f)
 else:
-    with open('winner_genome', 'rb') as f:
+    with open('winner_genome_tournament', 'rb') as f:
         winner = pickle.load(f)
 winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
 
@@ -90,12 +91,14 @@ final_rew = 0
 observation = env.get_observation()
 # Returns the phenotype associated to given genome
 t = 0
-for i in range(1000):
-    t += sim_dt
-    action = winner_net.activate(observation)
-    action = add_action_for3D(action)
-    obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-    final_rew += reward
-    if done:
-        break
-print(final_rew)
+for i in range(10):
+    for i in range(100):
+        t += sim_dt
+        action = winner_net.activate(observation)
+        action = add_action_for3D(action)
+        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        final_rew += reward
+        if done:
+            break
+    print(final_rew)
+    env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
