@@ -11,7 +11,7 @@ class FileReporter(BaseReporter):
         self.generation_start_time = None
         self.generation_times = []
         self.num_extinctions = 0
-        self.file = open(filename,"w")
+        self.file = open(filename, "a+")
 
     def start_generation(self, generation):
         self.generation = generation

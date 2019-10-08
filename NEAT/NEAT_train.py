@@ -1,6 +1,7 @@
 import os
 import random
 from myenv import RewardShapingEnv
+from NEAT.filereporter import FileReporter
 import neat
 import pickle
 from NEAT.parallel import ParallelEvaluator
@@ -34,7 +35,7 @@ timstep_limit = int(round(sim_t/sim_dt))
 # env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 # env.spec.timestep_limit = timstep_limit
 n_max_gen = 100
-n_workers = 1
+n_workers = 5
 
 
 def add_action_for3D(action):
@@ -97,6 +98,7 @@ def run(config_file, rep_type=2):
     # p = neat.Checkpointer.restore_checkpoint('../results/neat-checkpoint')
 
     # Add a stdout reporter to show progress in the terminal.
+    p.add_reporter(FileReporter(True, "output.txt"))
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
