@@ -1,6 +1,5 @@
 import os
 import random
-random.seed(1234)
 from myenv import RewardShapingEnv
 import neat
 import pickle
@@ -9,6 +8,7 @@ from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
 import math
 random.seed(1234)
+np.random.seed(1234)
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -28,13 +28,13 @@ sim_dt = 0.01
 sim_t = 10
 timstep_limit = int(round(sim_t/sim_dt))
 # Create the environment
-env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
-env.set_reward_function(env.distance_reward)
-env.change_model(model='2D', difficulty=2, seed=None)
-env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
-env.spec.timestep_limit = timstep_limit
+# env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
+# env.set_reward_function(env.distance_reward)
+# env.change_model(model='2D', difficulty=2, seed=1234)
+# env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
+# env.spec.timestep_limit = timstep_limit
 n_max_gen = 100
-n_workers = 12
+n_workers = 1
 
 
 def add_action_for3D(action):
@@ -72,6 +72,9 @@ def eval_genome(genome, config):
     # for key_id in genome.connections.keys():
     #     print(genome.connections[key_id].weight)
     # Returns the phenotype associated to given genome
+    env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
+    env.set_reward_function(env.distance_reward)
+    env.change_model(model='2D', difficulty=2, seed=1234)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
     return execute_trial(env, net, 1000)
