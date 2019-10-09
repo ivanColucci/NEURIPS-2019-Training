@@ -38,7 +38,7 @@ if __name__ == "__main__":
         options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
         optimizer = algo.LocalBestPSO(n_particles=pop_size, dimensions=dimension, options=options, bounds=bounds)
     # Perform optimization
-    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=2)
+    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=10)
     print(cost)
     with open("champion_pyswarms", "wb") as fout:
         pickle.dump(pos, fout)
