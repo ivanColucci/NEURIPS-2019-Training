@@ -35,7 +35,7 @@ timstep_limit = int(round(sim_t/sim_dt))
 # env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 # env.spec.timestep_limit = timstep_limit
 n_max_gen = 100
-n_workers = 5
+n_workers = 12
 
 
 def add_action_for3D(action):
