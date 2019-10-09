@@ -47,6 +47,7 @@ def add_action_for3D(action):
         full_action.append(el)
     return full_action
 
+
 def execute_trial(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
@@ -82,7 +83,7 @@ if load_from_checkpoint:
     with open('winner_genome_CP', 'wb') as f:
         pickle.dump(winner, f)
 else:
-    with open('winner_genome_tournament', 'rb') as f:
+    with open('winner_genome_distance_reward', 'rb') as f:
         winner = pickle.load(f)
 winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
 
@@ -91,8 +92,8 @@ final_rew = 0
 observation = env.get_observation()
 # Returns the phenotype associated to given genome
 t = 0
-for i in range(10):
-    for i in range(100):
+for i in range(1):
+    for i in range(1000):
         t += sim_dt
         action = winner_net.activate(observation)
         action = add_action_for3D(action)

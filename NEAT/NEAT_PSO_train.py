@@ -37,11 +37,11 @@ timstep_limit = int(round(sim_t/sim_dt))
 # env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 # env.spec.timestep_limit = timstep_limit
 
-n_max_gen = 100
+n_max_gen = 20
 step_neat_gen = 10
 step_pso_gen = 50
 step_pso_pop = 15
-n_workers = 12
+n_workers = 24
 
 
 def from_weights_to_genome(weights):
@@ -140,8 +140,8 @@ def run(config_file, rep_type=2):
                          config_file)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
-    # p = neat.Checkpointer.restore_checkpoint('../results/neat-checkpoint')
+    # p = neat.Population(config)
+    p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-107')
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
@@ -169,9 +169,11 @@ def run(config_file, rep_type=2):
 
         options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
         optimizer = algo.LocalBestPSO(n_particles=step_pso_pop, dimensions=dimension, options=options, bounds=bounds)
+        optimizer.swarm.position[0] = best_genome_weight
         cost, pos = optimizer.optimize(fitness, iters=step_neat_gen, n_processes=10)
-
-        p.population[p.best_genome.key] = from_weights_to_genome(pos)
+        print(cost, p.best_genome.fitness)
+        if -cost > p.best_genome.fitness:
+            p.population[p.best_genome.key] = from_weights_to_genome(pos)
 
 
     # Display the winning genome.
