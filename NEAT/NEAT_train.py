@@ -34,8 +34,8 @@ timstep_limit = int(round(sim_t/sim_dt))
 # env.change_model(model='2D', difficulty=2, seed=1234)
 # env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 # env.spec.timestep_limit = timstep_limit
-n_max_gen = 100
-n_workers = 12
+n_max_gen = 200
+n_workers = 50
 
 
 def add_action_for3D(action):
@@ -94,8 +94,8 @@ def run(config_file, rep_type=2):
                          config_file)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
-    # p = neat.Checkpointer.restore_checkpoint('../results/neat-checkpoint')
+    #p = neat.Population(config)
+    p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-35')
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
@@ -110,7 +110,7 @@ def run(config_file, rep_type=2):
     print('\nBest genome:\n{!s}'.format(winner))
 
     # Save the winner
-    with open('winner_genome_distance_reward', 'wb') as f:
+    with open('winner_genome_keep_alive', 'wb') as f:
         pickle.dump(winner, f)
 
 
