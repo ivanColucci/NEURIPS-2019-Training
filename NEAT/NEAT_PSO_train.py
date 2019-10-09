@@ -36,8 +36,12 @@ timstep_limit = int(round(sim_t/sim_dt))
 # env.change_model(model='2D', difficulty=2, seed=1234)
 # env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
 # env.spec.timestep_limit = timstep_limit
-n_max_gen = 2
-n_workers = 1
+
+n_max_gen = 100
+step_neat_gen = 10
+step_pso_gen = 50
+step_pso_pop = 15
+n_workers = 12
 
 
 def from_weights_to_genome(weights):
@@ -149,7 +153,7 @@ def run(config_file, rep_type=2):
 
 
     for i in range(n_max_gen):
-        winner = p.run(pe.evaluate, 1)
+        winner = p.run(pe.evaluate, step_neat_gen)
 
         with open('last_winner', 'wb') as f:
             pickle.dump(winner, f)
@@ -164,8 +168,8 @@ def run(config_file, rep_type=2):
         bounds = get_bounds(dimension)
 
         options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
-        optimizer = algo.LocalBestPSO(n_particles=2, dimensions=dimension, options=options, bounds=bounds)
-        cost, pos = optimizer.optimize(fitness, iters=1, n_processes=2)
+        optimizer = algo.LocalBestPSO(n_particles=step_pso_pop, dimensions=dimension, options=options, bounds=bounds)
+        cost, pos = optimizer.optimize(fitness, iters=step_neat_gen, n_processes=10)
 
         p.population[p.best_genome.key] = from_weights_to_genome(pos)
 
