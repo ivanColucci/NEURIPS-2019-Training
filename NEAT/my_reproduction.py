@@ -157,7 +157,7 @@ class TournamentReproduction(DefaultClassConfig):
             repro_cutoff = int(math.ceil(self.reproduction_config.survival_threshold *
                                          len(old_members)))
 
-            print("Membri totali: ", len(old_members), "\nMembri conservati interamente: ", len(new_population), "\nMembri sottoposti a crossover e mutazione: ", repro_cutoff)
+            # print("Membri totali: ", len(old_members), "\nMembri conservati interamente: ", len(new_population), "\nMembri sottoposti a crossover e mutazione: ", repro_cutoff)
             # Use at least two parents no matter what the threshold fraction result is.
             repro_cutoff = max(repro_cutoff, 2)
             old_members = old_members[:repro_cutoff]
@@ -166,10 +166,12 @@ class TournamentReproduction(DefaultClassConfig):
             while spawn > 0:
                 spawn -= 1
 
-                # parent1_id, parent1 = random.choice(old_members)
-                # parent2_id, parent2 = random.choice(old_members)
 
-                parent1_id, parent1, parent2_id, parent2 = self.tournament(old_members)
+                if len(old_members) >= 2:
+                    parent1_id, parent1, parent2_id, parent2 = self.tournament(old_members)
+                else:
+                    parent1_id, parent1 = random.choice(old_members)
+                    parent2_id, parent2 = random.choice(old_members)
 
                 # Note that if the parents are not distinct, crossover will produce a
                 # genetically identical clone of the parent (but with a different ID).
