@@ -7,7 +7,7 @@ import pickle
 from NEAT.parallel import ParallelEvaluator
 from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
-import pyswarms.single as algo
+from PSO.my_local_best_PSO import MyLocalBestPSO
 import math
 import copy
 random.seed(1234)
@@ -61,7 +61,7 @@ def pso_fitness(x):
 
     config = neat.Config(neat.DefaultGenome, TournamentReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                         'config-osim')
+                         'config-osim_config0')
     net = neat.nn.FeedForwardNetwork.create(genome, config)
 
     env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
@@ -146,8 +146,10 @@ def run(config_file, rep_type=2):
     p = neat.Population(config)
     # p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-107')
 
+    name_run = "output_10_10_config0.txt"
+
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(FileReporter(True, "output_10_10.txt"))
+    p.add_reporter(FileReporter(True, name_run))
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
@@ -171,7 +173,8 @@ def run(config_file, rep_type=2):
         bounds = get_bounds(dimension)
 
         options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
-        optimizer = algo.LocalBestPSO(n_particles=step_pso_pop, dimensions=dimension, options=options, bounds=bounds)
+        optimizer = MyLocalBestPSO(n_particles=step_pso_pop, dimensions=dimension, options=options, bounds=bounds)
+        optimizer.set_reporter_name(name_run)
         optimizer.swarm.position[0] = best_genome_weight
         cost, pos = optimizer.optimize(fitness, iters=step_pso_gen, n_processes=10)
         print(cost, p.best_genome.fitness)

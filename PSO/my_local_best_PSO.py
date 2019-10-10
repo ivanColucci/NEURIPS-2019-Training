@@ -16,8 +16,7 @@ class MyLocalBestPSO(LocalBestPSO):
         with open(filename, "rb") as fin:
             self.swarm = pickle.load(fin)
 
-    def optimize(self, prob, iters, n_processes=None, **kwargs):
-        objective_func = prob.fitness_manager
+    def optimize(self, objective_func, iters, n_processes=None, **kwargs):
         self.rep.log("Obj. func. args: {}".format(kwargs), lvl=logging.DEBUG)
         self.rep.log(
             "Optimize for {} iters with {}".format(iters, self.options),
