@@ -74,7 +74,6 @@ def eval_genome(genome, config):
     #     print(genome.connections[key_id].weight)
     # Returns the phenotype associated to given genome
     env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
-    env.set_reward_function(env.distance_reward)
     env.change_model(model='2D', difficulty=2, seed=1234)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
