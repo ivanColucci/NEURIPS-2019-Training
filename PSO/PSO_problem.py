@@ -59,7 +59,7 @@ def set_model_weights(model, x):
             layer.set_weights(weights)
 
 #Problem definition
-class ball_catching:
+class WalkingProblem:
     def __init__(self, steps=1000, num_of_weights=186774):
         self.steps = steps
         self.num_of_weights = num_of_weights

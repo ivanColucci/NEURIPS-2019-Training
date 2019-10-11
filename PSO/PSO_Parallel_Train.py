@@ -1,4 +1,4 @@
-from PSO.PSO_problem import ball_catching
+from PSO.PSO_problem import WalkingProblem
 from mpi4py import MPI
 import pygmo as pg
 import pickle
@@ -8,7 +8,7 @@ random.seed(1234)
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 status = MPI.Status()
-prob = pg.problem(ball_catching())
+prob = pg.problem(WalkingProblem())
 n_iterations = 1
 n_islands = comm.Get_size()
 n_gen_island = 1
