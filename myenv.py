@@ -35,3 +35,6 @@ class RewardShapingEnv(L2M2019Env):
 
     def step_accuracy_reward(self):
         pass
+
+    def distance_and_energy(self):
+        return 100*self.distance_reward() - self.energy_consumption_reward()/22

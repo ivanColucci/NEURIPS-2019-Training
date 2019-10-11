@@ -65,7 +65,7 @@ class WalkingProblem:
         from keras.layers import Dense, Flatten, Conv1D, MaxPooling1D
 
         env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
-        env.set_reward_function(env.distance_reward)
+        env.set_reward_function(env.distance_and_energy)
         env.change_model(model='2D', difficulty=2, seed=1234)
         env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
         observation = env.get_observation()
@@ -93,7 +93,7 @@ class WalkingProblem:
         model.add(Dense(64, activation='relu'))
         model.add(Dense(64, activation='relu'))
         model.add(Flatten())
-        model.add(Dense(env.get_action_space_size(), activation='tanh'))
+        model.add(Dense(env.get_action_space_size(), activation='sigmoid'))
 
         set_model_weights(model, x[0])
 
