@@ -12,7 +12,7 @@ np.random.seed(1234)
 
 def set_value(argv):
     n_gen = 200
-    pop_size = 50
+    pop_size = 20
     g_best = False
     if len(argv) > 1:
         n_gen = int(sys.argv[1])
@@ -45,7 +45,7 @@ if __name__ == "__main__":
             best = pickle.load(fin)
             optimizer.swarm.position[0] = best
     # Perform optimization
-    cost, pos = optimizer.optimize(prob, iters=n_gen, n_processes=10)
+    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=2)
     print(cost)
-    with open("champion_pyswarms", "wb") as fout:
+    with open("champion_pyswarms_11_10", "wb") as fout:
         pickle.dump(pos, fout)

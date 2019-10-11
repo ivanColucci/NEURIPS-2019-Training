@@ -1,8 +1,5 @@
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Flatten
-from keras.optimizers import Adam
 from myenv import RewardShapingEnv
 import numpy as np
 import random
@@ -23,12 +20,6 @@ INIT_POSE = np.array([
     -5.282323914341899296e-02, # hip flex
     -8.041966456860847323e-01, # knee extend
     -1.745329251994329478e-01]) # ankle flex
-# environment
-env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
-env.set_reward_function(env.distance_reward)
-env.change_model(model='2D', difficulty=2, seed=1234)
-env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
-
 
 #Returns the number of the weights of the given model
 def count_weights(model):
@@ -71,8 +62,7 @@ class ball_catching:
         import tensorflow as tf
         from keras import backend as K
         from keras.models import Sequential
-        from keras.layers import Dense, Activation, Flatten, Conv1D, MaxPooling1D
-        from keras.optimizers import Adam
+        from keras.layers import Dense, Flatten, Conv1D, MaxPooling1D
 
         env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
         env.set_reward_function(env.distance_reward)
@@ -94,6 +84,7 @@ class ball_catching:
         # model.add(Dense(32, activation='selu'))
         # model.add(Dense(32, activation='selu'))
         # model.add(Dense(env.get_action_space_size(), activation='tanh'))
+        # new model
         model = Sequential()
         model.add(Conv1D(64, 3, activation='relu', input_shape=(339, 1)))
         model.add(Conv1D(64, 3, activation='relu'))
