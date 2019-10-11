@@ -1,4 +1,4 @@
-from PSO.PSO_problem import ball_catching
+from PSO.PSO_problem import WalkingProblem
 from mpi4py import MPI
 import pickle
 import pyswarms.single as algo
@@ -6,7 +6,7 @@ import pyswarms.single as algo
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 status = MPI.Status()
-prob = ball_catching()
+prob = WalkingProblem()
 bounds = prob.get_bounds()
 dimension = prob.num_of_weights
 # Set-up hyperparameters

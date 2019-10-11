@@ -2,7 +2,7 @@
 import sys
 import numpy as np
 import pickle
-from PSO.PSO_problem import ball_catching
+from PSO.PSO_problem import WalkingProblem
 import random
 from PSO.my_global_best_PSO import MyGlobalBestPSO
 from PSO.my_local_best_PSO import MyLocalBestPSO
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     load_elem = True
 
-    prob = ball_catching()
+    prob = WalkingProblem()
     bounds = prob.get_bounds()
     dimension = prob.num_of_weights
     # Set-up hyper-parameters & Call instance of PSO
@@ -45,7 +45,8 @@ if __name__ == "__main__":
             best = pickle.load(fin)
             optimizer.swarm.position[0] = best
     # Perform optimization
-    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=2)
+    cost, pos = optimizer.optimize(prob, iters=n_gen, n_processes=10)
+    optimizer.set_reporter_name("output_PSO_conv1D_11/10.txt")
     print(cost)
     with open("champion_pyswarms_11_10", "wb") as fout:
         pickle.dump(pos, fout)
