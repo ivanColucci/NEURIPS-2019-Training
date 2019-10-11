@@ -112,8 +112,10 @@ def run(config_file, rep_type=2):
     with open('winner_genome_keep_alive', 'wb') as f:
         pickle.dump(winner, f)
 
-
-if __name__ == '__main__':
+def start():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-osim')
     run(config_path, rep_type=2)
+
+if __name__ == '__main__':
+    start()
