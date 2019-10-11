@@ -2,7 +2,7 @@
 import sys
 import numpy as np
 import pickle
-from PSO.PSO_problem import ball_catching
+from PSO.PSO_problem import WalkingProblem
 import random
 from PSO.my_global_best_PSO import MyGlobalBestPSO
 from PSO.my_local_best_PSO import MyLocalBestPSO
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     load_elem = True
 
-    prob = ball_catching()
+    prob = WalkingProblem()
     bounds = prob.get_bounds()
     dimension = prob.num_of_weights
     # Set-up hyper-parameters & Call instance of PSO
