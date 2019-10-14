@@ -12,12 +12,6 @@ activation_default      = random
 activation_mutate_rate  = 0.0
 activation_options      = sigmoid relu tanh
 
-[MyGenome]
-# node activation options
-activation_default      = random
-activation_mutate_rate  = 0.0
-activation_options      = sigmoid relu tanh
-
 # node aggregation options
 aggregation_default     = sum
 aggregation_mutate_rate = 0.0
