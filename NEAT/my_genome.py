@@ -11,5 +11,5 @@ class MyGenome(DefaultGenome):
     def distance(self, other, config):
         distance = 0.0
         for k, v in self.param.items():
-            distance += abs(v - other[k])
+            distance += abs(v - other.param[k])
         return distance

@@ -8,6 +8,7 @@ from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
 from NEAT.parallel import ParallelEvaluator
 from NEAT.my_genome import MyGenome
+from NEAT.my_population import MyPopulation
 # randomness
 random.seed(1234)
 np.random.seed(1234)
@@ -77,8 +78,10 @@ def run(config_file, rep_type=2, gen_type=2):
         rep_class = neat.DefaultReproduction
     if gen_type == 2:
         gen_class = MyGenome
+        pop_class = MyPopulation
     else:
         gen_class = neat.DefaultGenome
+        pop_class = neat.Population
 
 
     config = neat.Config(gen_class, rep_class,
@@ -86,7 +89,7 @@ def run(config_file, rep_type=2, gen_type=2):
                          config_file)
 
     # Create the population, which is the top-level object for a NEAT run.
-    p = neat.Population(config)
+    p = pop_class(config)
     #p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-35')
 
     # Add a stdout reporter to show progress in the terminal.
