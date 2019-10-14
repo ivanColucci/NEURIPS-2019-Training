@@ -4,13 +4,15 @@ from myenv import RewardShapingEnv
 from NEAT.filereporter import FileReporter
 import neat
 import pickle
-from NEAT.parallel import ParallelEvaluator
 from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
-import math
+from NEAT.parallel import ParallelEvaluator
+from NEAT.my_genome import MyGenome
+# randomness
 random.seed(1234)
 np.random.seed(1234)
 
+# Costants
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
     .5, # rightward speed
@@ -23,22 +25,12 @@ INIT_POSE = np.array([
     0*np.pi/180, # [left] hip adduct
     -5.282323914341899296e-02, # hip flex
     -8.041966456860847323e-01, # knee extend
-    -1.745329251994329478e-01]) # ankle flex
-
-sim_dt = 0.01
-sim_t = 10
-timstep_limit = int(round(sim_t/sim_dt))
-# Create the environment
-# env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
-# env.set_reward_function(env.distance_reward)
-# env.change_model(model='2D', difficulty=2, seed=1234)
-# env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
-# env.spec.timestep_limit = timstep_limit
+    -1.745329251994329478e-01])
 n_max_gen = 200
-n_workers = 50
+n_workers = 1
 
 
-def add_action_for3D(action):
+def add_action_for_3d(action):
     Fmax_ABD = 4460.290481
     Fmax_ADD = 3931.8
     r_leg, l_leg = action[:9], action[9:]
@@ -54,25 +46,21 @@ def add_action_for3D(action):
     return full_action
 
 
-
 def execute_trial(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
-    # Returns the phenotype associated to given genome
     for i in range(steps):
         action = net.activate(observation)
-        action = add_action_for3D(action)
+        action = add_action_for_3d(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         final_rew += reward
         if done:
             break
-    return final_rew
+
+    return [("fitness", final_rew), ("falcata", 3.2)]
 
 
 def eval_genome(genome, config):
-    # for key_id in genome.connections.keys():
-    #     print(genome.connections[key_id].weight)
-    # Returns the phenotype associated to given genome
     env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
     env.change_model(model='2D', difficulty=2, seed=1234)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
@@ -80,15 +68,20 @@ def eval_genome(genome, config):
     return execute_trial(env, net, 1000)
 
 
-def run(config_file, rep_type=2):
+def run(config_file, rep_type=2, gen_type=2):
 
     # Load configuration.
     if rep_type == 2:
         rep_class = TournamentReproduction
     else:
         rep_class = neat.DefaultReproduction
+    if gen_type == 2:
+        gen_class = MyGenome
+    else:
+        gen_class = neat.DefaultGenome
 
-    config = neat.Config(neat.DefaultGenome, rep_class,
+
+    config = neat.Config(gen_class, rep_class,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          config_file)
 
@@ -102,7 +95,7 @@ def run(config_file, rep_type=2):
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(neat.Checkpointer(5))
-    pe = neat.ParallelEvaluator(n_workers, eval_genome)
+    pe = ParallelEvaluator(n_workers, eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
 
     # Display the winning genome.
@@ -115,7 +108,7 @@ def run(config_file, rep_type=2):
 def start():
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-osim')
-    run(config_path, rep_type=2)
+    run(config_path, rep_type=2, gen_type=2)
 
 if __name__ == '__main__':
     start()

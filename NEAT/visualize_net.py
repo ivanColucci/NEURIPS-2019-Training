@@ -2,11 +2,22 @@ from NEAT.visualize import draw_net
 import neat
 import os
 import pickle
+from NEAT.my_reproduction import TournamentReproduction
 
 
 local_dir = os.path.dirname(__file__)
 config_path = os.path.join(local_dir, 'config-osim')
-config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,neat.DefaultSpeciesSet, neat.DefaultStagnation,config_path)
+rep_type = 2
+
+if rep_type == 2:
+    rep_class = TournamentReproduction
+else:
+    rep_class = neat.DefaultReproduction
+
+config = neat.Config(neat.DefaultGenome, rep_class,
+                     neat.DefaultSpeciesSet, neat.DefaultStagnation,
+                     config_path)
+
 load_from_checkpoint = False
 
 with open('winner_genome_tournament', 'rb') as f:
@@ -15,4 +26,4 @@ with open('winner_genome_tournament', 'rb') as f:
 winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
 
 # Show output of the most fit genome against training data.
-draw_net(config, winner, view=True)
+draw_net(config, winner, True)
