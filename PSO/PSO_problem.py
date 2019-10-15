@@ -4,6 +4,7 @@ from myenv import RewardShapingEnv
 import numpy as np
 import random
 import math
+from PSO.fitness_obj import FitnessObj
 
 random.seed(1234)
 
@@ -55,9 +56,20 @@ class WalkingProblem:
         self.steps = steps
         self.num_of_weights = num_of_weights
 
-    def fitness(self, x):
-        final_rew = 0
+    def get_energy(self, env):
+        state_desc = env.get_state_desc()
+        ACT2 = 0
+        for muscle in sorted(state_desc['muscles'].keys()):
+            ACT2 += np.square(state_desc['muscles'][muscle]['activation'])
+        return ACT2
 
+    def fitness_hook(self, model, env):
+        pass
+
+    def reward_hook(self, env):
+        pass
+
+    def fitness(self, x):
         #imports
         import tensorflow as tf
         from keras import backend as K
@@ -65,10 +77,10 @@ class WalkingProblem:
         from keras.layers import Dense, Flatten, Conv1D, MaxPooling1D
 
         env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
-        env.set_reward_function(env.distance_and_energy)
+        # env.set_reward_function(env.distance_reward)
+        env = self.reward_hook(env)
         env.change_model(model='2D', difficulty=2, seed=1234)
         env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
-        observation = env.get_observation()
 
         # session
         config = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1,
@@ -77,13 +89,6 @@ class WalkingProblem:
         session = tf.compat.v1.Session(config=config)
         K.set_session(session)
 
-        # old model
-        # model = Sequential()
-        # model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
-        # model.add(Dense(32, activation='selu'))
-        # model.add(Dense(32, activation='selu'))
-        # model.add(Dense(32, activation='selu'))
-        # model.add(Dense(env.get_action_space_size(), activation='tanh'))
         # new model
         model = Sequential()
         model.add(Conv1D(64, 3, activation='relu', input_shape=(339, 1)))
@@ -94,29 +99,17 @@ class WalkingProblem:
         model.add(Dense(64, activation='relu'))
         model.add(Flatten())
         model.add(Dense(env.get_action_space_size(), activation='sigmoid'))
-
         set_model_weights(model, x[0])
 
-        for i in range(1, self.steps+1):
-            obs = np.reshape(observation, (1, 339, 1))
-            action = model.predict_on_batch(obs)
-            observation, reward, done, info = env.step(action[0], obs_as_dict=False)
-            # Evaluate fitness based only on reward
-            for elem in observation:
-                if math.isnan(elem):
-                    return [0.]
-            if done:
-                break
-            final_rew += reward
-
+        result_object = self.fitness_hook(model, env)
         K.clear_session()
-        return [-final_rew]
+        return result_object
 
     def fitness_manager(self, xs):
         dimension = len(xs)
         results = []
         for i in range(dimension):
-            results.append(self.fitness([xs[i]])[0])
+            results.append(self.fitness([xs[i]]))
         return results
 
     def get_bounds(self):
