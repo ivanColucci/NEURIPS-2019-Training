@@ -34,17 +34,17 @@ def add_action_for_3d(action):
 
 
 def execute_trial(env, net, steps):
-    final_rew = 0
+    # final_rew = 0
     observation = env.get_observation()
     # Returns the phenotype associated to given genome
     for i in range(steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-        final_rew += reward
+        # final_rew += reward
         if done:
             break
-    return final_rew
+    return env.get_state_desc()['body_pos']['pelvis'][0]
 
 
 def execute_trial_with_param(env, net, steps):
