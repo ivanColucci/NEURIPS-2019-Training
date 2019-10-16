@@ -10,6 +10,22 @@ from pyswarms.single.global_best import GlobalBestPSO
 from pyswarms.utils.reporter import Reporter
 from PSO.fitness_obj import FitnessObj
 
+def to_arrays(vector):
+    distance_array = []
+    energy_array = []
+    for el in vector:
+        distance_array.append(el.distance)
+        energy_array.append(el.energy)
+    return distance_array, energy_array
+
+def mean_vector(vector):
+    d, e = to_arrays(vector)
+    return (np.mean(d), np.mean(e))
+
+def std_vector(vector):
+    d, e = to_arrays(vector)
+    return (np.std(d), np.std(e))
+
 class MOPSO(GlobalBestPSO):
     def set_reporter_name(self, name):
         self.rep = Reporter(logger=logging.getLogger(name))
@@ -35,7 +51,7 @@ class MOPSO(GlobalBestPSO):
 
         # Setup Pool of processes for parallel evaluation
         pool = None if n_processes is None else mp.Pool(n_processes)
-        self.swarm.best_cost = FitnessObj(0.0,np.inf)
+        self.swarm.best_cost = FitnessObj(0.0, np.inf)
         self.swarm.pbest_cost = np.array([FitnessObj(0.0, np.inf) for i in range(self.swarm_size[0])])
         for i in self.rep.pbar(iters, self.name):
             last_time = time.time()
@@ -51,14 +67,14 @@ class MOPSO(GlobalBestPSO):
             # Save to history
             hist = self.ToHistory(
                 best_cost=self.swarm.best_cost,
-                mean_pbest_cost=np.mean(self.swarm.pbest_cost),
+                mean_pbest_cost=mean_vector(self.swarm.pbest_cost.tolist()),
                 mean_neighbor_cost=self.swarm.best_cost,
                 position=self.swarm.position,
                 velocity=self.swarm.velocity,
             )
             self._populate_history(hist)
             # Verify stop criteria based on the relative acceptable cost ftol
-            relative_measure = self.ftol * (1 + np.abs(best_cost_yet_found))
+            relative_measure = self.ftol * (1 + best_cost_yet_found.distance)
             if (
                     np.abs(self.swarm.best_cost - best_cost_yet_found)
                     < relative_measure
@@ -72,7 +88,7 @@ class MOPSO(GlobalBestPSO):
                 self.swarm, self.bounds, self.bh
             )
             self.rep.log(
-                "Generation {}: Mean-fitness {}, std_dev_fitness {}, best {}".format(i, np.mean(self.swarm.current_cost), np.std(self.swarm.current_cost), self.swarm.best_cost),
+                "Generation {}: Mean-fitness {}, std_dev_fitness {}, best {}".format(i, mean_vector(self.swarm.current_cost.tolist()), std_vector(self.swarm.current_cost.tolist()), self.swarm.best_cost),
                 lvl=logging.INFO,
             )
             self.rep.log("Time elapsed {}".format(time.time()-last_time), lvl=logging.INFO,)

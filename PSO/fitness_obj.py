@@ -19,19 +19,8 @@ class FitnessObj():
     def __le__(self, other):
         return self == other or self < other
 
-    def __add__(self, other):
-        return self.distance + other.distance
-
     def __str__(self):
         return 'Distanza: ' + str(self.distance) + ' Energia: ' + str(self.energy)
-
-    def __abs__(self):
-        return self.distance
-
-    def __sub__(self, other):
-        if type(other) is float:
-            return self.distance - other
-        return self.distance - other.distance
 
     def __copy__(self):
         return FitnessObj(20-self.distance, self.energy)
