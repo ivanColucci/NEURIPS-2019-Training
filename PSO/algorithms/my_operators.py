@@ -217,4 +217,4 @@ def compute_objective_function(swarm, objective_func, pool=None):
             partial(objective_func),
             np.array_split(swarm.position, pool._processes),
         )
-        return results[0]
+        return np.concatenate(results)
