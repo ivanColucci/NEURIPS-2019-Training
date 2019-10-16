@@ -76,7 +76,7 @@ class MOPSO(GlobalBestPSO):
             # Verify stop criteria based on the relative acceptable cost ftol
             relative_measure = self.ftol * (1 + best_cost_yet_found.distance)
             if (
-                    np.abs(self.swarm.best_cost - best_cost_yet_found)
+                    np.abs(self.swarm.best_cost.distance - best_cost_yet_found.distance)
                     < relative_measure
             ):
                 break
