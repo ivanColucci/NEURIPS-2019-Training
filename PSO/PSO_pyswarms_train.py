@@ -12,7 +12,7 @@ np.random.seed(1234)
 
 def set_value(argv):
     n_gen = 100
-    pop_size = 2
+    pop_size = 20
     g_best = True
     if len(argv) > 1:
         n_gen = int(sys.argv[1])

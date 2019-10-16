@@ -1,17 +1,17 @@
 import os
 import random
 from myenv import RewardShapingEnv
-from NEAT.filereporter import FileReporter
+from NEAT.utils.filereporter import FileReporter
 import neat
 import pickle
 from NEAT.parallel import ParallelEvaluator
 from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
 from PSO.algorithms.my_local_best_PSO import MyLocalBestPSO
-from NEAT.utilities import INIT_POSE
+from NEAT.utils.utilities import INIT_POSE
 from NEAT.my_genome import MyGenome
 from NEAT.my_population import MyPopulation
-from NEAT.utilities import execute_trial, eval_genome
+from NEAT.utils.utilities import execute_trial, eval_genome
 random.seed(1234)
 np.random.seed(1234)
 
@@ -42,7 +42,7 @@ def pso_fitness(x):
 
     config = neat.Config(neat.DefaultGenome, TournamentReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                         'config-osim_config0')
+                         'Configs/config-osim_config0')
     net = neat.nn.FeedForwardNetwork.create(genome, config)
 
     env = RewardShapingEnv(visualize=False, seed=1234, difficulty=2)
@@ -136,5 +136,5 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
 
 if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'config-osim')
+    config_path = os.path.join(local_dir, 'Configs/config-osim_config0')
     run(config_path, rep_type='Tournament', gen_type='Default', restore_checkpoint=False)

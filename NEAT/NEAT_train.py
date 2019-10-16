@@ -1,6 +1,6 @@
 import os
 import random
-from NEAT.filereporter import FileReporter
+from NEAT.utils.filereporter import FileReporter
 import neat
 import pickle
 from NEAT.my_reproduction import TournamentReproduction
@@ -8,7 +8,7 @@ import numpy as np
 from NEAT.parallel import ParallelEvaluator
 from NEAT.my_genome import MyGenome
 from NEAT.my_population import MyPopulation
-from NEAT.utilities import eval_genome
+from NEAT.utils.utilities import eval_genome
 
 # randomness
 random.seed(1234)
@@ -16,7 +16,7 @@ np.random.seed(1234)
 
 # constants
 n_max_gen = 200
-n_workers = 1
+n_workers = 50
 
 
 def run(config_file, out_file='winner_genome', rep_type='Tournament', gen_type='Default', restore_checkpoint=False, checkpoint='neat-checkpoint'):
@@ -60,8 +60,8 @@ def run(config_file, out_file='winner_genome', rep_type='Tournament', gen_type='
 
 def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint'):
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'config-osim')
+    config_path = os.path.join(local_dir, 'Configs/config-osim')
     run(config_path, rep_type='Tournament', gen_type='Default', restore_checkpoint=restore_checkpoint, out_file=out_file, checkpoint=checkpoint)
 
 if __name__ == '__main__':
-    start('winner_genome_14_10',restore_checkpoint=False)
+    start('winner_genome_16_10',restore_checkpoint=False)

@@ -2,13 +2,13 @@ import os
 import random
 import neat
 import pickle
-from NEAT.utilities import eval_genome
+from NEAT.utils.utilities import eval_genome
 random.seed(1234)
 
 
 def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint'):
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'config-osim')
+    config_path = os.path.join(local_dir, 'Configs/config-osim')
     config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
 
     if load_from_checkpoint:

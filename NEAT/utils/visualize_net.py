@@ -1,4 +1,4 @@
-from NEAT.visualize import draw_net
+from NEAT.utils.visualize import draw_net
 import neat
 import os
 import pickle
