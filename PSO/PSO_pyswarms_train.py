@@ -45,7 +45,7 @@ if __name__ == "__main__":
             best = pickle.load(fin)
             optimizer.swarm.position[0] = best
     # Perform optimization
-    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=10)
+    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=20)
     optimizer.set_reporter_name("output_PSO_conv1D_11/10.txt")
     print(cost)
     with open("champion_pyswarms_11_10", "wb") as fout:
