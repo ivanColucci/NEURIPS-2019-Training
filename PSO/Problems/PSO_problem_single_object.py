@@ -1,13 +1,11 @@
-from PSO.PSO_problem import WalkingProblem
+from PSO.Problems.PSO_abstract_problem import WalkingProblem
 import numpy as np
 import math
-from PSO.fitness_obj import FitnessObj
 
-class MOWalkingProblem(WalkingProblem):
+class SOWalkingProblem(WalkingProblem):
 
     def fitness_hook(self, model, env):
-        total_distance = 0
-        total_energy = 0
+        final_rew = 0
         observation = env.get_observation()
         for i in range(1, self.steps + 1):
             obs = np.reshape(observation, (1, 339, 1))
@@ -18,12 +16,8 @@ class MOWalkingProblem(WalkingProblem):
                     return [0.]
             if done:
                 break
-            total_energy += self.get_energy(env)
-            total_distance += reward
-        resultObj = FitnessObj(total_distance, total_energy)
-        print(resultObj)
-        return resultObj
-
+            final_rew += reward
+        return -final_rew
 
     def reward_hook(self, env):
         env.set_reward_function(env.distance_reward)

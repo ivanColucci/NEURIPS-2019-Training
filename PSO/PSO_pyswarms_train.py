@@ -2,19 +2,17 @@
 import sys
 import numpy as np
 import pickle
-from PSO.PSO_problem_single_object import SOWalkingProblem
-from PSO.PSO_problem_multi_objects import MOWalkingProblem
+from PSO.Problems.PSO_problem_multi_objects import MOWalkingProblem
 import random
-from PSO.my_global_best_PSO import MyGlobalBestPSO
-from PSO.my_local_best_PSO import MyLocalBestPSO
-from PSO.my_MOPSO import MOPSO
+from PSO.algorithms.my_local_best_PSO import MyLocalBestPSO
+from PSO.algorithms.my_MOPSO import MOPSO
 
 random.seed(1234)
 np.random.seed(1234)
 
 def set_value(argv):
     n_gen = 100
-    pop_size = 20
+    pop_size = 2
     g_best = True
     if len(argv) > 1:
         n_gen = int(sys.argv[1])
@@ -47,7 +45,7 @@ if __name__ == "__main__":
             best = pickle.load(fin)
             optimizer.swarm.position[0] = best
     # Perform optimization
-    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=1)
+    cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=10)
     optimizer.set_reporter_name("output_PSO_conv1D_11/10.txt")
     print(cost)
     with open("champion_pyswarms_11_10", "wb") as fout:

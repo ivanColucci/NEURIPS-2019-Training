@@ -7,7 +7,7 @@ import pickle
 from NEAT.parallel import ParallelEvaluator
 from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
-from PSO.my_local_best_PSO import MyLocalBestPSO
+from PSO.algorithms.my_local_best_PSO import MyLocalBestPSO
 from NEAT.utilities import INIT_POSE
 from NEAT.my_genome import MyGenome
 from NEAT.my_population import MyPopulation

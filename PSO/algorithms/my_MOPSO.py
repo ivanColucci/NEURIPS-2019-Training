@@ -5,10 +5,9 @@ import time
 import numpy as np
 import multiprocessing as mp
 # from pyswarms.backend.operators import compute_pbest, compute_objective_function
-from PSO.my_operators import compute_objective_function, compute_pbest
+from PSO.algorithms.my_operators import compute_objective_function, compute_pbest
 from pyswarms.single.global_best import GlobalBestPSO
 from pyswarms.utils.reporter import Reporter
-from functools import partial
 from PSO.fitness_obj import FitnessObj
 
 class MOPSO(GlobalBestPSO):

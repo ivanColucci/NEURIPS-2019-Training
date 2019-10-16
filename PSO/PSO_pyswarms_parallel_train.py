@@ -1,4 +1,4 @@
-from PSO.PSO_problem import WalkingProblem
+from PSO.Problems.PSO_abstract_problem import WalkingProblem
 from mpi4py import MPI
 import pickle
 import pyswarms.single as algo
