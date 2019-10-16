@@ -63,6 +63,7 @@ def execute_trial_with_param(env, net, steps):
 def eval_genome(genome, config, visual=False, is_a_net=False):
     env = RewardShapingEnv(visualize=visual, seed=1234, difficulty=2)
     env.change_model(model='2D', difficulty=2, seed=1234)
+    env.set_reward_function(env.distance_reward)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     if not is_a_net:
         net = neat.nn.FeedForwardNetwork.create(genome, config)
