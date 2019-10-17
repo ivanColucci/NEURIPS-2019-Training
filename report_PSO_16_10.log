@@ -1,0 +1,644 @@
+2019-10-16 19:26:29,744 - pyswarms.single.global_best - INFO - Optimize for 300 iters with {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
+2019-10-16 19:26:29,745 - pyswarms.single.global_best - INFO - Population size: (20, 186774)
+2019-10-16 19:26:33,245 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,250 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,252 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,270 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,285 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,291 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,300 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,309 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,311 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,338 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2019-10-16 19:26:33,564 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,577 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,583 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,601 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,623 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,627 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,634 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,637 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,651 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:26:33,715 - tensorflow - WARNING - From /home/scafuri/anaconda2/envs/opensim-rl/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2019-10-16 19:27:53,326 - pyswarms.single.global_best - INFO - Generation 0: Mean-fitness (18.880747221644402, 982.6035565672807), std_dev_fitness (0.23680929247501858, 353.0169262467987), best Distanza: 19.451602709842195 Energia: 307.01752784622283
+2019-10-16 19:27:53,328 - pyswarms.single.global_best - INFO - Time elapsed 83.53950357437134
+2019-10-16 19:28:25,039 - pyswarms.single.global_best - INFO - Generation 1: Mean-fitness (18.777317754958755, 1735.7724223017333), std_dev_fitness (0.1639419240067058, 356.9336127462773), best Distanza: 19.48578096992737 Energia: 275.4556055774486
+2019-10-16 19:28:25,041 - pyswarms.single.global_best - INFO - Time elapsed 31.374694108963013
+2019-10-16 19:29:06,741 - pyswarms.single.global_best - INFO - Generation 2: Mean-fitness (18.74536158781243, 2011.2215255087008), std_dev_fitness (0.03554630073907026, 53.95771707329919), best Distanza: 19.48578096992737 Energia: 275.4556055774486
+2019-10-16 19:29:06,743 - pyswarms.single.global_best - INFO - Time elapsed 41.38524508476257
+2019-10-16 19:29:49,960 - pyswarms.single.global_best - INFO - Generation 3: Mean-fitness (18.740376872405644, 2057.088059447801), std_dev_fitness (0.03084298814284021, 206.70801644891154), best Distanza: 19.48578096992737 Energia: 275.4556055774486
+2019-10-16 19:29:49,961 - pyswarms.single.global_best - INFO - Time elapsed 42.914427042007446
+2019-10-16 19:32:14,876 - pyswarms.single.global_best - INFO - Generation 4: Mean-fitness (18.89009079391051, 2512.6730641165423), std_dev_fitness (0.29657088491337147, 3499.5769550837026), best Distanza: 19.48578096992737 Energia: 275.4556055774486
+2019-10-16 19:32:14,878 - pyswarms.single.global_best - INFO - Time elapsed 144.5465953350067
+2019-10-16 19:34:25,387 - pyswarms.single.global_best - INFO - Generation 5: Mean-fitness (19.07130451814303, 683.4124162566237), std_dev_fitness (0.2218458854398612, 272.66067178166026), best Distanza: 19.48578096992737 Energia: 275.4556055774486
+2019-10-16 19:34:25,389 - pyswarms.single.global_best - INFO - Time elapsed 130.1544988155365
+2019-10-16 19:35:09,277 - pyswarms.single.global_best - INFO - Generation 6: Mean-fitness (19.13839289718819, 335.5519081542508), std_dev_fitness (0.2210354669970781, 159.7895012544199), best Distanza: 19.411609643232218 Energia: 176.82356645213804
+2019-10-16 19:35:09,278 - pyswarms.single.global_best - INFO - Time elapsed 43.50327467918396
+2019-10-16 19:45:03,744 - pyswarms.single.global_best - INFO - Generation 7: Mean-fitness (19.16723684774155, 218.63488441698695), std_dev_fitness (0.33047478141093306, 226.0413025790337), best Distanza: 19.5277248077459 Energia: 34.47325312568754
+2019-10-16 19:45:03,745 - pyswarms.single.global_best - INFO - Time elapsed 594.0935897827148
+2019-10-16 19:46:25,926 - pyswarms.single.global_best - INFO - Generation 8: Mean-fitness (19.289294489628745, 69.90841807482748), std_dev_fitness (0.22697521588379235, 68.37732267417907), best Distanza: 19.285594240816867 Energia: 13.85353571336446
+2019-10-16 19:46:25,928 - pyswarms.single.global_best - INFO - Time elapsed 81.81103587150574
+2019-10-16 19:49:10,893 - pyswarms.single.global_best - INFO - Generation 9: Mean-fitness (19.25727843882462, 46.44699305119073), std_dev_fitness (0.21344367548310086, 48.46722800056069), best Distanza: 19.0797618611905 Energia: 4.06371336929201
+2019-10-16 19:49:10,895 - pyswarms.single.global_best - INFO - Time elapsed 164.583167552948
+2019-10-16 19:49:42,725 - pyswarms.single.global_best - INFO - Generation 10: Mean-fitness (19.393570492178167, 26.47516469299949), std_dev_fitness (0.11964798455835454, 29.208654620826092), best Distanza: 19.0797618611905 Energia: 4.06371336929201
+2019-10-16 19:49:42,727 - pyswarms.single.global_best - INFO - Time elapsed 31.47240948677063
+2019-10-16 19:50:51,780 - pyswarms.single.global_best - INFO - Generation 11: Mean-fitness (19.326173122257465, 27.4113428535699), std_dev_fitness (0.196172754496575, 20.99045340031801), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:50:51,781 - pyswarms.single.global_best - INFO - Time elapsed 68.68266725540161
+2019-10-16 19:52:03,000 - pyswarms.single.global_best - INFO - Generation 12: Mean-fitness (19.22363348676835, 34.426085178268806), std_dev_fitness (0.22632954427887653, 37.76398974751414), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:52:03,001 - pyswarms.single.global_best - INFO - Time elapsed 70.8342821598053
+2019-10-16 19:52:54,431 - pyswarms.single.global_best - INFO - Generation 13: Mean-fitness (19.27096346453873, 33.108068760794595), std_dev_fitness (0.24548105555252236, 32.81465814160804), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:52:54,432 - pyswarms.single.global_best - INFO - Time elapsed 51.054291009902954
+2019-10-16 19:53:21,740 - pyswarms.single.global_best - INFO - Generation 14: Mean-fitness (19.18033764926898, 35.45901778231164), std_dev_fitness (0.2428470744041222, 33.20298497894258), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:53:21,742 - pyswarms.single.global_best - INFO - Time elapsed 26.943848609924316
+2019-10-16 19:55:08,094 - pyswarms.single.global_best - INFO - Generation 15: Mean-fitness (19.26742773670987, 51.33754266867426), std_dev_fitness (0.2593000157738405, 51.102564304234434), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:55:08,095 - pyswarms.single.global_best - INFO - Time elapsed 105.96966409683228
+2019-10-16 19:56:15,577 - pyswarms.single.global_best - INFO - Generation 16: Mean-fitness (19.257453655690618, 43.58915331543683), std_dev_fitness (0.20198627067227132, 44.993314158971444), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:56:15,578 - pyswarms.single.global_best - INFO - Time elapsed 67.10971140861511
+2019-10-16 19:57:22,523 - pyswarms.single.global_best - INFO - Generation 17: Mean-fitness (19.21533802857241, 51.687273891758096), std_dev_fitness (0.23792288589797092, 30.113114466709366), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:57:22,525 - pyswarms.single.global_best - INFO - Time elapsed 66.58247470855713
+2019-10-16 19:58:09,061 - pyswarms.single.global_best - INFO - Generation 18: Mean-fitness (19.235525529145615, 46.65205712690722), std_dev_fitness (0.2755333430709831, 38.75256455616303), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:58:09,063 - pyswarms.single.global_best - INFO - Time elapsed 46.152610778808594
+2019-10-16 19:59:14,886 - pyswarms.single.global_best - INFO - Generation 19: Mean-fitness (19.237105710285373, 36.49219937398602), std_dev_fitness (0.23045468730738783, 38.43552618340047), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 19:59:14,888 - pyswarms.single.global_best - INFO - Time elapsed 65.4424090385437
+2019-10-16 20:03:03,978 - pyswarms.single.global_best - INFO - Generation 20: Mean-fitness (19.19817217772678, 35.22208826348064), std_dev_fitness (0.25149726020527874, 24.66454977568729), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:03:03,980 - pyswarms.single.global_best - INFO - Time elapsed 228.70118021965027
+2019-10-16 20:03:36,985 - pyswarms.single.global_best - INFO - Generation 21: Mean-fitness (19.211157129557733, 48.10637370135974), std_dev_fitness (0.26527879004446697, 62.37321134145853), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:03:36,986 - pyswarms.single.global_best - INFO - Time elapsed 32.63214635848999
+2019-10-16 20:04:15,993 - pyswarms.single.global_best - INFO - Generation 22: Mean-fitness (19.247758552656688, 31.508258349858913), std_dev_fitness (0.25133238869036023, 31.9824272458798), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:04:15,994 - pyswarms.single.global_best - INFO - Time elapsed 38.645567178726196
+2019-10-16 20:05:38,469 - pyswarms.single.global_best - INFO - Generation 23: Mean-fitness (19.247540674639627, 37.278523293666375), std_dev_fitness (0.22880266745586955, 47.616987617562955), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:05:38,471 - pyswarms.single.global_best - INFO - Time elapsed 82.1217691898346
+2019-10-16 20:26:30,931 - pyswarms.single.global_best - INFO - Generation 24: Mean-fitness (19.29382982967438, 39.38083675595915), std_dev_fitness (0.22335191356043088, 32.25427134067795), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:26:30,933 - pyswarms.single.global_best - INFO - Time elapsed 1252.1008305549622
+2019-10-16 20:27:14,157 - pyswarms.single.global_best - INFO - Generation 25: Mean-fitness (19.27665249612733, 23.043935992751198), std_dev_fitness (0.20111707604773096, 20.260270560664217), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:27:14,159 - pyswarms.single.global_best - INFO - Time elapsed 42.83643698692322
+2019-10-16 20:28:20,109 - pyswarms.single.global_best - INFO - Generation 26: Mean-fitness (19.235401622030476, 44.94765474094915), std_dev_fitness (0.20766748585923664, 42.04411127971878), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:28:20,110 - pyswarms.single.global_best - INFO - Time elapsed 65.58016467094421
+2019-10-16 20:28:56,827 - pyswarms.single.global_best - INFO - Generation 27: Mean-fitness (19.20425619128597, 38.03467878918529), std_dev_fitness (0.24811638071462674, 31.72654963775933), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:28:56,828 - pyswarms.single.global_best - INFO - Time elapsed 36.34417128562927
+2019-10-16 20:30:02,520 - pyswarms.single.global_best - INFO - Generation 28: Mean-fitness (19.319756178872925, 32.27205723277872), std_dev_fitness (0.19956495636919694, 37.6420920656219), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:30:02,522 - pyswarms.single.global_best - INFO - Time elapsed 65.3994300365448
+2019-10-16 20:31:04,087 - pyswarms.single.global_best - INFO - Generation 29: Mean-fitness (19.271492889780948, 40.43858686126863), std_dev_fitness (0.24436840850065958, 52.15318268908196), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:31:04,089 - pyswarms.single.global_best - INFO - Time elapsed 61.193575620651245
+2019-10-16 20:31:49,123 - pyswarms.single.global_best - INFO - Generation 30: Mean-fitness (19.163868377364913, 46.299322346931454), std_dev_fitness (0.21422007342046812, 51.198690806479405), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:31:49,125 - pyswarms.single.global_best - INFO - Time elapsed 44.67968153953552
+2019-10-16 20:32:39,405 - pyswarms.single.global_best - INFO - Generation 31: Mean-fitness (19.2628389847986, 41.97820770659474), std_dev_fitness (0.27130943642167465, 57.5732017561466), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:32:39,407 - pyswarms.single.global_best - INFO - Time elapsed 49.918546199798584
+2019-10-16 20:33:29,037 - pyswarms.single.global_best - INFO - Generation 32: Mean-fitness (19.19815441924237, 37.815389081464154), std_dev_fitness (0.20818492403061759, 34.812620822765275), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:33:29,038 - pyswarms.single.global_best - INFO - Time elapsed 49.276196241378784
+2019-10-16 20:34:19,742 - pyswarms.single.global_best - INFO - Generation 33: Mean-fitness (19.202521489390797, 40.42662243837395), std_dev_fitness (0.230372224276615, 37.74300468568647), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:34:19,744 - pyswarms.single.global_best - INFO - Time elapsed 50.331180810928345
+2019-10-16 20:35:18,867 - pyswarms.single.global_best - INFO - Generation 34: Mean-fitness (19.22557517969146, 43.95638588138701), std_dev_fitness (0.22203482264713478, 36.19908294129831), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:35:18,868 - pyswarms.single.global_best - INFO - Time elapsed 58.75136733055115
+2019-10-16 20:35:58,126 - pyswarms.single.global_best - INFO - Generation 35: Mean-fitness (19.308363969943738, 29.545530385970643), std_dev_fitness (0.23206232843670926, 29.473149836289227), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:35:58,128 - pyswarms.single.global_best - INFO - Time elapsed 38.87811875343323
+2019-10-16 20:36:57,612 - pyswarms.single.global_best - INFO - Generation 36: Mean-fitness (19.216636665959467, 30.910988880309795), std_dev_fitness (0.2591519024176344, 28.47662606216288), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:36:57,614 - pyswarms.single.global_best - INFO - Time elapsed 59.1149582862854
+2019-10-16 20:37:51,610 - pyswarms.single.global_best - INFO - Generation 37: Mean-fitness (19.228283518548444, 26.799665831162667), std_dev_fitness (0.2273582759731013, 30.165734795782708), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:37:51,612 - pyswarms.single.global_best - INFO - Time elapsed 53.62934064865112
+2019-10-16 20:38:32,532 - pyswarms.single.global_best - INFO - Generation 38: Mean-fitness (19.169204654333033, 39.62849583335666), std_dev_fitness (0.21317770195377392, 33.12930651685105), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:38:32,534 - pyswarms.single.global_best - INFO - Time elapsed 40.547510862350464
+2019-10-16 20:39:12,890 - pyswarms.single.global_best - INFO - Generation 39: Mean-fitness (19.19170687150318, 31.916573407487), std_dev_fitness (0.2409903119820099, 25.139788246557483), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:39:12,892 - pyswarms.single.global_best - INFO - Time elapsed 39.98709201812744
+2019-10-16 20:39:42,746 - pyswarms.single.global_best - INFO - Generation 40: Mean-fitness (19.243284391113413, 29.232805539573196), std_dev_fitness (0.24249033056920022, 29.814034569026088), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:39:42,747 - pyswarms.single.global_best - INFO - Time elapsed 29.490633964538574
+2019-10-16 20:40:25,433 - pyswarms.single.global_best - INFO - Generation 41: Mean-fitness (19.223244855389613, 34.89956644280521), std_dev_fitness (0.23699498690349088, 42.59166828961047), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:40:25,434 - pyswarms.single.global_best - INFO - Time elapsed 42.34793210029602
+2019-10-16 20:41:10,250 - pyswarms.single.global_best - INFO - Generation 42: Mean-fitness (19.24768417420652, 23.94514899125416), std_dev_fitness (0.24755080315944117, 24.04676342481209), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:41:10,252 - pyswarms.single.global_best - INFO - Time elapsed 44.43873190879822
+2019-10-16 20:41:48,429 - pyswarms.single.global_best - INFO - Generation 43: Mean-fitness (19.230754190582342, 26.970514120827517), std_dev_fitness (0.20505130700353497, 14.183983732351184), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:41:48,430 - pyswarms.single.global_best - INFO - Time elapsed 37.794050216674805
+2019-10-16 20:42:35,191 - pyswarms.single.global_best - INFO - Generation 44: Mean-fitness (19.23456472110374, 37.57772628233529), std_dev_fitness (0.2208595554335703, 33.041375353888725), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:42:35,193 - pyswarms.single.global_best - INFO - Time elapsed 46.39278697967529
+2019-10-16 20:43:50,790 - pyswarms.single.global_best - INFO - Generation 45: Mean-fitness (19.23227493677779, 48.343154902977126), std_dev_fitness (0.22062558854475683, 69.8684341809404), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:43:50,792 - pyswarms.single.global_best - INFO - Time elapsed 75.23307609558105
+2019-10-16 20:44:44,407 - pyswarms.single.global_best - INFO - Generation 46: Mean-fitness (19.28252711072043, 25.902383526609025), std_dev_fitness (0.19968975892041876, 33.897993592523605), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:44:44,409 - pyswarms.single.global_best - INFO - Time elapsed 53.242647886276245
+2019-10-16 20:45:28,634 - pyswarms.single.global_best - INFO - Generation 47: Mean-fitness (19.214477465242826, 34.010274071899346), std_dev_fitness (0.21322947198336759, 32.02271115450277), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:45:28,636 - pyswarms.single.global_best - INFO - Time elapsed 43.85053014755249
+2019-10-16 20:46:07,810 - pyswarms.single.global_best - INFO - Generation 48: Mean-fitness (19.220445192962384, 32.95618140456186), std_dev_fitness (0.20102405492996242, 30.07187118926938), best Distanza: 19.036905399556392 Energia: 2.171703625945411
+2019-10-16 20:46:07,811 - pyswarms.single.global_best - INFO - Time elapsed 38.80203199386597
+2019-10-16 20:46:57,481 - pyswarms.single.global_best - INFO - Generation 49: Mean-fitness (19.20665004786929, 36.45615369265619), std_dev_fitness (0.21466486881292624, 39.219690420139734), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:46:57,482 - pyswarms.single.global_best - INFO - Time elapsed 49.29959726333618
+2019-10-16 20:47:47,194 - pyswarms.single.global_best - INFO - Generation 50: Mean-fitness (19.210183601287774, 28.950450179280672), std_dev_fitness (0.2335409033478164, 28.15402344918452), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:47:47,195 - pyswarms.single.global_best - INFO - Time elapsed 49.346776485443115
+2019-10-16 20:48:25,050 - pyswarms.single.global_best - INFO - Generation 51: Mean-fitness (19.213060852994715, 23.966079576702512), std_dev_fitness (0.19747399181296968, 22.6327807425105), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:48:25,051 - pyswarms.single.global_best - INFO - Time elapsed 37.506540298461914
+2019-10-16 20:49:01,556 - pyswarms.single.global_best - INFO - Generation 52: Mean-fitness (19.356275569960573, 16.029876649407065), std_dev_fitness (0.20342642590040994, 18.761025894541525), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:49:01,558 - pyswarms.single.global_best - INFO - Time elapsed 36.142399311065674
+2019-10-16 20:49:58,722 - pyswarms.single.global_best - INFO - Generation 53: Mean-fitness (19.283144804372427, 32.48293863867819), std_dev_fitness (0.2430390919503562, 37.865814596189146), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:49:58,724 - pyswarms.single.global_best - INFO - Time elapsed 56.80158591270447
+2019-10-16 20:50:29,013 - pyswarms.single.global_best - INFO - Generation 54: Mean-fitness (19.387142801166142, 21.253907892840534), std_dev_fitness (0.1419053705309737, 18.033308370102016), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:50:29,014 - pyswarms.single.global_best - INFO - Time elapsed 29.88940668106079
+2019-10-16 20:51:11,313 - pyswarms.single.global_best - INFO - Generation 55: Mean-fitness (19.223990473314135, 32.08457364484916), std_dev_fitness (0.2024314898005743, 32.900004233212165), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:51:11,315 - pyswarms.single.global_best - INFO - Time elapsed 41.93510413169861
+2019-10-16 20:51:58,691 - pyswarms.single.global_best - INFO - Generation 56: Mean-fitness (19.226587870759158, 32.19820533384509), std_dev_fitness (0.2112655603382592, 29.136107812372547), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:51:58,692 - pyswarms.single.global_best - INFO - Time elapsed 46.99845767021179
+2019-10-16 20:52:35,049 - pyswarms.single.global_best - INFO - Generation 57: Mean-fitness (19.204323081016916, 30.38628338005146), std_dev_fitness (0.2091316718662452, 27.528480272556106), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:52:35,050 - pyswarms.single.global_best - INFO - Time elapsed 35.98189616203308
+2019-10-16 20:53:18,656 - pyswarms.single.global_best - INFO - Generation 58: Mean-fitness (19.174118099155127, 48.597881122755425), std_dev_fitness (0.24260751083780438, 44.16097106376167), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:53:18,657 - pyswarms.single.global_best - INFO - Time elapsed 43.23418307304382
+2019-10-16 20:54:20,388 - pyswarms.single.global_best - INFO - Generation 59: Mean-fitness (19.2494588598553, 41.272212224223566), std_dev_fitness (0.24048098899488268, 55.94983737660323), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:54:20,389 - pyswarms.single.global_best - INFO - Time elapsed 61.36588478088379
+2019-10-16 20:55:13,215 - pyswarms.single.global_best - INFO - Generation 60: Mean-fitness (19.258731844591487, 31.52949514618883), std_dev_fitness (0.21332404342499728, 36.86579958378188), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:55:13,217 - pyswarms.single.global_best - INFO - Time elapsed 52.45844030380249
+2019-10-16 20:55:57,105 - pyswarms.single.global_best - INFO - Generation 61: Mean-fitness (19.237080068007415, 20.541301597823573), std_dev_fitness (0.22175459202848022, 17.6009527275029), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:55:57,107 - pyswarms.single.global_best - INFO - Time elapsed 43.52026295661926
+2019-10-16 20:56:32,615 - pyswarms.single.global_best - INFO - Generation 62: Mean-fitness (19.30939332438273, 22.6207007861001), std_dev_fitness (0.20949139823840474, 22.100303280916183), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:56:32,617 - pyswarms.single.global_best - INFO - Time elapsed 35.172560930252075
+2019-10-16 20:58:52,932 - pyswarms.single.global_best - INFO - Generation 63: Mean-fitness (19.263748332307, 18.27357422100974), std_dev_fitness (0.20083921999007157, 16.121081329930472), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:58:52,933 - pyswarms.single.global_best - INFO - Time elapsed 139.9539737701416
+2019-10-16 20:59:30,909 - pyswarms.single.global_best - INFO - Generation 64: Mean-fitness (19.24809629442707, 31.081958945126065), std_dev_fitness (0.2368255978093614, 32.79792468907363), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 20:59:30,910 - pyswarms.single.global_best - INFO - Time elapsed 37.61124277114868
+2019-10-16 21:00:12,651 - pyswarms.single.global_best - INFO - Generation 65: Mean-fitness (19.12364344640868, 29.909549102462677), std_dev_fitness (0.21521286643222315, 27.393754861973843), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:00:12,653 - pyswarms.single.global_best - INFO - Time elapsed 41.42359662055969
+2019-10-16 21:00:52,730 - pyswarms.single.global_best - INFO - Generation 66: Mean-fitness (19.270784138407837, 24.045018649610135), std_dev_fitness (0.22450712494572708, 21.408687688417587), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:00:52,731 - pyswarms.single.global_best - INFO - Time elapsed 39.70232129096985
+2019-10-16 21:01:34,553 - pyswarms.single.global_best - INFO - Generation 67: Mean-fitness (19.21784908048283, 35.47000648258582), std_dev_fitness (0.23471613077549433, 40.226117346028204), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:01:34,555 - pyswarms.single.global_best - INFO - Time elapsed 41.49848437309265
+2019-10-16 21:02:17,159 - pyswarms.single.global_best - INFO - Generation 68: Mean-fitness (19.26704337538027, 27.506811243894127), std_dev_fitness (0.19813260739898916, 25.461643696842916), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:02:17,160 - pyswarms.single.global_best - INFO - Time elapsed 42.23735284805298
+2019-10-16 21:03:35,628 - pyswarms.single.global_best - INFO - Generation 69: Mean-fitness (19.193128866422548, 38.51598149603694), std_dev_fitness (0.20890778488253559, 40.747709969402216), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:03:35,630 - pyswarms.single.global_best - INFO - Time elapsed 78.17142653465271
+2019-10-16 21:04:12,657 - pyswarms.single.global_best - INFO - Generation 70: Mean-fitness (19.256241577476267, 25.88240345527642), std_dev_fitness (0.23395162520066215, 24.78458304557889), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:04:12,658 - pyswarms.single.global_best - INFO - Time elapsed 36.64392137527466
+2019-10-16 21:04:50,510 - pyswarms.single.global_best - INFO - Generation 71: Mean-fitness (19.249426583180302, 24.629096466564462), std_dev_fitness (0.18797252432943315, 24.449687674561275), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:04:50,511 - pyswarms.single.global_best - INFO - Time elapsed 37.47062110900879
+2019-10-16 21:06:07,347 - pyswarms.single.global_best - INFO - Generation 72: Mean-fitness (19.195199066622674, 24.139392079223065), std_dev_fitness (0.23050641164935745, 31.009438957553446), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:06:07,348 - pyswarms.single.global_best - INFO - Time elapsed 76.46930980682373
+2019-10-16 21:06:45,767 - pyswarms.single.global_best - INFO - Generation 73: Mean-fitness (19.23264129938971, 25.45500611277654), std_dev_fitness (0.22260637124571245, 24.18534689308275), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:06:45,768 - pyswarms.single.global_best - INFO - Time elapsed 38.03926467895508
+2019-10-16 21:07:24,912 - pyswarms.single.global_best - INFO - Generation 74: Mean-fitness (19.187019337727165, 25.152465061976066), std_dev_fitness (0.22512157769775396, 20.760131727401287), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:07:24,913 - pyswarms.single.global_best - INFO - Time elapsed 38.7639696598053
+2019-10-16 21:09:10,044 - pyswarms.single.global_best - INFO - Generation 75: Mean-fitness (19.26097164545006, 23.077921984172747), std_dev_fitness (0.2591526981921627, 18.935268151072773), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:09:10,045 - pyswarms.single.global_best - INFO - Time elapsed 104.77294683456421
+2019-10-16 21:10:26,023 - pyswarms.single.global_best - INFO - Generation 76: Mean-fitness (19.210277432033546, 30.949626785905785), std_dev_fitness (0.22082781548649721, 38.16535063662709), best Distanza: 19.105022013920088 Energia: 1.2346695205432316
+2019-10-16 21:10:26,025 - pyswarms.single.global_best - INFO - Time elapsed 75.61416697502136
+2019-10-16 21:11:11,078 - pyswarms.single.global_best - INFO - Generation 77: Mean-fitness (19.172657182751184, 25.006134000511462), std_dev_fitness (0.21268806051263198, 28.809702050956975), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:11:11,079 - pyswarms.single.global_best - INFO - Time elapsed 44.67838907241821
+2019-10-16 21:12:10,676 - pyswarms.single.global_best - INFO - Generation 78: Mean-fitness (19.186292849658894, 24.78839661358659), std_dev_fitness (0.2839182889924936, 24.90998023434195), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:12:10,678 - pyswarms.single.global_best - INFO - Time elapsed 59.2052059173584
+2019-10-16 21:12:48,307 - pyswarms.single.global_best - INFO - Generation 79: Mean-fitness (19.24704162464389, 27.344602905426957), std_dev_fitness (0.219352526198549, 26.06742498975186), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:12:48,308 - pyswarms.single.global_best - INFO - Time elapsed 37.26124382019043
+2019-10-16 21:13:41,630 - pyswarms.single.global_best - INFO - Generation 80: Mean-fitness (19.174817884852338, 35.15252711229395), std_dev_fitness (0.2651764892071522, 29.478657504382838), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:13:41,632 - pyswarms.single.global_best - INFO - Time elapsed 53.03356575965881
+2019-10-16 21:15:06,814 - pyswarms.single.global_best - INFO - Generation 81: Mean-fitness (19.146687255509732, 39.55257376713949), std_dev_fitness (0.18272961195171597, 34.60136407156462), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:15:06,815 - pyswarms.single.global_best - INFO - Time elapsed 84.81340503692627
+2019-10-16 21:15:59,881 - pyswarms.single.global_best - INFO - Generation 82: Mean-fitness (19.143821958072007, 38.891118049037416), std_dev_fitness (0.1986048696095503, 28.72955111450335), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:15:59,883 - pyswarms.single.global_best - INFO - Time elapsed 52.68682789802551
+2019-10-16 21:17:00,086 - pyswarms.single.global_best - INFO - Generation 83: Mean-fitness (19.16843542790053, 19.47096334545156), std_dev_fitness (0.2557181738958819, 19.479582711308908), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:17:00,087 - pyswarms.single.global_best - INFO - Time elapsed 59.785845041275024
+2019-10-16 21:17:53,090 - pyswarms.single.global_best - INFO - Generation 84: Mean-fitness (19.166832378237977, 37.8402705924145), std_dev_fitness (0.2747558987137221, 34.512380711285786), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:17:53,092 - pyswarms.single.global_best - INFO - Time elapsed 52.64514946937561
+2019-10-16 21:18:37,408 - pyswarms.single.global_best - INFO - Generation 85: Mean-fitness (19.229166019995212, 33.25254418347864), std_dev_fitness (0.24236029924825114, 35.94427798116919), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:18:37,409 - pyswarms.single.global_best - INFO - Time elapsed 43.96138024330139
+2019-10-16 21:19:17,155 - pyswarms.single.global_best - INFO - Generation 86: Mean-fitness (19.19994149883138, 36.22021803537496), std_dev_fitness (0.2297445362170907, 48.99468709497504), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:19:17,156 - pyswarms.single.global_best - INFO - Time elapsed 39.375773191452026
+2019-10-16 21:19:53,101 - pyswarms.single.global_best - INFO - Generation 87: Mean-fitness (19.262122611174327, 21.28983280479552), std_dev_fitness (0.22572925994959783, 18.370779900343788), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:19:53,102 - pyswarms.single.global_best - INFO - Time elapsed 35.587870597839355
+2019-10-16 21:20:57,593 - pyswarms.single.global_best - INFO - Generation 88: Mean-fitness (19.200770635915045, 35.39658552249503), std_dev_fitness (0.263949940817012, 34.22429096730052), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:20:57,594 - pyswarms.single.global_best - INFO - Time elapsed 64.1301920413971
+2019-10-16 21:22:12,187 - pyswarms.single.global_best - INFO - Generation 89: Mean-fitness (19.11047603633925, 33.24317852960107), std_dev_fitness (0.25858862716039344, 33.50862821484333), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:22:12,188 - pyswarms.single.global_best - INFO - Time elapsed 74.22094798088074
+2019-10-16 21:22:52,205 - pyswarms.single.global_best - INFO - Generation 90: Mean-fitness (19.196849479070174, 31.809323034428992), std_dev_fitness (0.2650567005877143, 26.07165072938326), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:22:52,206 - pyswarms.single.global_best - INFO - Time elapsed 39.659202098846436
+2019-10-16 21:23:42,175 - pyswarms.single.global_best - INFO - Generation 91: Mean-fitness (19.202877177660575, 22.122196175943287), std_dev_fitness (0.25585725462692915, 19.64137691488518), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:23:42,176 - pyswarms.single.global_best - INFO - Time elapsed 49.61256694793701
+2019-10-16 21:24:25,263 - pyswarms.single.global_best - INFO - Generation 92: Mean-fitness (19.162591524317662, 33.101289897488456), std_dev_fitness (0.20549582302903321, 35.560661030480375), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:24:25,265 - pyswarms.single.global_best - INFO - Time elapsed 42.75831317901611
+2019-10-16 21:25:09,510 - pyswarms.single.global_best - INFO - Generation 93: Mean-fitness (19.16786447013257, 31.94976392449455), std_dev_fitness (0.21624968787745458, 34.78907222822581), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:25:09,511 - pyswarms.single.global_best - INFO - Time elapsed 43.88665986061096
+2019-10-16 21:26:04,710 - pyswarms.single.global_best - INFO - Generation 94: Mean-fitness (19.203737232836527, 24.87418711002428), std_dev_fitness (0.20084460060335216, 23.62238986664158), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:26:04,712 - pyswarms.single.global_best - INFO - Time elapsed 54.841059923172
+2019-10-16 21:26:38,591 - pyswarms.single.global_best - INFO - Generation 95: Mean-fitness (19.277701948558224, 17.190575363754913), std_dev_fitness (0.21213105869273446, 14.851205486317665), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:26:38,593 - pyswarms.single.global_best - INFO - Time elapsed 33.582436323165894
+2019-10-16 21:27:08,431 - pyswarms.single.global_best - INFO - Generation 96: Mean-fitness (19.13394450884219, 32.30191812696644), std_dev_fitness (0.23684693506354182, 29.626708855445113), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:27:08,433 - pyswarms.single.global_best - INFO - Time elapsed 29.47490382194519
+2019-10-16 21:27:41,986 - pyswarms.single.global_best - INFO - Generation 97: Mean-fitness (19.178381675176105, 27.388799765595184), std_dev_fitness (0.22967586567712112, 33.335323850278044), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:27:41,987 - pyswarms.single.global_best - INFO - Time elapsed 33.18457055091858
+2019-10-16 21:28:13,974 - pyswarms.single.global_best - INFO - Generation 98: Mean-fitness (19.166298975261046, 34.19370519100026), std_dev_fitness (0.250298186949271, 39.88992473830112), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:28:13,976 - pyswarms.single.global_best - INFO - Time elapsed 31.625882625579834
+2019-10-16 21:28:52,745 - pyswarms.single.global_best - INFO - Generation 99: Mean-fitness (19.18867499382862, 23.004669430672898), std_dev_fitness (0.217782135159873, 22.316060741629325), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:28:52,747 - pyswarms.single.global_best - INFO - Time elapsed 38.400134563446045
+2019-10-16 21:29:35,527 - pyswarms.single.global_best - INFO - Generation 100: Mean-fitness (19.231662830816354, 28.501104535920962), std_dev_fitness (0.23769768694659874, 23.91439306490363), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:29:35,528 - pyswarms.single.global_best - INFO - Time elapsed 42.425562381744385
+2019-10-16 21:30:23,032 - pyswarms.single.global_best - INFO - Generation 101: Mean-fitness (19.141170586392427, 37.0513712815887), std_dev_fitness (0.21877345123450123, 31.46622120916167), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:30:23,034 - pyswarms.single.global_best - INFO - Time elapsed 47.145906925201416
+2019-10-16 21:31:10,067 - pyswarms.single.global_best - INFO - Generation 102: Mean-fitness (19.138203258676477, 33.99024860721086), std_dev_fitness (0.2035290734243003, 26.542768562182246), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:31:10,068 - pyswarms.single.global_best - INFO - Time elapsed 46.656543016433716
+2019-10-16 21:32:12,430 - pyswarms.single.global_best - INFO - Generation 103: Mean-fitness (19.19455623057899, 24.89669275975539), std_dev_fitness (0.2369841347177488, 24.154435206770362), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:32:12,431 - pyswarms.single.global_best - INFO - Time elapsed 61.98931264877319
+2019-10-16 21:33:10,089 - pyswarms.single.global_best - INFO - Generation 104: Mean-fitness (19.144382158370725, 29.307530643070255), std_dev_fitness (0.23007970484048446, 31.519995666454992), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:33:10,090 - pyswarms.single.global_best - INFO - Time elapsed 57.294352531433105
+2019-10-16 21:33:53,032 - pyswarms.single.global_best - INFO - Generation 105: Mean-fitness (19.24542181708913, 28.589064596445006), std_dev_fitness (0.2665991616227174, 23.181720293125633), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:33:53,033 - pyswarms.single.global_best - INFO - Time elapsed 42.57456946372986
+2019-10-16 21:34:31,357 - pyswarms.single.global_best - INFO - Generation 106: Mean-fitness (19.19938402649097, 28.485367591860246), std_dev_fitness (0.24318761449327136, 30.6306253921595), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:34:31,358 - pyswarms.single.global_best - INFO - Time elapsed 37.961859941482544
+2019-10-16 21:35:17,231 - pyswarms.single.global_best - INFO - Generation 107: Mean-fitness (19.202779422919026, 21.756162805591792), std_dev_fitness (0.2158484258357229, 22.2206582161674), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:35:17,233 - pyswarms.single.global_best - INFO - Time elapsed 45.51087164878845
+2019-10-16 21:36:00,094 - pyswarms.single.global_best - INFO - Generation 108: Mean-fitness (19.05071251389286, 29.25071062499462), std_dev_fitness (0.14733028734313722, 27.01800777710646), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:36:00,095 - pyswarms.single.global_best - INFO - Time elapsed 42.49285626411438
+2019-10-16 21:36:55,685 - pyswarms.single.global_best - INFO - Generation 109: Mean-fitness (19.172785585597865, 40.295236788125585), std_dev_fitness (0.19767494176948186, 32.2664919944214), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:36:55,686 - pyswarms.single.global_best - INFO - Time elapsed 55.211223125457764
+2019-10-16 21:37:31,396 - pyswarms.single.global_best - INFO - Generation 110: Mean-fitness (19.099331310848452, 33.10154002961083), std_dev_fitness (0.20732280078864368, 31.736115960482962), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:37:31,397 - pyswarms.single.global_best - INFO - Time elapsed 35.34876108169556
+2019-10-16 21:38:12,408 - pyswarms.single.global_best - INFO - Generation 111: Mean-fitness (19.19926214964426, 16.118142599781564), std_dev_fitness (0.20754339244127648, 18.86138343148638), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:38:12,409 - pyswarms.single.global_best - INFO - Time elapsed 40.64591574668884
+2019-10-16 21:38:45,912 - pyswarms.single.global_best - INFO - Generation 112: Mean-fitness (19.216396287006642, 21.33096179423442), std_dev_fitness (0.22422608840150604, 19.235870519823962), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:38:45,913 - pyswarms.single.global_best - INFO - Time elapsed 33.136210680007935
+2019-10-16 21:39:46,789 - pyswarms.single.global_best - INFO - Generation 113: Mean-fitness (19.10980404978866, 40.32494677264917), std_dev_fitness (0.2523173380165865, 29.200192216411228), best Distanza: 19.065348305720956 Energia: 1.2540552169895582
+2019-10-16 21:39:46,790 - pyswarms.single.global_best - INFO - Time elapsed 60.51094841957092
+2019-10-16 21:40:18,633 - pyswarms.single.global_best - INFO - Generation 114: Mean-fitness (19.143389344276482, 33.251931095421725), std_dev_fitness (0.22252294317947405, 33.92975783953804), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:40:18,634 - pyswarms.single.global_best - INFO - Time elapsed 31.478662490844727
+2019-10-16 21:41:17,659 - pyswarms.single.global_best - INFO - Generation 115: Mean-fitness (19.249649984536667, 28.596319336717322), std_dev_fitness (0.24131407031334165, 29.52699226042663), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:41:17,661 - pyswarms.single.global_best - INFO - Time elapsed 58.654619216918945
+2019-10-16 21:41:50,675 - pyswarms.single.global_best - INFO - Generation 116: Mean-fitness (19.254138380621917, 28.403133000337665), std_dev_fitness (0.2306320679889023, 24.57033200762381), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:41:50,677 - pyswarms.single.global_best - INFO - Time elapsed 32.65662097930908
+2019-10-16 21:42:51,567 - pyswarms.single.global_best - INFO - Generation 117: Mean-fitness (19.20241338376858, 24.644825099396563), std_dev_fitness (0.20572746968489997, 20.820835901287026), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:42:51,569 - pyswarms.single.global_best - INFO - Time elapsed 60.53068137168884
+2019-10-16 21:43:43,714 - pyswarms.single.global_best - INFO - Generation 118: Mean-fitness (19.177970478229636, 25.863222513626813), std_dev_fitness (0.23941956089012162, 21.513414225621837), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:43:43,715 - pyswarms.single.global_best - INFO - Time elapsed 51.78811049461365
+2019-10-16 21:44:25,958 - pyswarms.single.global_best - INFO - Generation 119: Mean-fitness (19.27715814674722, 28.159715307750226), std_dev_fitness (0.21017239187567477, 21.73426716118454), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:44:25,960 - pyswarms.single.global_best - INFO - Time elapsed 41.889097452163696
+2019-10-16 21:45:48,356 - pyswarms.single.global_best - INFO - Generation 120: Mean-fitness (19.2134456545354, 28.689812104224), std_dev_fitness (0.22350706696070022, 35.80225470176701), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:45:48,357 - pyswarms.single.global_best - INFO - Time elapsed 82.0340633392334
+2019-10-16 21:46:42,430 - pyswarms.single.global_best - INFO - Generation 121: Mean-fitness (19.23066462025863, 32.67809388764745), std_dev_fitness (0.25787488241732676, 29.281946101560113), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:46:42,431 - pyswarms.single.global_best - INFO - Time elapsed 53.70689010620117
+2019-10-16 21:47:23,188 - pyswarms.single.global_best - INFO - Generation 122: Mean-fitness (19.118283456273975, 24.81515322692416), std_dev_fitness (0.2009622189422153, 18.615737503543794), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:47:23,189 - pyswarms.single.global_best - INFO - Time elapsed 40.38676834106445
+2019-10-16 21:48:01,211 - pyswarms.single.global_best - INFO - Generation 123: Mean-fitness (19.178340359446413, 27.713313864556177), std_dev_fitness (0.22302505081904442, 23.50145002108597), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:48:01,213 - pyswarms.single.global_best - INFO - Time elapsed 37.66007375717163
+2019-10-16 21:48:34,714 - pyswarms.single.global_best - INFO - Generation 124: Mean-fitness (19.112562783854678, 40.284783669502765), std_dev_fitness (0.20519330326773633, 28.540676591717727), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:48:34,715 - pyswarms.single.global_best - INFO - Time elapsed 33.13975167274475
+2019-10-16 21:49:21,714 - pyswarms.single.global_best - INFO - Generation 125: Mean-fitness (19.164123711515376, 37.78994145063844), std_dev_fitness (0.2300064051766925, 32.350341475042036), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:49:21,715 - pyswarms.single.global_best - INFO - Time elapsed 46.61787486076355
+2019-10-16 21:49:54,500 - pyswarms.single.global_best - INFO - Generation 126: Mean-fitness (19.11388952567522, 39.03524563268207), std_dev_fitness (0.24911467406373108, 41.50033691010697), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:49:54,501 - pyswarms.single.global_best - INFO - Time elapsed 32.42200422286987
+2019-10-16 21:50:36,486 - pyswarms.single.global_best - INFO - Generation 127: Mean-fitness (19.18998385158986, 30.315510797900874), std_dev_fitness (0.2220086104000481, 30.579407777478618), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:50:36,488 - pyswarms.single.global_best - INFO - Time elapsed 41.67538857460022
+2019-10-16 21:51:08,750 - pyswarms.single.global_best - INFO - Generation 128: Mean-fitness (19.199288789478906, 26.103105039579418), std_dev_fitness (0.21070559372431838, 22.895141166351834), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:51:08,751 - pyswarms.single.global_best - INFO - Time elapsed 31.893943548202515
+2019-10-16 21:51:47,311 - pyswarms.single.global_best - INFO - Generation 129: Mean-fitness (19.239894906449578, 27.281768606564718), std_dev_fitness (0.19873622223427884, 33.48504990656363), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:51:47,312 - pyswarms.single.global_best - INFO - Time elapsed 38.19447875022888
+2019-10-16 21:52:22,718 - pyswarms.single.global_best - INFO - Generation 130: Mean-fitness (19.2408568413477, 21.5011856480538), std_dev_fitness (0.20794557397966873, 20.21102746085254), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:52:22,720 - pyswarms.single.global_best - INFO - Time elapsed 35.04110527038574
+2019-10-16 21:53:04,832 - pyswarms.single.global_best - INFO - Generation 131: Mean-fitness (19.143468546107037, 29.12623534399262), std_dev_fitness (0.18043059900111819, 26.062436329527962), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:53:04,833 - pyswarms.single.global_best - INFO - Time elapsed 41.74571442604065
+2019-10-16 21:53:57,049 - pyswarms.single.global_best - INFO - Generation 132: Mean-fitness (19.16260137633197, 26.049835917217013), std_dev_fitness (0.22846179737239303, 28.107788156791468), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:53:57,051 - pyswarms.single.global_best - INFO - Time elapsed 51.840593576431274
+2019-10-16 21:54:28,045 - pyswarms.single.global_best - INFO - Generation 133: Mean-fitness (19.15726578593434, 37.65130141123272), std_dev_fitness (0.21376383741399388, 39.81437363580836), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:54:28,046 - pyswarms.single.global_best - INFO - Time elapsed 30.62472915649414
+2019-10-16 21:55:11,193 - pyswarms.single.global_best - INFO - Generation 134: Mean-fitness (19.116267475249025, 38.22278429706198), std_dev_fitness (0.1664605914488762, 36.45621505561931), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:55:11,194 - pyswarms.single.global_best - INFO - Time elapsed 42.78225064277649
+2019-10-16 21:55:53,828 - pyswarms.single.global_best - INFO - Generation 135: Mean-fitness (19.16348205365191, 37.13265555533552), std_dev_fitness (0.22760612050554543, 36.33567235647861), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:55:53,829 - pyswarms.single.global_best - INFO - Time elapsed 42.269258975982666
+2019-10-16 21:56:36,793 - pyswarms.single.global_best - INFO - Generation 136: Mean-fitness (19.124460302301205, 32.02629741597109), std_dev_fitness (0.19372573237580956, 25.76001718338845), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:56:36,794 - pyswarms.single.global_best - INFO - Time elapsed 42.59124732017517
+2019-10-16 21:57:11,234 - pyswarms.single.global_best - INFO - Generation 137: Mean-fitness (19.189903827350314, 28.989554860383357), std_dev_fitness (0.23059938430148244, 27.624869650834903), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:57:11,236 - pyswarms.single.global_best - INFO - Time elapsed 34.0575635433197
+2019-10-16 21:57:47,114 - pyswarms.single.global_best - INFO - Generation 138: Mean-fitness (19.16086764411769, 30.644877426224134), std_dev_fitness (0.22276829231632034, 26.16159553812207), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:57:47,116 - pyswarms.single.global_best - INFO - Time elapsed 35.50177597999573
+2019-10-16 21:58:27,383 - pyswarms.single.global_best - INFO - Generation 139: Mean-fitness (19.16620386178643, 31.731170861340917), std_dev_fitness (0.22603255961500182, 40.866719650696055), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:58:27,384 - pyswarms.single.global_best - INFO - Time elapsed 39.89518427848816
+2019-10-16 21:59:10,849 - pyswarms.single.global_best - INFO - Generation 140: Mean-fitness (19.190365590896885, 28.04099636207645), std_dev_fitness (0.2059613018018399, 17.27728455449376), best Distanza: 18.982332767855993 Energia: 2.1663894820165868
+2019-10-16 21:59:10,850 - pyswarms.single.global_best - INFO - Time elapsed 43.103397846221924
+2019-10-16 21:59:55,803 - pyswarms.single.global_best - INFO - Generation 141: Mean-fitness (19.096420189540638, 41.508344903632555), std_dev_fitness (0.21193940068745004, 30.648492998825834), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 21:59:55,804 - pyswarms.single.global_best - INFO - Time elapsed 44.571608543395996
+2019-10-16 22:00:32,369 - pyswarms.single.global_best - INFO - Generation 142: Mean-fitness (19.08321649617819, 45.25228250658702), std_dev_fitness (0.1894439494981045, 38.81234055816132), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:00:32,371 - pyswarms.single.global_best - INFO - Time elapsed 36.19766616821289
+2019-10-16 22:01:17,571 - pyswarms.single.global_best - INFO - Generation 143: Mean-fitness (19.09818176840598, 40.29479321332745), std_dev_fitness (0.19995832321401955, 23.072588800376817), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:01:17,573 - pyswarms.single.global_best - INFO - Time elapsed 44.81788206100464
+2019-10-16 22:02:34,354 - pyswarms.single.global_best - INFO - Generation 144: Mean-fitness (19.20138870083466, 41.10519994760069), std_dev_fitness (0.22919909574673875, 33.45691053606583), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:02:34,355 - pyswarms.single.global_best - INFO - Time elapsed 76.41923522949219
+2019-10-16 22:03:20,389 - pyswarms.single.global_best - INFO - Generation 145: Mean-fitness (19.132192890417095, 38.18511106635829), std_dev_fitness (0.27327495096183874, 45.63219548947088), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:03:20,391 - pyswarms.single.global_best - INFO - Time elapsed 45.657256841659546
+2019-10-16 22:03:57,388 - pyswarms.single.global_best - INFO - Generation 146: Mean-fitness (19.138985315261593, 27.53791288638583), std_dev_fitness (0.26416828260613645, 18.378182628776084), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:03:57,390 - pyswarms.single.global_best - INFO - Time elapsed 36.61922812461853
+2019-10-16 22:04:45,372 - pyswarms.single.global_best - INFO - Generation 147: Mean-fitness (19.155490358651655, 27.6595349908069), std_dev_fitness (0.20614208875561663, 21.944483059734463), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:04:45,373 - pyswarms.single.global_best - INFO - Time elapsed 47.620609760284424
+2019-10-16 22:05:21,552 - pyswarms.single.global_best - INFO - Generation 148: Mean-fitness (19.073523762609533, 44.395757719650035), std_dev_fitness (0.21689582948219127, 31.46748507524813), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:05:21,553 - pyswarms.single.global_best - INFO - Time elapsed 35.82162523269653
+2019-10-16 22:05:54,916 - pyswarms.single.global_best - INFO - Generation 149: Mean-fitness (19.17446346049747, 43.18048573406144), std_dev_fitness (0.21185301950675856, 32.17229104877983), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:05:54,917 - pyswarms.single.global_best - INFO - Time elapsed 33.007286071777344
+2019-10-16 22:06:29,901 - pyswarms.single.global_best - INFO - Generation 150: Mean-fitness (19.180004205760028, 27.640120632708545), std_dev_fitness (0.23497856231719189, 26.454313830381736), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:06:29,903 - pyswarms.single.global_best - INFO - Time elapsed 34.658669233322144
+2019-10-16 22:07:09,199 - pyswarms.single.global_best - INFO - Generation 151: Mean-fitness (19.098666012108687, 31.75513581079293), std_dev_fitness (0.2003238347072182, 23.495041927570007), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:07:09,201 - pyswarms.single.global_best - INFO - Time elapsed 38.92721223831177
+2019-10-16 22:07:37,835 - pyswarms.single.global_best - INFO - Generation 152: Mean-fitness (19.11451362988667, 35.88478142606873), std_dev_fitness (0.22545048757228212, 27.928064332262693), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:07:37,837 - pyswarms.single.global_best - INFO - Time elapsed 28.27502751350403
+2019-10-16 22:08:19,122 - pyswarms.single.global_best - INFO - Generation 153: Mean-fitness (19.1151922029805, 40.81160682577785), std_dev_fitness (0.23271677521705794, 43.16486547127475), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:08:19,124 - pyswarms.single.global_best - INFO - Time elapsed 40.89745259284973
+2019-10-16 22:08:56,707 - pyswarms.single.global_best - INFO - Generation 154: Mean-fitness (19.15965916529257, 29.050887967884176), std_dev_fitness (0.22128553905102885, 23.946206944358583), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:08:56,708 - pyswarms.single.global_best - INFO - Time elapsed 37.22031569480896
+2019-10-16 22:09:35,940 - pyswarms.single.global_best - INFO - Generation 155: Mean-fitness (19.120465503509145, 39.6865113663267), std_dev_fitness (0.2211364289350087, 55.97471646745183), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:09:35,941 - pyswarms.single.global_best - INFO - Time elapsed 38.86946415901184
+2019-10-16 22:10:17,797 - pyswarms.single.global_best - INFO - Generation 156: Mean-fitness (19.154737832907617, 31.875662621969543), std_dev_fitness (0.2166003456322739, 25.652847252624216), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:10:17,798 - pyswarms.single.global_best - INFO - Time elapsed 41.482078075408936
+2019-10-16 22:10:55,190 - pyswarms.single.global_best - INFO - Generation 157: Mean-fitness (19.211201592167477, 21.802206566149952), std_dev_fitness (0.23236661579269483, 21.219209119391508), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:10:55,191 - pyswarms.single.global_best - INFO - Time elapsed 37.019999265670776
+2019-10-16 22:11:46,212 - pyswarms.single.global_best - INFO - Generation 158: Mean-fitness (19.120974569672025, 39.46045099705282), std_dev_fitness (0.23167771317131797, 39.041562127536146), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:11:46,213 - pyswarms.single.global_best - INFO - Time elapsed 50.66480994224548
+2019-10-16 22:12:26,410 - pyswarms.single.global_best - INFO - Generation 159: Mean-fitness (19.148334612972857, 31.58345760200458), std_dev_fitness (0.21619227953474793, 29.825429323863577), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:12:26,411 - pyswarms.single.global_best - INFO - Time elapsed 39.89304208755493
+2019-10-16 22:12:59,679 - pyswarms.single.global_best - INFO - Generation 160: Mean-fitness (19.069295398947997, 30.487228252675266), std_dev_fitness (0.21297587109496394, 32.17991111632756), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:12:59,680 - pyswarms.single.global_best - INFO - Time elapsed 32.900904417037964
+2019-10-16 22:13:37,515 - pyswarms.single.global_best - INFO - Generation 161: Mean-fitness (19.20525864515945, 33.464925426345275), std_dev_fitness (0.21549914484485605, 32.20471263103694), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:13:37,517 - pyswarms.single.global_best - INFO - Time elapsed 37.46785593032837
+2019-10-16 22:14:13,518 - pyswarms.single.global_best - INFO - Generation 162: Mean-fitness (19.14355738205466, 24.512973200446684), std_dev_fitness (0.22842378446504605, 23.07616709031862), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:14:13,520 - pyswarms.single.global_best - INFO - Time elapsed 35.63881015777588
+2019-10-16 22:14:50,513 - pyswarms.single.global_best - INFO - Generation 163: Mean-fitness (19.152023016602293, 22.941492544169716), std_dev_fitness (0.25350156313057376, 20.388549751867767), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:14:50,514 - pyswarms.single.global_best - INFO - Time elapsed 36.629634857177734
+2019-10-16 22:15:35,021 - pyswarms.single.global_best - INFO - Generation 164: Mean-fitness (19.105597725459543, 32.91966901968114), std_dev_fitness (0.2195653408457395, 36.54243428217791), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:15:35,023 - pyswarms.single.global_best - INFO - Time elapsed 44.12773680686951
+2019-10-16 22:16:12,056 - pyswarms.single.global_best - INFO - Generation 165: Mean-fitness (19.123168890101255, 38.70076746294336), std_dev_fitness (0.2405151576620627, 27.848324578909754), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:16:12,058 - pyswarms.single.global_best - INFO - Time elapsed 36.67050218582153
+2019-10-16 22:19:54,610 - pyswarms.single.global_best - INFO - Generation 166: Mean-fitness (19.142322739681678, 33.95418159587636), std_dev_fitness (0.24166550778252013, 26.348199566075365), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:19:54,611 - pyswarms.single.global_best - INFO - Time elapsed 222.18986082077026
+2019-10-16 22:20:37,870 - pyswarms.single.global_best - INFO - Generation 167: Mean-fitness (19.140574937396913, 37.686265542458), std_dev_fitness (0.22687820661004385, 44.06588318577545), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:20:37,871 - pyswarms.single.global_best - INFO - Time elapsed 42.89842081069946
+2019-10-16 22:21:11,236 - pyswarms.single.global_best - INFO - Generation 168: Mean-fitness (19.130242653950635, 33.645352677134795), std_dev_fitness (0.22658862862690174, 34.31032518353313), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:21:11,237 - pyswarms.single.global_best - INFO - Time elapsed 33.01154041290283
+2019-10-16 22:21:54,716 - pyswarms.single.global_best - INFO - Generation 169: Mean-fitness (19.200506560149428, 41.70005685442182), std_dev_fitness (0.23389932510475492, 32.79412459921147), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:21:54,717 - pyswarms.single.global_best - INFO - Time elapsed 43.10393047332764
+2019-10-16 22:22:35,638 - pyswarms.single.global_best - INFO - Generation 170: Mean-fitness (19.174549381265837, 41.51255707248605), std_dev_fitness (0.2350370193616935, 41.620076501015966), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:22:35,639 - pyswarms.single.global_best - INFO - Time elapsed 40.546281814575195
+2019-10-16 22:23:16,971 - pyswarms.single.global_best - INFO - Generation 171: Mean-fitness (19.17519335020119, 29.963623507357205), std_dev_fitness (0.18871745030154244, 25.446968614307764), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:23:16,972 - pyswarms.single.global_best - INFO - Time elapsed 41.01001954078674
+2019-10-16 22:23:59,998 - pyswarms.single.global_best - INFO - Generation 172: Mean-fitness (19.153735363414732, 52.2989426459392), std_dev_fitness (0.22250987359839203, 48.980984345169034), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:24:00,000 - pyswarms.single.global_best - INFO - Time elapsed 42.660013914108276
+2019-10-16 22:25:05,732 - pyswarms.single.global_best - INFO - Generation 173: Mean-fitness (19.134477126975582, 33.50614984617556), std_dev_fitness (0.21470069215407958, 44.66898506021189), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:25:05,733 - pyswarms.single.global_best - INFO - Time elapsed 65.37915110588074
+2019-10-16 22:25:47,674 - pyswarms.single.global_best - INFO - Generation 174: Mean-fitness (19.12843024032329, 34.34538555878297), std_dev_fitness (0.208189998730335, 31.90040084063346), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:25:47,675 - pyswarms.single.global_best - INFO - Time elapsed 41.58484220504761
+2019-10-16 22:26:28,072 - pyswarms.single.global_best - INFO - Generation 175: Mean-fitness (19.141555483443145, 44.383729804556154), std_dev_fitness (0.22053586045889512, 43.043517722426394), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:26:28,073 - pyswarms.single.global_best - INFO - Time elapsed 40.08037996292114
+2019-10-16 22:26:59,694 - pyswarms.single.global_best - INFO - Generation 176: Mean-fitness (19.182567605383817, 25.501233133532732), std_dev_fitness (0.2366519840038755, 32.20750133183966), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:26:59,696 - pyswarms.single.global_best - INFO - Time elapsed 31.279744625091553
+2019-10-16 22:28:23,131 - pyswarms.single.global_best - INFO - Generation 177: Mean-fitness (19.237517007136823, 87.55986153528866), std_dev_fitness (0.30444821100447667, 245.79676671752523), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:28:23,132 - pyswarms.single.global_best - INFO - Time elapsed 83.06114339828491
+2019-10-16 22:29:29,517 - pyswarms.single.global_best - INFO - Generation 178: Mean-fitness (19.243080409642708, 40.89177354489507), std_dev_fitness (0.3108658973872329, 53.34061160687838), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:29:29,518 - pyswarms.single.global_best - INFO - Time elapsed 66.02884149551392
+2019-10-16 22:30:06,171 - pyswarms.single.global_best - INFO - Generation 179: Mean-fitness (19.06112505880686, 38.45223518661156), std_dev_fitness (0.1938230151764305, 39.67753532134105), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:30:06,173 - pyswarms.single.global_best - INFO - Time elapsed 36.34997248649597
+2019-10-16 22:30:55,120 - pyswarms.single.global_best - INFO - Generation 180: Mean-fitness (19.17743742183433, 30.439788117262527), std_dev_fitness (0.23882300321189037, 26.434786479653454), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:30:55,121 - pyswarms.single.global_best - INFO - Time elapsed 48.582709074020386
+2019-10-16 22:31:27,674 - pyswarms.single.global_best - INFO - Generation 181: Mean-fitness (19.116740082765652, 42.912032408698096), std_dev_fitness (0.21786710961031555, 28.1887579850533), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:31:27,675 - pyswarms.single.global_best - INFO - Time elapsed 32.189043045043945
+2019-10-16 22:32:32,318 - pyswarms.single.global_best - INFO - Generation 182: Mean-fitness (19.146049520254344, 45.181412625541654), std_dev_fitness (0.28230201259623205, 42.95766514214311), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:32:32,320 - pyswarms.single.global_best - INFO - Time elapsed 64.2797520160675
+2019-10-16 22:33:10,948 - pyswarms.single.global_best - INFO - Generation 183: Mean-fitness (19.07373080847518, 33.86634982787858), std_dev_fitness (0.24475332821432985, 31.476882119760948), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:33:10,950 - pyswarms.single.global_best - INFO - Time elapsed 38.324960708618164
+2019-10-16 22:34:03,986 - pyswarms.single.global_best - INFO - Generation 184: Mean-fitness (19.09608012031174, 41.20687361232999), std_dev_fitness (0.20786598289479255, 32.29494611338465), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:34:03,987 - pyswarms.single.global_best - INFO - Time elapsed 52.68281674385071
+2019-10-16 22:34:51,183 - pyswarms.single.global_best - INFO - Generation 185: Mean-fitness (19.12318484762205, 40.55481356937206), std_dev_fitness (0.21436906835855837, 38.002045438512646), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:34:51,185 - pyswarms.single.global_best - INFO - Time elapsed 46.82471799850464
+2019-10-16 22:35:47,077 - pyswarms.single.global_best - INFO - Generation 186: Mean-fitness (19.13799651909851, 37.4923823593481), std_dev_fitness (0.21916762681260862, 44.92565704485965), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:35:47,078 - pyswarms.single.global_best - INFO - Time elapsed 55.5261914730072
+2019-10-16 22:36:25,094 - pyswarms.single.global_best - INFO - Generation 187: Mean-fitness (19.113320407148002, 32.3947631866795), std_dev_fitness (0.2395982562751054, 32.65078316800661), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:36:25,095 - pyswarms.single.global_best - INFO - Time elapsed 37.654770851135254
+2019-10-16 22:37:25,250 - pyswarms.single.global_best - INFO - Generation 188: Mean-fitness (19.163963468056146, 32.60949114648745), std_dev_fitness (0.2473938884907649, 27.41799716540495), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:37:25,252 - pyswarms.single.global_best - INFO - Time elapsed 59.8315110206604
+2019-10-16 22:37:59,121 - pyswarms.single.global_best - INFO - Generation 189: Mean-fitness (19.18415282597193, 33.15610919736656), std_dev_fitness (0.21428853368239792, 23.850004590936962), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:37:59,122 - pyswarms.single.global_best - INFO - Time elapsed 33.49880313873291
+2019-10-16 22:38:37,564 - pyswarms.single.global_best - INFO - Generation 190: Mean-fitness (19.15782639403978, 36.17439196841488), std_dev_fitness (0.20965230159760942, 27.534053017677607), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:38:37,565 - pyswarms.single.global_best - INFO - Time elapsed 38.079588890075684
+2019-10-16 22:39:12,711 - pyswarms.single.global_best - INFO - Generation 191: Mean-fitness (19.212954210526103, 24.700366115242208), std_dev_fitness (0.21376659328015385, 22.69018123722664), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:39:12,713 - pyswarms.single.global_best - INFO - Time elapsed 34.79499793052673
+2019-10-16 22:39:51,306 - pyswarms.single.global_best - INFO - Generation 192: Mean-fitness (19.124971201821342, 38.24403967516519), std_dev_fitness (0.21151941197402135, 33.274397758264534), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:39:51,307 - pyswarms.single.global_best - INFO - Time elapsed 38.23166346549988
+2019-10-16 22:40:26,051 - pyswarms.single.global_best - INFO - Generation 193: Mean-fitness (19.170806407878864, 35.542343311000366), std_dev_fitness (0.24804448435302015, 38.062559758640035), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:40:26,052 - pyswarms.single.global_best - INFO - Time elapsed 34.445663928985596
+2019-10-16 22:41:01,579 - pyswarms.single.global_best - INFO - Generation 194: Mean-fitness (19.22164581924738, 28.9192483968761), std_dev_fitness (0.2161722383406212, 25.783756898110884), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:41:01,580 - pyswarms.single.global_best - INFO - Time elapsed 35.155447006225586
+2019-10-16 22:41:55,210 - pyswarms.single.global_best - INFO - Generation 195: Mean-fitness (19.044529759104158, 33.526039439805004), std_dev_fitness (0.18900148693264163, 29.862138797646125), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:41:55,211 - pyswarms.single.global_best - INFO - Time elapsed 53.26566505432129
+2019-10-16 22:42:40,792 - pyswarms.single.global_best - INFO - Generation 196: Mean-fitness (19.15488587957018, 30.244196949605815), std_dev_fitness (0.23704965696469676, 26.06123291785263), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:42:40,793 - pyswarms.single.global_best - INFO - Time elapsed 45.19517374038696
+2019-10-16 22:43:40,749 - pyswarms.single.global_best - INFO - Generation 197: Mean-fitness (19.199206408777552, 25.011619759658405), std_dev_fitness (0.21602456827603259, 22.09541788266477), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:43:40,751 - pyswarms.single.global_best - INFO - Time elapsed 59.59469151496887
+2019-10-16 22:44:36,635 - pyswarms.single.global_best - INFO - Generation 198: Mean-fitness (19.114259083853668, 54.615098826861505), std_dev_fitness (0.19419313045788356, 34.15995919407136), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:44:36,636 - pyswarms.single.global_best - INFO - Time elapsed 55.52970886230469
+2019-10-16 22:45:11,430 - pyswarms.single.global_best - INFO - Generation 199: Mean-fitness (19.107746871865437, 42.02108254016716), std_dev_fitness (0.19009545035856334, 33.132570411468805), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:45:11,431 - pyswarms.single.global_best - INFO - Time elapsed 34.42386078834534
+2019-10-16 22:46:11,403 - pyswarms.single.global_best - INFO - Generation 200: Mean-fitness (19.097698982561017, 47.56897010157993), std_dev_fitness (0.2545283821039906, 47.79278608687955), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:46:11,404 - pyswarms.single.global_best - INFO - Time elapsed 59.60806345939636
+2019-10-16 22:46:53,980 - pyswarms.single.global_best - INFO - Generation 201: Mean-fitness (19.067638836912863, 36.55861307232364), std_dev_fitness (0.19481162129304325, 33.467146013070746), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:46:53,981 - pyswarms.single.global_best - INFO - Time elapsed 42.203031063079834
+2019-10-16 22:47:46,634 - pyswarms.single.global_best - INFO - Generation 202: Mean-fitness (19.16096422350237, 26.08129705451686), std_dev_fitness (0.22423603076150744, 19.82486499883614), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:47:46,635 - pyswarms.single.global_best - INFO - Time elapsed 52.28616523742676
+2019-10-16 22:48:30,693 - pyswarms.single.global_best - INFO - Generation 203: Mean-fitness (19.05927429765871, 44.53456283346523), std_dev_fitness (0.20122539112884424, 50.706065512920844), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:48:30,694 - pyswarms.single.global_best - INFO - Time elapsed 43.68029260635376
+2019-10-16 22:49:02,305 - pyswarms.single.global_best - INFO - Generation 204: Mean-fitness (19.198216186372136, 30.376476581264615), std_dev_fitness (0.2273069995013858, 26.397723609353665), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:49:02,307 - pyswarms.single.global_best - INFO - Time elapsed 31.249943256378174
+2019-10-16 22:49:50,132 - pyswarms.single.global_best - INFO - Generation 205: Mean-fitness (19.1518085466248, 34.82752596254819), std_dev_fitness (0.21680788493596018, 28.749719246141208), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:49:50,133 - pyswarms.single.global_best - INFO - Time elapsed 47.50381088256836
+2019-10-16 22:50:31,675 - pyswarms.single.global_best - INFO - Generation 206: Mean-fitness (19.094939144524773, 34.21417387371596), std_dev_fitness (0.20824316809358248, 22.764543182212773), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:50:31,676 - pyswarms.single.global_best - INFO - Time elapsed 41.173996925354004
+2019-10-16 22:51:48,169 - pyswarms.single.global_best - INFO - Generation 207: Mean-fitness (19.197356372416564, 35.57163390287381), std_dev_fitness (0.2387516542985943, 38.45416130132316), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:51:48,170 - pyswarms.single.global_best - INFO - Time elapsed 76.13123965263367
+2019-10-16 22:52:40,074 - pyswarms.single.global_best - INFO - Generation 208: Mean-fitness (19.163333689841558, 38.42716484776112), std_dev_fitness (0.24039201709628755, 28.82990895387635), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:52:40,076 - pyswarms.single.global_best - INFO - Time elapsed 51.52203869819641
+2019-10-16 22:53:22,066 - pyswarms.single.global_best - INFO - Generation 209: Mean-fitness (19.181241532612212, 38.18109285025958), std_dev_fitness (0.2760703562794826, 39.16862307326253), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:53:22,068 - pyswarms.single.global_best - INFO - Time elapsed 41.63654637336731
+2019-10-16 22:57:42,652 - pyswarms.single.global_best - INFO - Generation 210: Mean-fitness (19.075328780989942, 47.89460307822203), std_dev_fitness (0.18415014823706974, 32.23717039847143), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:57:42,653 - pyswarms.single.global_best - INFO - Time elapsed 260.27996826171875
+2019-10-16 22:58:44,435 - pyswarms.single.global_best - INFO - Generation 211: Mean-fitness (19.125991915412175, 41.51029384543223), std_dev_fitness (0.21802321843006442, 29.119704630460998), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:58:44,437 - pyswarms.single.global_best - INFO - Time elapsed 61.41605472564697
+2019-10-16 22:59:26,255 - pyswarms.single.global_best - INFO - Generation 212: Mean-fitness (19.091693694637424, 33.899208585370516), std_dev_fitness (0.18994122065121452, 30.701929060931114), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 22:59:26,257 - pyswarms.single.global_best - INFO - Time elapsed 41.45255899429321
+2019-10-16 23:00:06,970 - pyswarms.single.global_best - INFO - Generation 213: Mean-fitness (19.099206030671045, 33.73410387951587), std_dev_fitness (0.22960926905498996, 40.171082314475285), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:00:06,971 - pyswarms.single.global_best - INFO - Time elapsed 40.3507125377655
+2019-10-16 23:00:46,314 - pyswarms.single.global_best - INFO - Generation 214: Mean-fitness (19.07542477319922, 20.615927874456666), std_dev_fitness (0.21452375012547356, 13.831081027227205), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:00:46,315 - pyswarms.single.global_best - INFO - Time elapsed 38.97583794593811
+2019-10-16 23:01:34,237 - pyswarms.single.global_best - INFO - Generation 215: Mean-fitness (19.117184743471118, 29.428423516178817), std_dev_fitness (0.2590096158364434, 27.493206067472528), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:01:34,239 - pyswarms.single.global_best - INFO - Time elapsed 47.56249499320984
+2019-10-16 23:05:02,093 - pyswarms.single.global_best - INFO - Generation 216: Mean-fitness (19.09048097467069, 45.26526161214029), std_dev_fitness (0.23561358271054628, 32.93606682885597), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:05:02,095 - pyswarms.single.global_best - INFO - Time elapsed 207.49185967445374
+2019-10-16 23:05:44,832 - pyswarms.single.global_best - INFO - Generation 217: Mean-fitness (19.13160605260619, 32.86449812133149), std_dev_fitness (0.2522209553078494, 28.849469831139224), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:05:44,834 - pyswarms.single.global_best - INFO - Time elapsed 42.35233688354492
+2019-10-16 23:06:20,155 - pyswarms.single.global_best - INFO - Generation 218: Mean-fitness (19.171334985920463, 35.50053194299747), std_dev_fitness (0.21862465354400676, 30.081986415992333), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:06:20,156 - pyswarms.single.global_best - INFO - Time elapsed 34.960402488708496
+2019-10-16 23:07:04,471 - pyswarms.single.global_best - INFO - Generation 219: Mean-fitness (19.04646816485846, 37.3897730468648), std_dev_fitness (0.19461756474191289, 31.302662651430445), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:07:04,473 - pyswarms.single.global_best - INFO - Time elapsed 43.95023560523987
+2019-10-16 23:07:41,170 - pyswarms.single.global_best - INFO - Generation 220: Mean-fitness (19.129731213843595, 32.846838994947646), std_dev_fitness (0.2506314253302186, 29.319513566644027), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:07:41,171 - pyswarms.single.global_best - INFO - Time elapsed 36.331634283065796
+2019-10-16 23:08:16,714 - pyswarms.single.global_best - INFO - Generation 221: Mean-fitness (19.050307688286818, 37.49761314710927), std_dev_fitness (0.18759500270365473, 28.897238918412206), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:08:16,716 - pyswarms.single.global_best - INFO - Time elapsed 35.16439986228943
+2019-10-16 23:08:54,546 - pyswarms.single.global_best - INFO - Generation 222: Mean-fitness (19.10321217884725, 23.315854222322102), std_dev_fitness (0.25128677278326544, 24.543451146141585), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:08:54,548 - pyswarms.single.global_best - INFO - Time elapsed 37.46632933616638
+2019-10-16 23:09:27,093 - pyswarms.single.global_best - INFO - Generation 223: Mean-fitness (19.06628879487631, 24.299772862194438), std_dev_fitness (0.24211512711703206, 18.272325256799935), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:09:27,094 - pyswarms.single.global_best - INFO - Time elapsed 32.167964220047
+2019-10-16 23:10:12,655 - pyswarms.single.global_best - INFO - Generation 224: Mean-fitness (19.100595538538208, 43.06234001495305), std_dev_fitness (0.2135298688770011, 46.6022519964434), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:10:12,657 - pyswarms.single.global_best - INFO - Time elapsed 45.19196963310242
+2019-10-16 23:10:57,776 - pyswarms.single.global_best - INFO - Generation 225: Mean-fitness (19.150771235047607, 28.161003250018666), std_dev_fitness (0.21314810749980576, 21.671568990526765), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:10:57,777 - pyswarms.single.global_best - INFO - Time elapsed 44.75257182121277
+2019-10-16 23:13:13,913 - pyswarms.single.global_best - INFO - Generation 226: Mean-fitness (19.1212073228562, 31.81828279031556), std_dev_fitness (0.21063441463991914, 31.756132992245174), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:13:13,914 - pyswarms.single.global_best - INFO - Time elapsed 135.7670648097992
+2019-10-16 23:13:50,049 - pyswarms.single.global_best - INFO - Generation 227: Mean-fitness (19.111587447252887, 35.78960816877389), std_dev_fitness (0.2232621915952525, 36.12258513516249), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:13:50,050 - pyswarms.single.global_best - INFO - Time elapsed 35.75865983963013
+2019-10-16 23:14:29,192 - pyswarms.single.global_best - INFO - Generation 228: Mean-fitness (19.13686870829948, 34.78070605034254), std_dev_fitness (0.2426903085251226, 33.50381467151254), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:14:29,194 - pyswarms.single.global_best - INFO - Time elapsed 38.77832293510437
+2019-10-16 23:15:13,775 - pyswarms.single.global_best - INFO - Generation 229: Mean-fitness (19.205102465113058, 32.60249862488475), std_dev_fitness (0.24240455557932075, 36.50798121487117), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:15:13,776 - pyswarms.single.global_best - INFO - Time elapsed 44.174861431121826
+2019-10-16 23:16:09,703 - pyswarms.single.global_best - INFO - Generation 230: Mean-fitness (19.110019749463348, 34.144444788495846), std_dev_fitness (0.2337119549212035, 28.175851761586415), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:16:09,705 - pyswarms.single.global_best - INFO - Time elapsed 55.56149077415466
+2019-10-16 23:16:54,266 - pyswarms.single.global_best - INFO - Generation 231: Mean-fitness (19.1083848703491, 23.810442893390373), std_dev_fitness (0.20313738409688947, 26.435149797140703), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:16:54,268 - pyswarms.single.global_best - INFO - Time elapsed 44.20470833778381
+2019-10-16 23:17:49,006 - pyswarms.single.global_best - INFO - Generation 232: Mean-fitness (19.120715638088974, 38.11895466654694), std_dev_fitness (0.21749417216926772, 30.65837456857823), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:17:49,007 - pyswarms.single.global_best - INFO - Time elapsed 54.35788607597351
+2019-10-16 23:19:08,427 - pyswarms.single.global_best - INFO - Generation 233: Mean-fitness (19.086424871340043, 53.131442740434736), std_dev_fitness (0.218578116973426, 44.552591222986834), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:19:08,429 - pyswarms.single.global_best - INFO - Time elapsed 79.00677847862244
+2019-10-16 23:19:52,274 - pyswarms.single.global_best - INFO - Generation 234: Mean-fitness (19.193394080735864, 34.52899555384788), std_dev_fitness (0.26140220136091263, 31.3312438341522), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:19:52,275 - pyswarms.single.global_best - INFO - Time elapsed 43.47014379501343
+2019-10-16 23:20:30,328 - pyswarms.single.global_best - INFO - Generation 235: Mean-fitness (19.138664157077987, 32.81352154408609), std_dev_fitness (0.22692618278233212, 25.730752271638963), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:20:30,329 - pyswarms.single.global_best - INFO - Time elapsed 37.72506332397461
+2019-10-16 23:21:36,132 - pyswarms.single.global_best - INFO - Generation 236: Mean-fitness (19.122293122625, 36.05403924963419), std_dev_fitness (0.2222772748066897, 38.18091764410247), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:21:36,134 - pyswarms.single.global_best - INFO - Time elapsed 65.48846817016602
+2019-10-16 23:22:17,554 - pyswarms.single.global_best - INFO - Generation 237: Mean-fitness (19.143330101508138, 34.02435468178689), std_dev_fitness (0.2376459973900452, 34.40115659871167), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:22:17,556 - pyswarms.single.global_best - INFO - Time elapsed 41.047552824020386
+2019-10-16 23:23:03,434 - pyswarms.single.global_best - INFO - Generation 238: Mean-fitness (19.07148583641095, 35.1779608081247), std_dev_fitness (0.1867982660959461, 35.212830212435094), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:23:03,435 - pyswarms.single.global_best - INFO - Time elapsed 45.528382778167725
+2019-10-16 23:23:41,987 - pyswarms.single.global_best - INFO - Generation 239: Mean-fitness (19.18561893258514, 28.536886054407905), std_dev_fitness (0.23487607185075862, 31.921442641343113), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:23:41,988 - pyswarms.single.global_best - INFO - Time elapsed 38.191718339920044
+2019-10-16 23:24:17,713 - pyswarms.single.global_best - INFO - Generation 240: Mean-fitness (19.095826608324078, 26.523990853902273), std_dev_fitness (0.224920476049695, 29.67096293565977), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:24:17,715 - pyswarms.single.global_best - INFO - Time elapsed 35.4289071559906
+2019-10-16 23:24:46,494 - pyswarms.single.global_best - INFO - Generation 241: Mean-fitness (19.134278912695088, 28.12406534134062), std_dev_fitness (0.23838584824225076, 22.80393474067959), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:24:46,495 - pyswarms.single.global_best - INFO - Time elapsed 28.46799063682556
+2019-10-16 23:25:31,470 - pyswarms.single.global_best - INFO - Generation 242: Mean-fitness (19.06153495461994, 36.83296222844065), std_dev_fitness (0.19263553739748437, 40.437612913725395), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:25:31,471 - pyswarms.single.global_best - INFO - Time elapsed 44.6668803691864
+2019-10-16 23:26:03,630 - pyswarms.single.global_best - INFO - Generation 243: Mean-fitness (19.129692885082736, 29.978484966751182), std_dev_fitness (0.22422132502988623, 25.228528213364687), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:26:03,632 - pyswarms.single.global_best - INFO - Time elapsed 31.786350965499878
+2019-10-16 23:26:39,470 - pyswarms.single.global_best - INFO - Generation 244: Mean-fitness (19.094749493595323, 30.826749335267436), std_dev_fitness (0.21590805396443866, 28.425000609987034), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:26:39,471 - pyswarms.single.global_best - INFO - Time elapsed 35.48040294647217
+2019-10-16 23:27:20,246 - pyswarms.single.global_best - INFO - Generation 245: Mean-fitness (19.174605939182026, 39.955660197439784), std_dev_fitness (0.22550265679521836, 34.47237357833605), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:27:20,248 - pyswarms.single.global_best - INFO - Time elapsed 40.40121603012085
+2019-10-16 23:27:59,013 - pyswarms.single.global_best - INFO - Generation 246: Mean-fitness (19.042360407559322, 33.45570266922252), std_dev_fitness (0.16657440370299564, 29.525058021477832), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:27:59,015 - pyswarms.single.global_best - INFO - Time elapsed 38.36175203323364
+2019-10-16 23:28:41,494 - pyswarms.single.global_best - INFO - Generation 247: Mean-fitness (19.151164565083537, 49.56904630996833), std_dev_fitness (0.21033275328542037, 38.06070849507423), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:28:41,495 - pyswarms.single.global_best - INFO - Time elapsed 42.1130313873291
+2019-10-16 23:29:29,227 - pyswarms.single.global_best - INFO - Generation 248: Mean-fitness (19.184225957864125, 30.668484194721763), std_dev_fitness (0.23131069238790378, 34.600131531111124), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:29:29,228 - pyswarms.single.global_best - INFO - Time elapsed 47.37427306175232
+2019-10-16 23:30:12,008 - pyswarms.single.global_best - INFO - Generation 249: Mean-fitness (19.06212452485943, 45.197001896300705), std_dev_fitness (0.2017008623562631, 40.166751080740525), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:30:12,009 - pyswarms.single.global_best - INFO - Time elapsed 42.46407961845398
+2019-10-16 23:30:46,250 - pyswarms.single.global_best - INFO - Generation 250: Mean-fitness (19.150324709514024, 28.331420031174723), std_dev_fitness (0.25779331562809904, 30.18364313430978), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:30:46,251 - pyswarms.single.global_best - INFO - Time elapsed 33.943644285202026
+2019-10-16 23:31:33,137 - pyswarms.single.global_best - INFO - Generation 251: Mean-fitness (19.076901096223004, 39.17403888339639), std_dev_fitness (0.22034947395816865, 43.66728306125481), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:31:33,138 - pyswarms.single.global_best - INFO - Time elapsed 46.566927909851074
+2019-10-16 23:32:06,434 - pyswarms.single.global_best - INFO - Generation 252: Mean-fitness (19.140005846117294, 19.62916742748273), std_dev_fitness (0.20845112675310234, 17.322930000217646), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:32:06,435 - pyswarms.single.global_best - INFO - Time elapsed 32.99599266052246
+2019-10-16 23:32:47,301 - pyswarms.single.global_best - INFO - Generation 253: Mean-fitness (19.15393014613897, 28.790295276021805), std_dev_fitness (0.20939458332211572, 24.239900110139683), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:32:47,302 - pyswarms.single.global_best - INFO - Time elapsed 40.549530029296875
+2019-10-16 23:33:26,630 - pyswarms.single.global_best - INFO - Generation 254: Mean-fitness (19.15084543501919, 39.98884265457738), std_dev_fitness (0.205607790220382, 28.280723119631244), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:33:26,632 - pyswarms.single.global_best - INFO - Time elapsed 38.96732974052429
+2019-10-16 23:33:57,776 - pyswarms.single.global_best - INFO - Generation 255: Mean-fitness (19.174436830083565, 21.311183278046048), std_dev_fitness (0.212298142969856, 22.276033107057938), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:33:57,777 - pyswarms.single.global_best - INFO - Time elapsed 30.788514614105225
+2019-10-16 23:34:55,445 - pyswarms.single.global_best - INFO - Generation 256: Mean-fitness (19.031896003881577, 47.2381763543707), std_dev_fitness (0.1853451203686261, 29.75371579835369), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:34:55,446 - pyswarms.single.global_best - INFO - Time elapsed 57.30333352088928
+2019-10-16 23:35:30,293 - pyswarms.single.global_best - INFO - Generation 257: Mean-fitness (19.165917037194085, 34.72856032622871), std_dev_fitness (0.23683049743444246, 29.562968103855876), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:35:30,295 - pyswarms.single.global_best - INFO - Time elapsed 34.46604061126709
+2019-10-16 23:36:06,569 - pyswarms.single.global_best - INFO - Generation 258: Mean-fitness (19.088383849008665, 41.7930007397065), std_dev_fitness (0.24528474419972202, 37.20905742505818), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:36:06,571 - pyswarms.single.global_best - INFO - Time elapsed 35.87412714958191
+2019-10-16 23:36:42,755 - pyswarms.single.global_best - INFO - Generation 259: Mean-fitness (19.17601162367274, 31.948179790140095), std_dev_fitness (0.23415547530327174, 26.770035295957292), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:36:42,756 - pyswarms.single.global_best - INFO - Time elapsed 35.7776255607605
+2019-10-16 23:37:22,027 - pyswarms.single.global_best - INFO - Generation 260: Mean-fitness (19.132166459236636, 40.49170770619462), std_dev_fitness (0.24210037357639927, 44.73151202939946), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:37:22,028 - pyswarms.single.global_best - INFO - Time elapsed 38.88536334037781
+2019-10-16 23:38:00,365 - pyswarms.single.global_best - INFO - Generation 261: Mean-fitness (19.12844604766668, 32.694716746661435), std_dev_fitness (0.22696422840638375, 30.17517896322469), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:38:00,367 - pyswarms.single.global_best - INFO - Time elapsed 37.973363399505615
+2019-10-16 23:38:44,087 - pyswarms.single.global_best - INFO - Generation 262: Mean-fitness (19.123392576905648, 36.68734579376036), std_dev_fitness (0.23906274938975178, 42.335083635510564), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:38:44,088 - pyswarms.single.global_best - INFO - Time elapsed 43.34893441200256
+2019-10-16 23:39:24,730 - pyswarms.single.global_best - INFO - Generation 263: Mean-fitness (19.16521527875141, 22.064223240272348), std_dev_fitness (0.22711842502803048, 19.79812315067555), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:39:24,732 - pyswarms.single.global_best - INFO - Time elapsed 40.32789421081543
+2019-10-16 23:39:58,515 - pyswarms.single.global_best - INFO - Generation 264: Mean-fitness (19.109046322110725, 35.30946398154778), std_dev_fitness (0.2019239782341875, 28.83151075768244), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:39:58,516 - pyswarms.single.global_best - INFO - Time elapsed 33.40803599357605
+2019-10-16 23:40:41,727 - pyswarms.single.global_best - INFO - Generation 265: Mean-fitness (19.095176023914554, 44.61115814303866), std_dev_fitness (0.1897018146154102, 55.266010313199445), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:40:41,729 - pyswarms.single.global_best - INFO - Time elapsed 42.81014132499695
+2019-10-16 23:41:14,986 - pyswarms.single.global_best - INFO - Generation 266: Mean-fitness (19.162590053809915, 29.22892287324874), std_dev_fitness (0.20198678542320234, 27.17900488654985), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:41:14,988 - pyswarms.single.global_best - INFO - Time elapsed 32.887563705444336
+2019-10-16 23:41:56,854 - pyswarms.single.global_best - INFO - Generation 267: Mean-fitness (19.203708842497416, 30.127158080457285), std_dev_fitness (0.2234180267193808, 28.72100775913812), best Distanza: 18.977914995430904 Energia: 2.1904400113440485
+2019-10-16 23:41:56,855 - pyswarms.single.global_best - INFO - Time elapsed 41.55812430381775
+2019-10-16 23:42:31,530 - pyswarms.single.global_best - INFO - Generation 268: Mean-fitness (19.045754073176305, 43.62756010140468), std_dev_fitness (0.18997881644872952, 41.79600746222657), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:42:31,531 - pyswarms.single.global_best - INFO - Time elapsed 34.314044713974
+2019-10-16 23:43:30,194 - pyswarms.single.global_best - INFO - Generation 269: Mean-fitness (19.17418107950252, 29.4085310279791), std_dev_fitness (0.24593847271830874, 27.00995066076876), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:43:30,196 - pyswarms.single.global_best - INFO - Time elapsed 58.29789113998413
+2019-10-16 23:44:14,545 - pyswarms.single.global_best - INFO - Generation 270: Mean-fitness (19.16438301295622, 35.32422984422348), std_dev_fitness (0.21124262510101602, 30.26160730529223), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:44:14,546 - pyswarms.single.global_best - INFO - Time elapsed 43.957210540771484
+2019-10-16 23:44:56,105 - pyswarms.single.global_best - INFO - Generation 271: Mean-fitness (19.226863441097116, 28.493412296575883), std_dev_fitness (0.22618064892488426, 22.10761110606693), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:44:56,106 - pyswarms.single.global_best - INFO - Time elapsed 41.17648100852966
+2019-10-16 23:45:41,247 - pyswarms.single.global_best - INFO - Generation 272: Mean-fitness (19.202109408966923, 35.67028723672056), std_dev_fitness (0.1991829771324882, 24.42571010623665), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:45:41,249 - pyswarms.single.global_best - INFO - Time elapsed 44.77175712585449
+2019-10-16 23:46:17,762 - pyswarms.single.global_best - INFO - Generation 273: Mean-fitness (19.13581925309375, 41.345087605953616), std_dev_fitness (0.2479653613960748, 58.54025197195428), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:46:17,763 - pyswarms.single.global_best - INFO - Time elapsed 36.14831495285034
+2019-10-16 23:47:10,729 - pyswarms.single.global_best - INFO - Generation 274: Mean-fitness (19.11262629530667, 34.8199216001953), std_dev_fitness (0.19424903839647928, 31.274999502881766), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:47:10,730 - pyswarms.single.global_best - INFO - Time elapsed 52.592060565948486
+2019-10-16 23:48:27,711 - pyswarms.single.global_best - INFO - Generation 275: Mean-fitness (19.13068813889251, 42.00912259003657), std_dev_fitness (0.2646584102523427, 42.71625706155444), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:48:27,712 - pyswarms.single.global_best - INFO - Time elapsed 76.59701895713806
+2019-10-16 23:49:23,930 - pyswarms.single.global_best - INFO - Generation 276: Mean-fitness (19.17719778714597, 33.86193332131404), std_dev_fitness (0.21404993767741598, 32.01831111950495), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:49:23,932 - pyswarms.single.global_best - INFO - Time elapsed 55.815526247024536
+2019-10-16 23:50:01,347 - pyswarms.single.global_best - INFO - Generation 277: Mean-fitness (19.12677413018958, 39.17953910278834), std_dev_fitness (0.22060839832184687, 28.845389601188856), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:50:01,348 - pyswarms.single.global_best - INFO - Time elapsed 37.04799795150757
+2019-10-16 23:50:39,460 - pyswarms.single.global_best - INFO - Generation 278: Mean-fitness (19.11318303079911, 44.19546695270048), std_dev_fitness (0.2257409597623712, 49.1324765830586), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:50:39,462 - pyswarms.single.global_best - INFO - Time elapsed 37.738006830215454
+2019-10-16 23:51:25,075 - pyswarms.single.global_best - INFO - Generation 279: Mean-fitness (19.11371280872149, 36.78446867591337), std_dev_fitness (0.21983665986224007, 33.733624337470104), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:51:25,077 - pyswarms.single.global_best - INFO - Time elapsed 45.246734380722046
+2019-10-16 23:51:57,538 - pyswarms.single.global_best - INFO - Generation 280: Mean-fitness (19.283252751637406, 24.41323418591402), std_dev_fitness (0.23140495117577506, 24.736415053624665), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:51:57,540 - pyswarms.single.global_best - INFO - Time elapsed 32.08620762825012
+2019-10-16 23:52:42,745 - pyswarms.single.global_best - INFO - Generation 281: Mean-fitness (19.197448319148144, 33.04701175063841), std_dev_fitness (0.26415797816378733, 36.636972480756896), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-16 23:52:42,747 - pyswarms.single.global_best - INFO - Time elapsed 44.836281061172485
+2019-10-17 00:13:02,327 - pyswarms.single.global_best - INFO - Generation 282: Mean-fitness (19.155070628450808, 41.76311161792608), std_dev_fitness (0.26463124142388056, 40.537048460156775), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:13:02,329 - pyswarms.single.global_best - INFO - Time elapsed 1219.2023477554321
+2019-10-17 00:13:44,771 - pyswarms.single.global_best - INFO - Generation 283: Mean-fitness (19.17810789998679, 36.90725918516934), std_dev_fitness (0.2566311481493554, 30.55378385910511), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:13:44,772 - pyswarms.single.global_best - INFO - Time elapsed 42.070998430252075
+2019-10-17 00:14:32,782 - pyswarms.single.global_best - INFO - Generation 284: Mean-fitness (19.160257089097193, 43.460156994890774), std_dev_fitness (0.24080327605681903, 35.45549208633209), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:14:32,784 - pyswarms.single.global_best - INFO - Time elapsed 47.68958497047424
+2019-10-17 00:15:18,043 - pyswarms.single.global_best - INFO - Generation 285: Mean-fitness (19.177979688905662, 38.169435017208215), std_dev_fitness (0.24924169667859405, 37.30655489867655), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:15:18,045 - pyswarms.single.global_best - INFO - Time elapsed 44.89861583709717
+2019-10-17 00:16:03,433 - pyswarms.single.global_best - INFO - Generation 286: Mean-fitness (19.163120852074023, 30.889954870385502), std_dev_fitness (0.20635913489580726, 20.711974480339457), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:16:03,434 - pyswarms.single.global_best - INFO - Time elapsed 45.006391286849976
+2019-10-17 00:16:48,532 - pyswarms.single.global_best - INFO - Generation 287: Mean-fitness (19.173358071709515, 36.359343695195534), std_dev_fitness (0.22064284802990622, 28.97272607021343), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:16:48,534 - pyswarms.single.global_best - INFO - Time elapsed 44.72673177719116
+2019-10-17 00:17:24,702 - pyswarms.single.global_best - INFO - Generation 288: Mean-fitness (19.192012105838057, 20.212729310616616), std_dev_fitness (0.2140782387013505, 18.75564963437911), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:17:24,704 - pyswarms.single.global_best - INFO - Time elapsed 35.8021035194397
+2019-10-17 00:18:02,784 - pyswarms.single.global_best - INFO - Generation 289: Mean-fitness (19.11042710611909, 35.05369494812057), std_dev_fitness (0.20582577516925712, 35.345732648731705), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:18:02,785 - pyswarms.single.global_best - INFO - Time elapsed 37.753682136535645
+2019-10-17 00:19:09,076 - pyswarms.single.global_best - INFO - Generation 290: Mean-fitness (19.12506547744044, 38.35632540273291), std_dev_fitness (0.1915592560454708, 37.069190782236014), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:19:09,078 - pyswarms.single.global_best - INFO - Time elapsed 65.91146206855774
+2019-10-17 00:19:57,312 - pyswarms.single.global_best - INFO - Generation 291: Mean-fitness (19.15828578916076, 33.28541176876296), std_dev_fitness (0.22691643385295965, 25.877724508378837), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:19:57,314 - pyswarms.single.global_best - INFO - Time elapsed 47.87127685546875
+2019-10-17 00:20:31,703 - pyswarms.single.global_best - INFO - Generation 292: Mean-fitness (19.156385993885735, 31.392163564236597), std_dev_fitness (0.22033760012351677, 18.26144738526091), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:20:31,704 - pyswarms.single.global_best - INFO - Time elapsed 34.02724003791809
+2019-10-17 00:21:20,695 - pyswarms.single.global_best - INFO - Generation 293: Mean-fitness (19.217817159107565, 32.24275334077778), std_dev_fitness (0.25102723811314537, 31.19522100937308), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:21:20,696 - pyswarms.single.global_best - INFO - Time elapsed 48.612311601638794
+2019-10-17 00:22:16,209 - pyswarms.single.global_best - INFO - Generation 294: Mean-fitness (19.14521068009966, 29.089386326605926), std_dev_fitness (0.23332648579192442, 34.15021281549949), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:22:16,211 - pyswarms.single.global_best - INFO - Time elapsed 55.16259407997131
+2019-10-17 00:22:56,052 - pyswarms.single.global_best - INFO - Generation 295: Mean-fitness (19.15668226106993, 31.29078128932134), std_dev_fitness (0.24430734015455785, 32.350983649548006), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:22:56,053 - pyswarms.single.global_best - INFO - Time elapsed 39.466938495635986
+2019-10-17 00:23:41,756 - pyswarms.single.global_best - INFO - Generation 296: Mean-fitness (19.1241250362691, 30.52358481554656), std_dev_fitness (0.2957164205923458, 47.44725106651303), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:23:41,757 - pyswarms.single.global_best - INFO - Time elapsed 45.41013813018799
+2019-10-17 00:24:44,834 - pyswarms.single.global_best - INFO - Generation 297: Mean-fitness (19.14568430893015, 41.49282917519154), std_dev_fitness (0.25103041116237035, 46.21751951995034), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:24:44,835 - pyswarms.single.global_best - INFO - Time elapsed 62.7677640914917
+2019-10-17 00:25:55,529 - pyswarms.single.global_best - INFO - Generation 298: Mean-fitness (19.10105881459059, 45.4629784978192), std_dev_fitness (0.19799172051165778, 28.242034274502576), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:25:55,530 - pyswarms.single.global_best - INFO - Time elapsed 70.34057927131653
+2019-10-17 00:26:41,067 - pyswarms.single.global_best - INFO - Generation 299: Mean-fitness (19.2274551378251, 27.79132251438881), std_dev_fitness (0.16602032904726252, 18.45117807357962), best Distanza: 18.946401496468795 Energia: 2.1706500213103332
+2019-10-17 00:26:41,069 - pyswarms.single.global_best - INFO - Time elapsed 45.16721320152283
+2019-10-17 00:26:41,427 - pyswarms.single.global_best - INFO - Optimization finished | best cost: Distanza: 18.946401496468795 Energia: 2.1706500213103332, best pos: [ -6.99510602  -2.57013905  -3.8460169  ...  -0.90460437  13.73987626
+ -24.10971054]
