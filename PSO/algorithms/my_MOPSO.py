@@ -51,8 +51,9 @@ class MOPSO(GlobalBestPSO):
 
         # Setup Pool of processes for parallel evaluation
         pool = None if n_processes is None else mp.Pool(n_processes)
-        self.swarm.best_cost = FitnessObj(0.0, np.inf)
-        self.swarm.pbest_cost = np.array([FitnessObj(0.0, np.inf) for i in range(self.swarm_size[0])])
+        if type(self.swarm.best_cost) is float:
+            self.swarm.best_cost = FitnessObj(0.0, np.inf)
+            self.swarm.pbest_cost = np.array([FitnessObj(0.0, np.inf) for i in range(self.swarm_size[0])])
         for i in self.rep.pbar(iters, self.name):
             last_time = time.time()
             # Compute cost for current position and personal best

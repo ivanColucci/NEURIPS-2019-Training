@@ -11,8 +11,8 @@ random.seed(1234)
 np.random.seed(1234)
 
 def set_value(argv):
-    n_gen = 100
-    pop_size = 2
+    n_gen = 1000
+    pop_size = 20
     g_best = True
     if len(argv) > 1:
         n_gen = int(sys.argv[1])
@@ -28,6 +28,7 @@ if __name__ == "__main__":
 
     n_gen, pop_size, g_best = set_value(sys.argv)
 
+    load_checkpoint = True
     load_elem = False
 
     prob = MOWalkingProblem()
@@ -44,9 +45,13 @@ if __name__ == "__main__":
         with open("champion_pyswarms_conv_1","rb") as fin:
             best = pickle.load(fin)
             optimizer.swarm.position[0] = best
+    if load_checkpoint:
+        with open("CHECKPOINT_PYSWARMS_pyswarms.single.global_best", "rb") as f:
+            swarm = pickle.load(f)
+            optimizer.swarm = swarm
     # Perform optimization
     optimizer.set_reporter_name("MOPSO_17_10.log")
     cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=20)
     print(cost)
-    with open("champion_pyswarms_11_10", "wb") as fout:
+    with open("champion_MOPSO_17_10", "wb") as fout:
         pickle.dump(pos, fout)
