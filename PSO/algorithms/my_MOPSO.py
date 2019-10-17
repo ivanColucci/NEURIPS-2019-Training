@@ -44,7 +44,7 @@ class MOPSO(GlobalBestPSO):
             "Population size: {}".format(self.swarm_size),
             lvl=logging.INFO,
         )
-        filename = "CHECKPOINT_PYSWARMS_" + self.rep.logger.name
+        filename = "CHECKPOINT_" + self.rep.log_path.split(".")[0]
         # Populate memory of the handlers
         self.bh.memory = self.swarm.position
         self.vh.memory = self.swarm.position

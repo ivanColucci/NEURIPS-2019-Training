@@ -21,14 +21,9 @@ def set_value(argv):
     return n_gen, pop_size, g_best
 
 
-if __name__ == "__main__":
+def run(name, load_checkpoint=True, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single.global_best"):
     # argv: 1) gen 2) pop_size 3) global==1 local==2
-    print('Number of arguments:', len(sys.argv), 'arguments.')
-    print('Argument List:', str(sys.argv))
-
     n_gen, pop_size, g_best = set_value(sys.argv)
-
-    load_checkpoint = True
     load_elem = False
 
     prob = MOWalkingProblem()
@@ -42,16 +37,21 @@ if __name__ == "__main__":
         options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
         optimizer = MyLocalBestPSO(n_particles=pop_size, dimensions=dimension, options=options, bounds=bounds)
     if load_elem:
-        with open("champion_pyswarms_conv_1","rb") as fin:
+        with open("champion_pyswarms_conv_1", "rb") as fin:
             best = pickle.load(fin)
             optimizer.swarm.position[0] = best
     if load_checkpoint:
-        with open("CHECKPOINT_PYSWARMS_pyswarms.single.global_best", "rb") as f:
+        with open(cp_name, "rb") as f:
             swarm = pickle.load(f)
             optimizer.swarm = swarm
     # Perform optimization
-    optimizer.set_reporter_name("MOPSO_17_10.log")
+    optimizer.set_reporter_name(name + ".log")
     cost, pos = optimizer.optimize(prob.fitness_manager, iters=n_gen, n_processes=20)
     print(cost)
-    with open("champion_MOPSO_17_10", "wb") as fout:
+    with open("champion_" + name, "wb") as fout:
         pickle.dump(pos, fout)
+
+
+if __name__ == "__main__":
+    run("MOPSO_17_10", load_checkpoint=False, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single.global_best")
+
