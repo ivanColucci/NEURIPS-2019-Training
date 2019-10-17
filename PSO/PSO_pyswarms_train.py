@@ -53,5 +53,5 @@ def run(name, load_checkpoint=True, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single
 
 
 if __name__ == "__main__":
-    run("MOPSO_17_10", load_checkpoint=False, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single.global_best")
+    run("MOPSO_17_10", load_checkpoint=True, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single.global_best")
 
