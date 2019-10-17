@@ -28,7 +28,7 @@ def std_vector(vector):
 
 class MOPSO(GlobalBestPSO):
     def set_reporter_name(self, name):
-        self.rep = Reporter(logger=logging.getLogger(name))
+        self.rep = Reporter(log_path=name)
 
     def load_swarm(self, filename):
         with open(filename, "rb") as fin:
