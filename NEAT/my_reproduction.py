@@ -76,9 +76,11 @@ class TournamentReproduction(DefaultClassConfig):
         # interfering with the shared fitness scheme.
         all_fitnesses = []
         remaining_species = []
+        num_stagnant_genomes = 0
         for stag_sid, stag_s, stagnant in self.stagnation.update(species, generation):
             if stagnant:
                 self.reporters.species_stagnant(stag_sid, stag_s)
+                num_stagnant_genomes += len(stag_s.members)
             else:
                 all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
@@ -149,10 +151,13 @@ class TournamentReproduction(DefaultClassConfig):
             repro_cutoff = max(repro_cutoff, 2)
             old_members = old_members[:repro_cutoff]
 
-            # di spawn: 1-x% offspring, x% new
-            spawn, new_genomes = self.get_new_genomes(spawn, config)
+            # spawn = Pop_size - elit.
+            # Pop_size - num_stagnant_genomes == evoluzione
+            # num_stagnant_genomes == da rimpiazzare con genomi freschi
+            new_genomes = self.get_new_genomes(num_stagnant_genomes, config)
             for gid, genome in new_genomes.items():
                 new_population[gid] = genome
+            spawn -= len(new_genomes)
 
 
             # Randomly choose parents and produce the number of offspring allotted to the species.
@@ -176,11 +181,11 @@ class TournamentReproduction(DefaultClassConfig):
 
         return new_population
 
-    def get_new_genomes(self, spawn, config):
+    def get_new_genomes(self, num_stagnant_genomes, config):
         threshold = 0.3
-        num_of_new_genomes = int(math.ceil(threshold * spawn))
+        num_of_new_genomes = int(math.ceil(threshold * num_stagnant_genomes))
         new_genomes = self.create_new(config.genome_type, config.genome_config, num_of_new_genomes)
-        return spawn - num_of_new_genomes, new_genomes
+        return new_genomes
 
     def tournament(self, members):
         "riceve il survival_threshold % della popolazione, restituisce 2 parent"

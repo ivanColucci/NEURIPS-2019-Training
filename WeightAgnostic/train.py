@@ -12,8 +12,8 @@ random.seed(1234)
 np.random.seed(1234)
 
 # constants
-n_max_gen = 20
-n_workers = 2
+n_max_gen = 100
+n_workers = 50
 
 
 def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint'):
