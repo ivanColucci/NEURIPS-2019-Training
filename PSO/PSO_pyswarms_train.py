@@ -21,7 +21,7 @@ def set_value(argv):
     return n_gen, pop_size, g_best
 
 
-def run(name, load_checkpoint=True, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single.global_best"):
+def run(name, load_checkpoint=True, cp_name="CHECKPOINT_MOPSO_17_10"):
     # argv: 1) gen 2) pop_size 3) global==1 local==2
     n_gen, pop_size, g_best = set_value(sys.argv)
     load_elem = False
@@ -53,5 +53,5 @@ def run(name, load_checkpoint=True, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single
 
 
 if __name__ == "__main__":
-    run("MOPSO_17_10", load_checkpoint=True, cp_name="CHECKPOINT_PYSWARMS_pyswarms.single.global_best")
+    run("MOPSO_18_10", load_checkpoint=True, cp_name="CHECKPOINT_MOPSO_17_10")
 

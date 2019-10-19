@@ -9,10 +9,6 @@ from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 
 class TournamentReproduction(DefaultClassConfig):
-    """
-    Implements the default NEAT-python reproduction scheme:
-    explicit fitness sharing with fixed-time species stagnation.
-    """
 
     @classmethod
     def parse_config(cls, param_dict):
@@ -73,13 +69,6 @@ class TournamentReproduction(DefaultClassConfig):
         return spawn_amounts
 
     def reproduce(self, config, species, pop_size, generation):
-        """
-        Handles creation of genomes, either from scratch or by sexual or
-        asexual reproduction from parents.
-        """
-        # TODO: I don't like this modification of the species and stagnation objects,
-        # because it requires internal knowledge of the objects.
-
         # Filter out stagnated species, collect the set of non-stagnated
         # species members, and compute their average adjusted fitness.
         # The average adjusted fitness scheme (normalized to the interval
@@ -93,13 +82,11 @@ class TournamentReproduction(DefaultClassConfig):
             else:
                 all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
-        # The above comment was not quite what was happening - now getting fitnesses
-        # only from members of non-stagnated species.
 
         # No species left.
         if not remaining_species:
             species.species = {}
-            return {} # was []
+            return {}
 
         # Find minimum/maximum fitness across the entire population, for use in
         # species adjusted fitness computation.
@@ -125,9 +112,9 @@ class TournamentReproduction(DefaultClassConfig):
         # self.reproduction_config.elitism)? That would probably produce more accurate tracking
         # of population sizes and relative fitnesses... doing. TODO: document.
         min_species_size = max(min_species_size,self.reproduction_config.elitism)
+
         spawn_amounts = self.compute_spawn(adjusted_fitnesses, previous_sizes,
                                            pop_size, min_species_size)
-
         new_population = {}
         species.species = {}
         for spawn, s in zip(spawn_amounts, remaining_species):
@@ -162,10 +149,15 @@ class TournamentReproduction(DefaultClassConfig):
             repro_cutoff = max(repro_cutoff, 2)
             old_members = old_members[:repro_cutoff]
 
+            # di spawn: 1-x% offspring, x% new
+            spawn, new_genomes = self.get_new_genomes(spawn, config)
+            for gid, genome in new_genomes.items():
+                new_population[gid] = genome
+
+
             # Randomly choose parents and produce the number of offspring allotted to the species.
             while spawn > 0:
                 spawn -= 1
-
 
                 if len(old_members) >= 2:
                     parent1_id, parent1, parent2_id, parent2 = self.tournament(old_members)
@@ -184,6 +176,11 @@ class TournamentReproduction(DefaultClassConfig):
 
         return new_population
 
+    def get_new_genomes(self, spawn, config):
+        threshold = 0.3
+        num_of_new_genomes = int(math.ceil(threshold * spawn))
+        new_genomes = self.create_new(config.genome_type, config.genome_config, num_of_new_genomes)
+        return spawn - num_of_new_genomes, new_genomes
 
     def tournament(self, members):
         "riceve il survival_threshold % della popolazione, restituisce 2 parent"
