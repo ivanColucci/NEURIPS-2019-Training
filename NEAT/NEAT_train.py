@@ -16,7 +16,7 @@ np.random.seed(1234)
 
 # constants
 n_max_gen = 200
-n_workers = 50
+n_workers = 32
 
 
 def run(config_file, out_file='winner_genome', rep_type='Tournament', gen_type='Default', restore_checkpoint=False, checkpoint='neat-checkpoint'):
@@ -50,7 +50,7 @@ def run(config_file, out_file='winner_genome', rep_type='Tournament', gen_type='
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(5))
+    p.add_reporter(neat.Checkpointer(1, filename_prefix="Checkpoint_now_cpt"))
     pe = PEvaluator(n_workers, eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
 
