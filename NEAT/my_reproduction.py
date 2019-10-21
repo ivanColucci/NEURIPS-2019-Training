@@ -7,6 +7,8 @@ import numpy as np
 from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
+import neat
+import os
 
 class TournamentReproduction(DefaultClassConfig):
 
@@ -154,7 +156,14 @@ class TournamentReproduction(DefaultClassConfig):
             # spawn = Pop_size - elit.
             # Pop_size - num_stagnant_genomes == evoluzione
             # num_stagnant_genomes == da rimpiazzare con genomi freschi
-            new_genomes = self.get_new_genomes(num_stagnant_genomes, config)
+            local_dir = os.path.dirname(__file__)
+            config_path = os.path.join(local_dir, 'new_config')
+            n_hidden = np.random.randint(10, 200)
+            self.write_new_config(config_path, n_hidden)
+            new_config = neat.Config(neat.DefaultGenome, self,
+                                 neat.DefaultSpeciesSet, neat.DefaultStagnation,
+                                 config_path)
+            new_genomes = self.get_new_genomes(num_stagnant_genomes, new_config)
             for gid, genome in new_genomes.items():
                 new_population[gid] = genome
             spawn -= len(new_genomes)
@@ -203,3 +212,11 @@ class TournamentReproduction(DefaultClassConfig):
 
         return parent1_id, parent1, parent2_id, parent2
 
+    def write_new_config(self, config_path, n_hidden):
+        with open(config_path, "r") as fe:
+            content = fe.read()
+            first = content.split("num_hidden              = ")[0]
+            second = content.split("num_hidden              = ")[1]
+            new_content = first + "num_hidden              = " + n_hidden + second[2:]
+            with open(config_path, "w") as fw:
+                fw.write(new_content)
