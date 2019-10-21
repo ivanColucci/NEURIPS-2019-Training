@@ -44,7 +44,7 @@ def execute_trial(env, net, steps):
         final_rew += reward
         if done:
             break
-    return final_rew + env.get_state_desc()['body_pos']['pelvis'][0]
+    return final_rew + 1000*env.get_state_desc()['body_pos']['pelvis'][0]
 
 
 def execute_trial_with_param(env, net, steps):
