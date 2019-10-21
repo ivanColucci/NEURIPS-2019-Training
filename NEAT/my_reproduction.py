@@ -156,8 +156,7 @@ class TournamentReproduction(DefaultClassConfig):
             # spawn = Pop_size - elit.
             # Pop_size - num_stagnant_genomes == evoluzione
             # num_stagnant_genomes == da rimpiazzare con genomi freschi
-            local_dir = os.path.dirname(__file__)
-            config_path = os.path.join(local_dir, 'new_config')
+            config_path = 'new_config'
             n_hidden = np.random.randint(10, 200)
             self.write_new_config(config_path, n_hidden)
             new_config = neat.Config(neat.DefaultGenome, self,
