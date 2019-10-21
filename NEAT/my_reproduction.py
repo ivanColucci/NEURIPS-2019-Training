@@ -156,16 +156,17 @@ class TournamentReproduction(DefaultClassConfig):
             # spawn = Pop_size - elit.
             # Pop_size - num_stagnant_genomes == evoluzione
             # num_stagnant_genomes == da rimpiazzare con genomi freschi
-            config_path = 'new_config'
-            n_hidden = np.random.randint(10, 200)
-            self.write_new_config(config_path, n_hidden)
-            new_config = neat.Config(neat.DefaultGenome, self,
-                                 neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                                 config_path)
-            new_genomes = self.get_new_genomes(num_stagnant_genomes, new_config)
-            for gid, genome in new_genomes.items():
-                new_population[gid] = genome
-            spawn -= len(new_genomes)
+            if num_stagnant_genomes > 0:
+                config_path = 'new_config'
+                n_hidden = np.random.randint(10, 200)
+                self.write_new_config(config_path, n_hidden)
+                new_config = neat.Config(neat.DefaultGenome, TournamentReproduction,
+                                     neat.DefaultSpeciesSet, neat.DefaultStagnation,
+                                     config_path)
+                new_genomes = self.get_new_genomes(num_stagnant_genomes, new_config)
+                for gid, genome in new_genomes.items():
+                    new_population[gid] = genome
+                spawn -= len(new_genomes)
 
 
             # Randomly choose parents and produce the number of offspring allotted to the species.
@@ -216,6 +217,6 @@ class TournamentReproduction(DefaultClassConfig):
             content = fe.read()
             first = content.split("num_hidden              = ")[0]
             second = content.split("num_hidden              = ")[1]
-            new_content = first + "num_hidden              = " + n_hidden + second[2:]
+            new_content = first + "num_hidden              = " + str(n_hidden) + second[2:] + "\n"
             with open(config_path, "w") as fw:
                 fw.write(new_content)
