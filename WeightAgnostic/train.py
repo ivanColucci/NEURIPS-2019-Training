@@ -13,7 +13,7 @@ np.random.seed(1234)
 
 # constants
 n_max_gen = 1000
-n_workers = 100
+n_workers = None
 
 
 def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint'):
@@ -50,4 +50,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint'):
 
 
 if __name__ == '__main__':
-    start('winner_genome',restore_checkpoint=False)
+    start('winner_genome', restore_checkpoint=False)
