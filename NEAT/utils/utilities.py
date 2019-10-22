@@ -89,6 +89,26 @@ def get_reward(body_y, step_posx):
     total_rew += 100 * np.sum(rew)
     return total_rew
 
+def get_reward_h(body_y, step_posx):
+    dim = len(step_posx)
+    positions = []
+    total_rew = 0
+
+    for i in range(dim):
+        if i == 0:
+            positions.append(0.4)
+        else:
+            positions.append(round(positions[-1] + 0.7, 1))
+    for i in range(dim):
+        h = body_y[i]
+        alfa = 1
+        if h < 0.84:    # out of range
+            alfa = h
+        if h > 0.94:    # out of range
+            alfa = 1 - h + 0.94
+        total_rew += alfa * (0.7 - np.clip(np.abs(step_posx[i] - positions[i]), a_min=0.0, a_max=0.7))
+    return total_rew
+
 
 def execute_trial_step_reward(env, net, steps):
     observation = env.get_observation()
@@ -104,14 +124,15 @@ def execute_trial_step_reward(env, net, steps):
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         posy_r = env.get_state_desc()["body_pos"]["toes_r"][1]
         posy_l = env.get_state_desc()["body_pos"]["toes_l"][1]
-        body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
 
         if posy_r < step_threshold and not doing_stepr:
             doing_stepr = True
             step_posx.append(env.get_state_desc()["body_pos"]["toes_r"][0])
+            body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
         if posy_l < step_threshold and not doing_stepl:
             doing_stepl = True
             step_posx.append(env.get_state_desc()["body_pos"]["toes_l"][0])
+            body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
 
         if doing_stepr and posy_r > step_threshold:
             doing_stepr = False
@@ -120,7 +141,7 @@ def execute_trial_step_reward(env, net, steps):
 
         if done:
             break
-    return get_reward(body_y, step_posx)
+    return get_reward_h(body_y, step_posx)
 
 
 def execute_trial_with_param(env, net, steps):
