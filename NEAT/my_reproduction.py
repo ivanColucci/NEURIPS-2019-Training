@@ -215,11 +215,14 @@ class TournamentReproduction(DefaultClassConfig):
 
         return parent1_id, parent1, parent2_id, parent2
 
-    def write_new_config(self, config_path, n_hidden):
+    def write_new_config(config_path, n_hidden):
         with open(config_path, "r") as fe:
             content = fe.read()
             first = content.split("num_hidden              = ")[0]
             second = content.split("num_hidden              = ")[1]
-            new_content = first + "num_hidden              = " + str(n_hidden) + "\n" + second[2:]
+            new_content = first + "num_hidden              = " + str(n_hidden) + "\n"
+            temp = second.split("\n")
+            for i in range(1, len(temp)):
+                new_content += temp[i] + "\n"
             with open(config_path, "w") as fw:
                 fw.write(new_content)
