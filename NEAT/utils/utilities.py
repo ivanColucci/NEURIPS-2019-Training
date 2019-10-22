@@ -73,9 +73,10 @@ def execute_trial_with_area(env, net, steps):
 
 def get_reward(body_y, step_posx):
     dim = len(step_posx)
+    total_rew = 0
     for h in body_y:
         if h < 0.8 or h > 0.95:
-            return 0
+            total_rew += 0.1
     positions = []
     for i in range(dim):
         if i == 0:
@@ -85,7 +86,7 @@ def get_reward(body_y, step_posx):
     diff = np.abs(np.subtract(step_posx, positions))
     clip_diff = np.clip(diff, a_min=0.0, a_max=0.7)
     rew = 0.7 - clip_diff
-    total_rew = np.sum(rew)
+    total_rew += 100 * np.sum(rew)
     return total_rew
 
 
