@@ -39,6 +39,6 @@ class RewardShapingEnv(L2M2019Env):
     def distance_and_energy(self):
         return 100*self.distance_reward() - self.energy_consumption_reward()/22
 
-    def distance_and_keep_alive(self):
+    def pelvis_height(self):
         state = self.get_state_desc()
         return state['body_pos']['pelvis'][1]

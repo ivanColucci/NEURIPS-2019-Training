@@ -41,9 +41,11 @@ def execute_trial(env, net, steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        #print(reward)
         final_rew += reward
         if done:
             break
+        #print("Final_rew: {}; Distance: {}".format(final_rew, env.get_state_desc()['body_pos']['pelvis'][0]))
     return final_rew + 1000*env.get_state_desc()['body_pos']['pelvis'][0]
 
 
@@ -63,7 +65,7 @@ def execute_trial_with_param(env, net, steps):
 def eval_genome(genome, config, visual=False, is_a_net=False):
     env = RewardShapingEnv(visualize=visual, seed=1234, difficulty=2)
     env.change_model(model='2D', difficulty=2, seed=1234)
-    env.set_reward_function(env.distance_reward)
+    env.set_reward_function(env.pelvis_height)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     if not is_a_net:
         net = neat.nn.FeedForwardNetwork.create(genome, config)
