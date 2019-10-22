@@ -47,6 +47,27 @@ def execute_trial(env, net, steps):
             break
     return env.get_state_desc()['body_pos']['pelvis'][0]
 
+def execute_trail_with_area(env, net, steps):
+    final_rew = 0
+    observation = env.get_observation()
+    pelvis_heights = []
+    pelvis_x = [env.get_state_desc()['body_pos']["pelvis"][0]]
+    # Returns the phenotype associated to given genome
+    for i in range(steps):
+        action = net.activate(observation)
+        action = add_action_for_3d(action)
+        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        pelvis = env.get_state_desc()['body_pos']["pelvis"]
+        pelvis_heights.append(pelvis[1])
+        pelvis_x.append(pelvis[0] - pelvis_x[-1])
+        final_rew += reward
+        if done:
+            break
+    pelvis_x.pop(0)
+    area = 0
+    for i in range(len(pelvis_x)):
+        area += pelvis_x[i] * pelvis_heights[i]
+    return area
 
 def get_reward(body_y, step_posx):
     dim = len(step_posx)
