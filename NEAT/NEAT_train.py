@@ -16,7 +16,7 @@ np.random.seed(1234)
 
 # constants
 n_max_gen = 200
-n_workers = 32
+n_workers = None
 
 
 def run(config_file, out_file='winner_genome', rep_type='Tournament', gen_type='Default', restore_checkpoint=False, checkpoint='neat-checkpoint'):

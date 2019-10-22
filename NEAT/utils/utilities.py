@@ -36,16 +36,24 @@ def add_action_for_3d(action):
 def execute_trial(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
+    pelvis_heights = []
+    pelvis_x = [env.get_state_desc()['body_pos']["pelvis"][0]]
     # Returns the phenotype associated to given genome
     for i in range(steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-        #print(reward)
+        pelvis = env.get_state_desc()['body_pos']["pelvis"]
+        pelvis_heights.append(pelvis[1])
+        pelvis_x.append(pelvis[0]-pelvis_x[-1])
         final_rew += reward
         if done:
             break
-        #print("Final_rew: {}; Distance: {}".format(final_rew, env.get_state_desc()['body_pos']['pelvis'][0]))
+    pelvis_x.pop(0)
+    area = 0
+    for i in range(len(pelvis_x)):
+        area += pelvis_x[i]*pelvis_heights[i]
+    print("Area sottesa: {}".format(area))
     return final_rew + 1000*env.get_state_desc()['body_pos']['pelvis'][0]
 
 
