@@ -47,7 +47,8 @@ def execute_trial(env, net, steps):
             break
     return env.get_state_desc()['body_pos']['pelvis'][0]
 
-def execute_trail_with_area(env, net, steps):
+
+def execute_trial_with_area(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
     pelvis_heights = []
@@ -68,6 +69,7 @@ def execute_trail_with_area(env, net, steps):
     for i in range(len(pelvis_x)):
         area += pelvis_x[i] * pelvis_heights[i]
     return area
+
 
 def get_reward(body_y, step_posx):
     dim = len(step_posx)
