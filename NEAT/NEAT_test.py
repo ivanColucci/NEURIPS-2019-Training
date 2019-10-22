@@ -26,5 +26,5 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
 
 
 if __name__ == '__main__':
-    test(source='winner_genome_distance_reward', load_from_checkpoint=False)
+    test(source='../results/winner_genome_distance_reward', load_from_checkpoint=False)
     # test(source='winner_genome_distance', load_from_checkpoint=True, checkpoint='neat-checkpoint-232')
