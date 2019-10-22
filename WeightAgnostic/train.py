@@ -6,6 +6,7 @@ import pickle
 from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
 from NEAT.utils.utilities import eval_genome
+from WeightAgnostic.time_population import TimePopulation
 
 # randomness
 random.seed(1234)
@@ -25,19 +26,17 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     if restore_checkpoint:
         p = neat.Checkpointer.restore_checkpoint(checkpoint)
     else:
-        p = neat.Population(config)
+        p = TimePopulation(config)
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(5))
+    p.add_reporter(neat.Checkpointer(100))
     pe = neat.ParallelEvaluator(n_workers, eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
     print(winner)
-    # for key_id in winner.connections.keys():
-    #     print(winner.connections[key_id].weight)
     # Save the winner
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)
