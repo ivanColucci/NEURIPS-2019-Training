@@ -84,6 +84,9 @@ class TournamentReproduction(DefaultClassConfig):
                 self.reporters.species_stagnant(stag_sid, stag_s)
                 num_stagnant_genomes += len(stag_s.members)
             else:
+                stagnant_time = generation - stag_s.last_improved
+                if stagnant_time > self.stagnation.stagnation_config.max_stagnation:
+                    num_stagnant_genomes += len(stag_s.members)
                 all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
 
@@ -217,6 +220,6 @@ class TournamentReproduction(DefaultClassConfig):
             content = fe.read()
             first = content.split("num_hidden              = ")[0]
             second = content.split("num_hidden              = ")[1]
-            new_content = first + "num_hidden              = " + str(n_hidden) + second[2:] + "\n"
+            new_content = first + "num_hidden              = " + str(n_hidden) + "\n" + second[2:]
             with open(config_path, "w") as fw:
                 fw.write(new_content)
