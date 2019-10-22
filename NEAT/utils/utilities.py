@@ -1,6 +1,7 @@
 import numpy as np
 from myenv import RewardShapingEnv
 import neat
+import math
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -47,6 +48,57 @@ def execute_trial(env, net, steps):
     return env.get_state_desc()['body_pos']['pelvis'][0]
 
 
+def get_reward(body_y, step_posx):
+    dim = len(step_posx)
+    for h in body_y:
+        if h < 0.8 or h > 0.95:
+            return 0
+    positions = []
+    for i in range(dim):
+        if i == 0:
+            positions.append(0.4)
+        else:
+            positions.append(round(positions[-1] + 0.7, 1))
+    diff = np.abs(np.subtract(step_posx, positions))
+    clip_diff = np.clip(diff, a_min=0.0, a_max=0.7)
+    rew = 0.7 - clip_diff
+    total_rew = np.sum(rew)
+    return total_rew
+
+
+def execute_trial_step_reward(env, net, steps):
+    observation = env.get_observation()
+    body_y = []
+    step_posx = []
+    doing_stepr = False
+    doing_stepl = False
+    step_threshold = 0.02
+    # Returns the phenotype associated to given genome
+    for i in range(steps):
+        action = net.activate(observation)
+        action = add_action_for_3d(action)
+        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        posy_r = env.get_state_desc()["body_pos"]["toes_r"][1]
+        posy_l = env.get_state_desc()["body_pos"]["toes_l"][1]
+        body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
+
+        if posy_r < step_threshold and not doing_stepr:
+            doing_stepr = True
+            step_posx.append(env.get_state_desc()["body_pos"]["toes_r"][0])
+        if posy_l < step_threshold and not doing_stepl:
+            doing_stepl = True
+            step_posx.append(env.get_state_desc()["body_pos"]["toes_l"][0])
+
+        if doing_stepr and posy_r > step_threshold:
+            doing_stepr = False
+        if doing_stepl and posy_l > step_threshold:
+            doing_stepl = False
+
+        if done:
+            break
+    return get_reward(body_y, step_posx)
+
+
 def execute_trial_with_param(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
@@ -69,5 +121,5 @@ def eval_genome(genome, config, visual=False, is_a_net=False):
         net = neat.nn.FeedForwardNetwork.create(genome, config)
     else:
         net = genome
-    return execute_trial(env, net, 1000)
+    return execute_trial_step_reward(env, net, 1000)
 
