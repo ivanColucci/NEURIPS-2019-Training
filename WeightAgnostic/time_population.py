@@ -10,7 +10,7 @@ class TimePopulation(Population):
 
     def run(self, fitness_function, n=None):
         #Variables needed to save winner
-        winner_interval = 1
+        winner_interval = 10
         winnername_prefix = "winner_checkpoint_"
         last_winner_checkpoint = 0
 
