@@ -2,12 +2,17 @@
 from neat.six_util import iteritems, itervalues
 from neat.population import Population, CompleteExtinctionException
 import time
+import pickle
 import numpy as np
 
 
 class TimePopulation(Population):
 
     def run(self, fitness_function, n=None):
+        #Variables needed to save winner
+        winner_interval = 1
+        winnername_prefix = "winner_checkpoint_"
+        last_winner_checkpoint = 0
 
         if self.config.no_fitness_termination and (n is None):
             raise RuntimeError("Cannot have no generational limit with no fitness termination")
@@ -66,6 +71,15 @@ class TimePopulation(Population):
             self.reporters.end_generation(self.config, self.population, self.species)
 
             self.generation += 1
+            #Code to save the best after winner_interval generations
+            if winner_interval is not None:
+                dg = self.generation - last_winner_checkpoint
+                if dg >= winner_interval:
+                    filename = '{0}{1}'.format(winnername_prefix, self.generation)
+                    last_winner_checkpoint = self.generation
+                    with open(filename, 'wb') as f:
+                        pickle.dump(self.best_genome, f)
+
             with open("output.txt", "a") as f:
                 f.write("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
 

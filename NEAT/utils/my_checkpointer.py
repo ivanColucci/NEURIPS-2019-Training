@@ -19,8 +19,7 @@ class MyCheckpointer(BaseReporter):
     A reporter class that performs checkpointing using `pickle`
     to save and restore populations (and other aspects of the simulation state).
     """
-    def __init__(self, checkpoint_interval=100, winner_interval=10,
-                 filename_prefix='neat-checkpoint-'):
+    def __init__(self, checkpoint_interval=100, filename_prefix='neat-checkpoint-'):
         """
         Saves the current state (at the end of a generation) every ``generation_interval`` generations or
         ``time_interval_seconds``, whichever happens first.
@@ -32,26 +31,15 @@ class MyCheckpointer(BaseReporter):
         :param str filename_prefix: Prefix for the filename (the end will be the generation number)
         """
         self.checkpoint_interval = checkpoint_interval
-        self.winner_interval = winner_interval
         self.filename_prefix = filename_prefix
-        self.winnername_prefix = "winner_checkpoint_"
 
         self.current_generation = None
         self.last_generation_checkpoint = -1
-        self.last_winner_checkpoint = -1
 
     def start_generation(self, generation):
         self.current_generation = generation
 
     def end_generation(self, config, population, species_set):
-        if self.winner_interval is not None:
-            dg = self.current_generation - self.last_winner_checkpoint
-            if dg >= self.winner_interval:
-                filename = '{0}{1}'.format(self.winnername_prefix, self.current_generation)
-                self.last_winner_checkpoint = self.current_generation
-                with open(filename, 'wb') as f:
-                    pickle.dump(population.best_genome, f)
-
         if self.checkpoint_interval is not None:
             dg = self.current_generation - self.last_generation_checkpoint
             if dg >= self.checkpoint_interval:
