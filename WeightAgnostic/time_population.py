@@ -2,6 +2,7 @@
 from neat.six_util import iteritems, itervalues
 from neat.population import Population, CompleteExtinctionException
 import time
+import numpy as np
 
 
 class TimePopulation(Population):
@@ -21,7 +22,7 @@ class TimePopulation(Population):
             fitness_function(list(iteritems(self.population)), self.config)
 
             with open("output.txt", "a") as f:
-                f.write("generazione: " + str(k) + " tempo: " + str(time.time() - start_time_gen))
+                f.write("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
 
             start_time_gen = time.time()
             # Gather and report statistics.
@@ -66,7 +67,7 @@ class TimePopulation(Population):
 
             self.generation += 1
             with open("output.txt", "a") as f:
-                f.write("generazione: " + str(k) + " tempo: " + str(time.time() - start_time_gen))
+                f.write("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
 
         if self.config.no_fitness_termination:
             self.reporters.found_solution(self.config, self.generation, self.best_genome)

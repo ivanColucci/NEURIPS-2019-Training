@@ -8,6 +8,7 @@ from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 import neat
+import copy
 import os
 
 class TournamentReproduction(DefaultClassConfig):
@@ -163,11 +164,9 @@ class TournamentReproduction(DefaultClassConfig):
                 prev_spawn = spawn
                 num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
                 config_path = 'new_config'
-                n_hidden = np.random.randint(10, 200)
-                self.write_new_config(config_path, n_hidden)
-                new_config = neat.Config(neat.DefaultGenome, TournamentReproduction,
-                                     neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                                     config_path)
+                n_hidden = np.random.randint(30, 300)
+                new_config = copy.deepcopy(config)
+                new_config.num_hidden = n_hidden
                 new_genomes = self.get_new_genomes(num_stagnant_genomes, new_config)
                 for gid, genome in new_genomes.items():
                     new_population[gid] = genome
