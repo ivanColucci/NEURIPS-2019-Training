@@ -160,6 +160,7 @@ class TournamentReproduction(DefaultClassConfig):
             # Pop_size - num_stagnant_genomes == evoluzione
             # num_stagnant_genomes == da rimpiazzare con genomi freschi
             if num_stagnant_genomes > 0:
+                prev_spawn = spawn
                 num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
                 config_path = 'new_config'
                 n_hidden = np.random.randint(10, 200)
@@ -172,7 +173,9 @@ class TournamentReproduction(DefaultClassConfig):
                     new_population[gid] = genome
                 spawn -= len(new_genomes)
                 with open("output.txt", "a") as o:
-                    o.write("adding: " + str(len(new_genomes)) + " genomes")
+                    o.write("\nprev spawn: " + str(prev_spawn) + "\n")
+                    o.write("adding: " + str(len(new_genomes)) + " genomes" + "\n")
+                    o.write("new spawn: " + str(spawn) + "\n")
 
 
             # Randomly choose parents and produce the number of offspring allotted to the species.
