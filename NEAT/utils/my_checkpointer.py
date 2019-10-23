@@ -52,9 +52,9 @@ class MyCheckpointer(BaseReporter):
                 with open(filename, 'wb') as f:
                     pickle.dump(population.best_genome, f)
 
-        if self.generation_interval is not None:
+        if self.checkpoint_interval is not None:
             dg = self.current_generation - self.last_generation_checkpoint
-            if dg >= self.generation_interval:
+            if dg >= self.checkpoint_interval:
                 self.save_checkpoint(config, population, species_set, self.current_generation)
                 self.last_generation_checkpoint = self.current_generation
 
