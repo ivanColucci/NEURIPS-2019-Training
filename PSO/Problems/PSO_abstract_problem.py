@@ -52,7 +52,7 @@ def set_model_weights(model, x):
 
 #Problem definition
 class WalkingProblem:
-    def __init__(self, steps=1000, num_of_weights=186774):
+    def __init__(self, steps=1000, num_of_weights=289222):
         self.steps = steps
         self.num_of_weights = num_of_weights
 
@@ -91,14 +91,12 @@ class WalkingProblem:
 
         # new model
         model = Sequential()
-        model.add(Conv1D(64, 3, activation='relu', input_shape=(339, 1)))
-        model.add(Conv1D(64, 3, activation='relu'))
-        model.add(MaxPooling1D(3))
-        model.add(Conv1D(64, 3, activation='relu'))
-        model.add(Dense(64, activation='relu'))
-        model.add(Dense(64, activation='relu'))
-        model.add(Flatten())
+        model.add(Flatten(input_shape=(339, 1)))
+        model.add(Dense(300, activation='relu'))
+        model.add(Dense(300, activation='relu'))
+        model.add(Dense(300, activation='relu'))
         model.add(Dense(env.get_action_space_size(), activation='sigmoid'))
+        # model.summary()
         set_model_weights(model, x[0])
 
         result_object = self.fitness_hook(model, env)

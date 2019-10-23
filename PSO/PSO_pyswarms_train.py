@@ -3,6 +3,7 @@ import sys
 import numpy as np
 import pickle
 from PSO.Problems.PSO_problem_multi_objects import MOWalkingProblem
+from PSO.Problems.PSO_problem_single_object import SOWalkingProblem
 import random
 from PSO.algorithms.my_local_best_PSO import MyLocalBestPSO
 from PSO.algorithms.my_MOPSO import MOPSO
@@ -13,7 +14,7 @@ np.random.seed(1234)
 def set_value(argv):
     n_gen = 1000
     pop_size = 20
-    g_best = True
+    g_best = False
     if len(argv) > 1:
         n_gen = int(sys.argv[1])
         pop_size = int(sys.argv[2])
@@ -21,12 +22,12 @@ def set_value(argv):
     return n_gen, pop_size, g_best
 
 
-def run(name, load_checkpoint=True, cp_name="CHECKPOINT_MOPSO_17_10"):
+def run(name, load_checkpoint=False, cp_name="CHECKPOINT_MOPSO_17_10"):
     # argv: 1) gen 2) pop_size 3) global==1 local==2
     n_gen, pop_size, g_best = set_value(sys.argv)
     load_elem = False
 
-    prob = MOWalkingProblem()
+    prob = SOWalkingProblem()
     bounds = prob.get_bounds()
     dimension = prob.num_of_weights
     # Set-up hyper-parameters & Call instance of PSO
@@ -53,5 +54,5 @@ def run(name, load_checkpoint=True, cp_name="CHECKPOINT_MOPSO_17_10"):
 
 
 if __name__ == "__main__":
-    run("MOPSO_18_10", load_checkpoint=True, cp_name="CHECKPOINT_MOPSO_17_10")
+    run("MOPSO_23_10", load_checkpoint=False, cp_name="CHECKPOINT_MOPSO_17_10")
 
