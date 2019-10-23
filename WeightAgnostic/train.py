@@ -7,6 +7,7 @@ from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
 from NEAT.utils.utilities import eval_genome
 from WeightAgnostic.time_population import TimePopulation
+from NEAT.utils.my_checkpointer import MyCheckpointer
 
 # randomness
 random.seed(1234)
@@ -33,7 +34,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(25, time_interval_seconds=None))
+    p.add_reporter(MyCheckpointer())
     pe = neat.ParallelEvaluator(n_workers, eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
     print(winner)
