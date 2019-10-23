@@ -171,7 +171,8 @@ class TournamentReproduction(DefaultClassConfig):
                 for gid, genome in new_genomes.items():
                     new_population[gid] = genome
                 spawn -= len(new_genomes)
-                print("add: ", len(new_genomes), " genomes")
+                with open("output.txt", "a") as o:
+                    o.write("adding: " + str(len(new_genomes)) + " genomes")
 
 
             # Randomly choose parents and produce the number of offspring allotted to the species.
