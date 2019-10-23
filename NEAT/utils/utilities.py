@@ -35,17 +35,17 @@ def add_action_for_3d(action):
 
 
 def execute_trial(env, net, steps):
-    # final_rew = 0
+    final_rew = 0
     observation = env.get_observation()
     # Returns the phenotype associated to given genome
     for i in range(steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-        # final_rew += reward
+        final_rew += reward
         if done:
             break
-    return env.get_state_desc()['body_pos']['pelvis'][0]
+    return final_rew
 
 
 def execute_trial_with_area(env, net, steps):
@@ -145,27 +145,14 @@ def execute_trial_step_reward(env, net, steps):
     return get_reward_h(body_y, step_posx)
 
 
-def execute_trial_with_param(env, net, steps):
-    final_rew = 0
-    observation = env.get_observation()
-    for i in range(steps):
-        action = net.activate(observation)
-        action = add_action_for_3d(action)
-        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-        final_rew += reward
-        if done:
-            break
-    return [("fitness", final_rew), ("falcata", 3.2)]
-
-
 def eval_genome(genome, config, visual=False, is_a_net=False):
     env = RewardShapingEnv(visualize=visual, seed=1234, difficulty=2)
     env.change_model(model='2D', difficulty=2, seed=1234)
-    env.set_reward_function(env.distance_reward)
+    env.set_reward_function(env.standard_reward)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     if not is_a_net:
         net = neat.nn.FeedForwardNetwork.create(genome, config)
     else:
         net = genome
-    return execute_trial_with_area(env, net, 1000)
+    return execute_trial(env, net, 1000)
 
