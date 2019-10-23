@@ -52,7 +52,8 @@ def execute_trial_with_area(env, net, steps):
     final_rew = 0
     observation = env.get_observation()
     pelvis_heights = []
-    pelvis_x = [env.get_state_desc()['body_pos']["pelvis"][0]]
+    last_pelvis = env.get_state_desc()['body_pos']["pelvis"][0]
+    pelvis_x = []
     # Returns the phenotype associated to given genome
     for i in range(steps):
         action = net.activate(observation)
@@ -60,11 +61,11 @@ def execute_trial_with_area(env, net, steps):
         obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         pelvis = env.get_state_desc()['body_pos']["pelvis"]
         pelvis_heights.append(pelvis[1])
-        pelvis_x.append(pelvis[0] - pelvis_x[-1])
+        pelvis_x.append(pelvis[0] - last_pelvis)
+        last_pelvis = pelvis[0]
         final_rew += reward
         if done:
             break
-    pelvis_x.pop(0)
     area = 0
     for i in range(len(pelvis_x)):
         area += pelvis_x[i] * pelvis_heights[i]
@@ -166,5 +167,5 @@ def eval_genome(genome, config, visual=False, is_a_net=False):
         net = neat.nn.FeedForwardNetwork.create(genome, config)
     else:
         net = genome
-    return execute_trial_step_reward(env, net, 1000)
+    return execute_trial_with_area(env, net, 1000)
 
