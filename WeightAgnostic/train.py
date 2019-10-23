@@ -33,7 +33,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(neat.Checkpointer(100))
+    p.add_reporter(neat.Checkpointer(25, time_interval_seconds=None))
     pe = neat.ParallelEvaluator(n_workers, eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
     print(winner)
