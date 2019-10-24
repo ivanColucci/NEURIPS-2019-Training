@@ -154,5 +154,5 @@ def eval_genome(genome, config, visual=False, is_a_net=False):
         net = neat.nn.FeedForwardNetwork.create(genome, config)
     else:
         net = genome
-    return execute_trial(env, net, 1000)
+    return execute_trial_with_area(env, net, 1000)
 
