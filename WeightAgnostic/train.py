@@ -42,12 +42,10 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)
 
-
 def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint'):
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config')
     run(config_path, restore_checkpoint=restore_checkpoint, out_file=out_file, checkpoint=checkpoint)
-
 
 if __name__ == '__main__':
     start('winner_genome', restore_checkpoint=False)
