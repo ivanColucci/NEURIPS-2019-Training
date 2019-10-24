@@ -46,7 +46,7 @@ node_add_prob           = 0.7
 node_delete_prob        = 0.3
 
 # network parameters
-num_hidden              = 0
+num_hidden              = 100
 num_inputs              = 97
 num_outputs             = 18
 
@@ -73,8 +73,8 @@ compatibility_threshold = 3.0
 
 [DefaultStagnation]
 species_fitness_func = max
-max_stagnation       = 1
-species_elitism      = 5
+max_stagnation       = 15
+species_elitism      = 2
 
 [DefaultReproduction]
 elitism            = 2
