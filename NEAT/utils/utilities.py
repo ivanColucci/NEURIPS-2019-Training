@@ -41,7 +41,7 @@ def execute_trial(env, net, steps):
     for i in range(steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
-        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         final_rew += reward
         if done:
             break
@@ -58,7 +58,7 @@ def execute_trial_with_area(env, net, steps):
     for i in range(steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
-        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         pelvis = env.get_state_desc()['body_pos']["pelvis"]
         pelvis_heights.append(pelvis[1])
         pelvis_x.append(pelvis[0] - last_pelvis)
@@ -122,7 +122,7 @@ def execute_trial_step_reward(env, net, steps):
     for i in range(steps):
         action = net.activate(observation)
         action = add_action_for_3d(action)
-        obs_dict, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+        observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
         posy_r = env.get_state_desc()["body_pos"]["toes_r"][1]
         posy_l = env.get_state_desc()["body_pos"]["toes_l"][1]
 
