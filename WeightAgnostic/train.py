@@ -28,7 +28,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         p = neat.Checkpointer.restore_checkpoint(checkpoint)
     else:
         p = TimePopulation(config)
-
+        p.allow_rigeneration(True)
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
     p.add_reporter(neat.StdOutReporter(True))
@@ -37,7 +37,6 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     p.add_reporter(MyCheckpointer())
     pe = neat.ParallelEvaluator(n_workers, eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
-    print(winner)
     # Save the winner
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)

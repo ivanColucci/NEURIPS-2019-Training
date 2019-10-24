@@ -19,13 +19,18 @@ class TournamentReproduction(DefaultClassConfig):
                                    ConfigParameter('survival_threshold', float, 0.2),
                                    ConfigParameter('min_species_size', int, 2)])
 
-    def __init__(self, config, reporters, stagnation):
+    def __init__(self, config, reporters, stagnation, rigeneration=False):
         # pylint: disable=super-init-not-called
         self.reproduction_config = config
         self.reporters = reporters
         self.genome_indexer = count(1)
         self.stagnation = stagnation
         self.ancestors = {}
+        self.rigeneration = rigeneration
+        self.last_rigeneration = 0
+
+    def allow_rigeneration(self, value):
+        self.rigeneration = value
 
     def create_new(self, genome_type, genome_config, num_genomes):
         new_genomes = self.create_new_parallel(genome_type, genome_config, num_genomes)
@@ -164,10 +169,12 @@ class TournamentReproduction(DefaultClassConfig):
             # spawn = Pop_size - elit.
             # Pop_size - num_stagnant_genomes == evoluzione
             # num_stagnant_genomes == da rimpiazzare con genomi freschi
-            if num_stagnant_genomes > 0:
+            if self.rigeneration \
+                    and num_stagnant_genomes > 0 \
+                    and ((generation - self.last_rigeneration) >= self.stagnation.stagnation_config.max_stagnation):
+                self.last_rigeneration = generation
                 prev_spawn = spawn
                 num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
-                config_path = 'new_config'
                 n_hidden = np.random.randint(30, 300)
                 new_config = copy.deepcopy(config)
                 new_config.num_hidden = n_hidden

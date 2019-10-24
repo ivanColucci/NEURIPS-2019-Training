@@ -2,7 +2,7 @@ from osim.env import L2M2019Env
 import numpy as np
 
 class RewardShapingEnv(L2M2019Env):
-    def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None, reward_function=None, old_input = True):
+    def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None, reward_function=None, old_input = False):
         self.prev_distance = 0
         self.old_input = old_input
         if reward_function is None:
