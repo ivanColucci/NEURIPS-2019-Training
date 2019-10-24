@@ -7,9 +7,8 @@ import numpy as np
 from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
-import neat
+from NEAT.utils.parallel_creation import ParallelCreator
 import copy
-import os
 
 class TournamentReproduction(DefaultClassConfig):
 
@@ -29,14 +28,19 @@ class TournamentReproduction(DefaultClassConfig):
         self.ancestors = {}
 
     def create_new(self, genome_type, genome_config, num_genomes):
-        new_genomes = {}
-        for i in range(num_genomes):
-            key = next(self.genome_indexer)
-            g = genome_type(key)
-            g.configure_new(genome_config)
-            new_genomes[key] = g
-            self.ancestors[key] = tuple()
+        new_genomes = self.create_new_parallel(genome_type, genome_config, num_genomes)
+        # new_genomes = {}
+        # for i in range(num_genomes):
+        #     key = next(self.genome_indexer)
+        #     g = genome_type(key)
+        #     g.configure_new(genome_config)
+        #     new_genomes[key] = g
+        #     self.ancestors[key] = tuple()
+        return new_genomes
 
+    def create_new_parallel(self, genome_type, genome_config, num_genomes):
+        pc = ParallelCreator(num_genomes)
+        new_genomes = pc.create_new(self, genome_type, genome_config)
         return new_genomes
 
     @staticmethod
