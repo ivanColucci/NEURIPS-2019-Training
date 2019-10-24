@@ -2,8 +2,9 @@ from osim.env import L2M2019Env
 import numpy as np
 
 class RewardShapingEnv(L2M2019Env):
-    def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None, reward_function=None):
+    def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None, reward_function=None, old_input = True):
         self.prev_distance = 0
+        self.old_input = old_input
         if reward_function is None:
             self.reward_function = self.get_reward_1
         else:
@@ -40,34 +41,37 @@ class RewardShapingEnv(L2M2019Env):
         return 100*self.distance_reward() - self.energy_consumption_reward()/22
 
     def get_observation(self):
-        obs_dict = self.get_observation_dict()
-        res = []
+        if self.old_input:
+            return super(RewardShapingEnv, self).get_observation()
+        else:
+            obs_dict = self.get_observation_dict()
+            res = []
 
-        res.append(obs_dict['pelvis']['height'])
-        res.append(obs_dict['pelvis']['pitch'])
-        res.append(obs_dict['pelvis']['roll'])
-        res.append(obs_dict['pelvis']['vel'][0] / self.LENGTH0)
-        res.append(obs_dict['pelvis']['vel'][1] / self.LENGTH0)
-        res.append(obs_dict['pelvis']['vel'][2] / self.LENGTH0)
-        res.append(obs_dict['pelvis']['vel'][3])
-        res.append(obs_dict['pelvis']['vel'][4])
-        res.append(obs_dict['pelvis']['vel'][5])
+            res.append(obs_dict['pelvis']['height'])
+            res.append(obs_dict['pelvis']['pitch'])
+            res.append(obs_dict['pelvis']['roll'])
+            res.append(obs_dict['pelvis']['vel'][0] / self.LENGTH0)
+            res.append(obs_dict['pelvis']['vel'][1] / self.LENGTH0)
+            res.append(obs_dict['pelvis']['vel'][2] / self.LENGTH0)
+            res.append(obs_dict['pelvis']['vel'][3])
+            res.append(obs_dict['pelvis']['vel'][4])
+            res.append(obs_dict['pelvis']['vel'][5])
 
-        for leg in ['r_leg', 'l_leg']:
-            res += obs_dict[leg]['ground_reaction_forces']
-            res.append(obs_dict[leg]['joint']['hip_abd'])
-            res.append(obs_dict[leg]['joint']['hip'])
-            res.append(obs_dict[leg]['joint']['knee'])
-            res.append(obs_dict[leg]['joint']['ankle'])
-            res.append(obs_dict[leg]['d_joint']['hip_abd'])
-            res.append(obs_dict[leg]['d_joint']['hip'])
-            res.append(obs_dict[leg]['d_joint']['knee'])
-            res.append(obs_dict[leg]['d_joint']['ankle'])
-            for MUS in ['HAB', 'HAD', 'HFL', 'GLU', 'HAM', 'RF', 'VAS', 'BFSH', 'GAS', 'SOL', 'TA']:
-                res.append(obs_dict[leg][MUS]['f'])
-                res.append(obs_dict[leg][MUS]['l'])
-                res.append(obs_dict[leg][MUS]['v'])
-        return res
+            for leg in ['r_leg', 'l_leg']:
+                res += obs_dict[leg]['ground_reaction_forces']
+                res.append(obs_dict[leg]['joint']['hip_abd'])
+                res.append(obs_dict[leg]['joint']['hip'])
+                res.append(obs_dict[leg]['joint']['knee'])
+                res.append(obs_dict[leg]['joint']['ankle'])
+                res.append(obs_dict[leg]['d_joint']['hip_abd'])
+                res.append(obs_dict[leg]['d_joint']['hip'])
+                res.append(obs_dict[leg]['d_joint']['knee'])
+                res.append(obs_dict[leg]['d_joint']['ankle'])
+                for MUS in ['HAB', 'HAD', 'HFL', 'GLU', 'HAM', 'RF', 'VAS', 'BFSH', 'GAS', 'SOL', 'TA']:
+                    res.append(obs_dict[leg][MUS]['f'])
+                    res.append(obs_dict[leg][MUS]['l'])
+                    res.append(obs_dict[leg][MUS]['v'])
+            return res
         
     def standard_reward(self):
         state_desc = self.get_state_desc()
