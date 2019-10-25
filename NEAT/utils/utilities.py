@@ -1,7 +1,6 @@
 import numpy as np
 from myenv import RewardShapingEnv
 import neat
-import signal
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -26,12 +25,13 @@ class Evaluator():
     #   4 - step reward,
     #   any other value - use the reward_function passed by argument
     # old_inputs set to True to use 339 inputs (state + v_tgt), to False to use 97 inputs (only state)
-    def __init__(self, reward_type=1, reward_function=None, old_input = True, visual=False, is_a_net=False):
+    def __init__(self, reward_type=1, reward_function=None, old_input = True, visual=False, is_a_net=False, steps=500):
         self.reward_type = reward_type
         self.reward_function = reward_function
         self.old_input = old_input
         self.visual = visual
         self.is_a_net = is_a_net
+        self.steps = steps
 
     def add_action_for_3d(self, action):
         Fmax_ABD = 4460.290481
@@ -52,31 +52,23 @@ class Evaluator():
     def execute_trial(self, env, net, steps):
         final_rew = 0
         observation = env.get_observation()
-        try:
-            signal.alarm(1500)
-            for i in range(steps):
-                action = net.activate(observation)
-                action = self.add_action_for_3d(action)
-                observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-                final_rew += reward
-                if done:
-                    break
-        except Exception:
-            return 0
+        for i in range(steps):
+            action = net.activate(observation)
+            action = self.add_action_for_3d(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            final_rew += reward
+            if done:
+                break
         return final_rew
 
     def execute_trial_with_distance(self, env, net, steps):
         observation = env.get_observation()
-        try:
-            signal.alarm(1500)
-            for i in range(steps):
-                action = net.activate(observation)
-                action = self.add_action_for_3d(action)
-                observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-                if done:
-                    break
-        except Exception:
-            return 0
+        for i in range(steps):
+            action = net.activate(observation)
+            action = self.add_action_for_3d(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            if done:
+                break
         return env.get_state_desc()['body_pos']["pelvis"][0]
 
     def execute_trial_with_area(self, env, net, steps):
@@ -85,21 +77,17 @@ class Evaluator():
         pelvis_heights = []
         last_pelvis = env.get_state_desc()['body_pos']["pelvis"][0]
         pelvis_x = []
-        try:
-            signal.alarm(1500)
-            for i in range(steps):
-                action = net.activate(observation)
-                action = self.add_action_for_3d(action)
-                observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-                pelvis = env.get_state_desc()['body_pos']["pelvis"]
-                pelvis_heights.append(pelvis[1])
-                pelvis_x.append(pelvis[0] - last_pelvis)
-                last_pelvis = pelvis[0]
-                final_rew += reward
-                if done:
-                    break
-        except Exception:
-            return 0
+        for i in range(steps):
+            action = net.activate(observation)
+            action = self.add_action_for_3d(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            pelvis = env.get_state_desc()['body_pos']["pelvis"]
+            pelvis_heights.append(pelvis[1])
+            pelvis_x.append(pelvis[0] - last_pelvis)
+            last_pelvis = pelvis[0]
+            final_rew += reward
+            if done:
+                break
         area = 0
         for i in range(len(pelvis_x)):
             area += pelvis_x[i] * pelvis_heights[i]
@@ -151,38 +139,33 @@ class Evaluator():
         doing_stepr = False
         doing_stepl = False
         step_threshold = 0.02
-        try:
-            signal.alarm(1500)
-            for i in range(steps):
-                action = net.activate(observation)
-                action = self.add_action_for_3d(action)
-                observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
-                posy_r = env.get_state_desc()["body_pos"]["toes_r"][1]
-                posy_l = env.get_state_desc()["body_pos"]["toes_l"][1]
+        for i in range(steps):
+            action = net.activate(observation)
+            action = self.add_action_for_3d(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            posy_r = env.get_state_desc()["body_pos"]["toes_r"][1]
+            posy_l = env.get_state_desc()["body_pos"]["toes_l"][1]
 
-                if self.reward_type == 3:
+            if self.reward_type == 3:
+                body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
+
+            if posy_r < step_threshold and not doing_stepr:
+                doing_stepr = True
+                step_posx.append(env.get_state_desc()["body_pos"]["toes_r"][0])
+                if self.reward_type == 4:
+                    body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
+            if posy_l < step_threshold and not doing_stepl:
+                doing_stepl = True
+                step_posx.append(env.get_state_desc()["body_pos"]["toes_l"][0])
+                if self.reward_type == 4:
                     body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
 
-                if posy_r < step_threshold and not doing_stepr:
-                    doing_stepr = True
-                    step_posx.append(env.get_state_desc()["body_pos"]["toes_r"][0])
-                    if self.reward_type == 4:
-                        body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
-                if posy_l < step_threshold and not doing_stepl:
-                    doing_stepl = True
-                    step_posx.append(env.get_state_desc()["body_pos"]["toes_l"][0])
-                    if self.reward_type == 4:
-                        body_y.append(env.get_state_desc()["body_pos"]["pelvis"][1])
-
-                if doing_stepr and posy_r > step_threshold:
-                    doing_stepr = False
-                if doing_stepl and posy_l > step_threshold:
-                    doing_stepl = False
-
-                if done:
-                    break
-        except Exception:
-            return 0
+            if doing_stepr and posy_r > step_threshold:
+                doing_stepr = False
+            if doing_stepl and posy_l > step_threshold:
+                doing_stepl = False
+            if done:
+                break
         if self.reward_type == 3:
             return self.get_reward(body_y, step_posx)
         elif self.reward_type == 4:
@@ -200,13 +183,13 @@ class Evaluator():
         else:
             net = genome
         if self.reward_type == 1:
-            return self.execute_trial_with_distance(env, net, 1000)
+            return self.execute_trial_with_distance(env, net, self.steps)
         elif self.reward_type == 2:
-            return self.execute_trial_with_area(env, net, 1000)
+            return self.execute_trial_with_area(env, net, self.steps)
         elif self.reward_type == 3:
-            return self.execute_trial_step_reward(env, net, 1000)
+            return self.execute_trial_step_reward(env, net, self.steps)
         elif self.reward_type == 4:
-            return self.execute_trial_step_reward(env, net, 1000)
+            return self.execute_trial_step_reward(env, net, self.steps)
         else:
-            return self.execute_trial(env, net, 1000)
+            return self.execute_trial(env, net, self.steps)
 
