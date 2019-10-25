@@ -1,3 +1,4 @@
+import multiprocessing
 from multiprocessing import Pool
 
 
@@ -21,7 +22,7 @@ class ParallelEvaluator(object):
         for job, (ignored_genome_id, genome) in zip(jobs, genomes):
             try:
                 genome.fitness = job.get(timeout=self.timeout)
-            except TimeoutError:
+            except multiprocessing.TimeoutError:
                 genome.fitness = 0
                 with open("output.txt", "a") as fout:
                     fout.write("\ngenome_id: " + str(ignored_genome_id) + " TIMEOUT\n")
