@@ -7,9 +7,12 @@ from NEAT.my_reproduction import TournamentReproduction
 random.seed(1234)
 
 
-def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint'):
+def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint', old_input=False):
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, '../WeightAgnostic/config')
+    if old_input:
+        config_path = os.path.join(local_dir, 'Configs/config-osim')
+    else:
+        config_path = os.path.join(local_dir, '../WeightAgnostic/config')
     config = neat.Config(neat.DefaultGenome, TournamentReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
     evaluator = Evaluator(reward_type=3, visual=True, is_a_net=True, old_input=False)
     if load_from_checkpoint:
