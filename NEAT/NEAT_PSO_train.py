@@ -19,7 +19,7 @@ evaluator = Evaluator(reward_type=1, old_input=False)
 
 # constants
 n_max_gen = 30
-step_neat_gen = 20
+step_neat_gen = 50
 step_pso_gen = 50
 step_pso_pop = 15
 n_workers = None
@@ -48,7 +48,7 @@ def pso_fitness(x):
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          config_path)
 
-    return evaluator.eval_genome(genome, config)
+    return [-evaluator.eval_genome(genome, config)]
 
 
 def fitness_manager(xs):
@@ -132,6 +132,4 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
 
 
 if __name__ == '__main__':
-    local_dir = os.path.dirname(__file__)
-    config = os.path.join(local_dir, config_path)
-    run(config, rep_type='Tournament', gen_type='Default', restore_checkpoint=False)
+    run(config_path, rep_type='Tournament', gen_type='Default', restore_checkpoint=False)
