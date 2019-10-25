@@ -31,7 +31,7 @@ class SOWalkingProblem(WalkingProblem):
         area = 0
         for i in range(len(pelvis_x)):
             area += pelvis_x[i] * pelvis_heights[i]
-        return area
+        return -area
         #return final_rew
 
     def reward_hook(self, env):
