@@ -5,7 +5,7 @@ import neat
 import pickle
 from NEAT.my_reproduction import TournamentReproduction
 import numpy as np
-from NEAT.utils.utilities import eval_genome
+from NEAT.utils.utilities import Evaluator
 from WeightAgnostic.time_population import TimePopulation
 from NEAT.utils.my_checkpointer import MyCheckpointer
 
@@ -34,8 +34,9 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(MyCheckpointer())
-    pe = neat.ParallelEvaluator(n_workers, eval_genome)
+    p.add_reporter(MyCheckpointer(checkpoint_interval=50))
+    evaluator = Evaluator(reward_type=3, visual=False, is_a_net=True, old_input=False)
+    pe = neat.ParallelEvaluator(n_workers, evaluator.eval_genome)
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
     with open(out_file, 'wb') as f:
