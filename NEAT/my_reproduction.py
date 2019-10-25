@@ -176,9 +176,9 @@ class TournamentReproduction(DefaultClassConfig):
                 prev_spawn = spawn
                 num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
                 n_hidden = np.random.randint(30, 300)
-                new_config = copy.deepcopy(config)
-                new_config.num_hidden = n_hidden
-                new_genomes = self.get_new_genomes(num_stagnant_genomes, new_config)
+                # new_config = copy.deepcopy(config)
+                config.num_hidden = n_hidden
+                new_genomes = self.get_new_genomes(num_stagnant_genomes, config)
                 for gid, genome in new_genomes.items():
                     new_population[gid] = genome
                 spawn -= len(new_genomes)
@@ -230,15 +230,3 @@ class TournamentReproduction(DefaultClassConfig):
             parent2_id, parent2 = selected[:1][0]
 
         return parent1_id, parent1, parent2_id, parent2
-
-    def write_new_config(self, config_path, n_hidden):
-        with open(config_path, "r") as fe:
-            content = fe.read()
-            first = content.split("num_hidden              = ")[0]
-            second = content.split("num_hidden              = ")[1]
-            new_content = first + "num_hidden              = " + str(n_hidden) + "\n"
-            temp = second.split("\n")
-            for i in range(1, len(temp)):
-                new_content += temp[i] + "\n"
-            with open(config_path, "w") as fw:
-                fw.write(new_content)
