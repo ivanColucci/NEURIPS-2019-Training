@@ -28,7 +28,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         p = neat.Checkpointer.restore_checkpoint(checkpoint)
     else:
         p = TimePopulation(config)
-        p.allow_rigeneration(True)
+        p.allow_rigeneration(False)
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
     p.add_reporter(neat.StdOutReporter(True))

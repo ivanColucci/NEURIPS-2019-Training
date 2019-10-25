@@ -7,9 +7,12 @@ from NEAT.my_reproduction import TournamentReproduction
 random.seed(1234)
 
 
-def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint'):
+def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint', old_input=False):
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'Configs/config-osim')
+    if old_input:
+        config_path = os.path.join(local_dir, 'Configs/config-osim')
+    else:
+        config_path = os.path.join(local_dir, '../WeightAgnostic/config')
     config = neat.Config(neat.DefaultGenome, TournamentReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
 
     if load_from_checkpoint:
@@ -22,9 +25,9 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
         with open(source, 'rb') as f:
             winner = pickle.load(f)
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
-    result = eval_genome(winner_net, config, visual=True, is_a_net=True)
+    result = eval_genome(winner_net, config, visual=True, is_a_net=True, old_input=old_input)
     print(result)
 
 if __name__ == '__main__':
-    test(source='../winner_genome', load_from_checkpoint=False)
+    test(source='../winner_checkpoint_70', load_from_checkpoint=False, old_input=False)
     # test(source='winner_genome_distance', load_from_checkpoint=True, checkpoint='neat-checkpoint-232')

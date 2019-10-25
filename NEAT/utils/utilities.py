@@ -145,10 +145,10 @@ def execute_trial_step_reward(env, net, steps):
     return get_reward_h(body_y, step_posx)
 
 
-def eval_genome(genome, config, visual=False, is_a_net=False):
-    env = RewardShapingEnv(visualize=visual, seed=1234, difficulty=2)
+def eval_genome(genome, config, visual=False, is_a_net=False, old_input=False):
+    env = RewardShapingEnv(visualize=visual, seed=1234, difficulty=2, old_input=old_input)
     env.change_model(model='2D', difficulty=2, seed=1234)
-    env.set_reward_function(env.standard_reward)
+    env.set_reward_function(env.keep_alive_reward)
     env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
     if not is_a_net:
         net = neat.nn.FeedForwardNetwork.create(genome, config)
