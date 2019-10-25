@@ -32,7 +32,8 @@ class MyGlobalBestPSO(GlobalBestPSO):
         self.vh.memory = self.swarm.position
 
         # Setup Pool of processes for parallel evaluation
-        pool = None if n_processes is None else mp.Pool(n_processes)
+        # pool = None if n_processes is None else mp.Pool(n_processes)
+        pool = mp.Pool(n_processes)
         self.swarm.pbest_cost = np.full(self.swarm_size[0], np.inf)
         for i in self.rep.pbar(iters, self.name):
             last_time = time.time()
