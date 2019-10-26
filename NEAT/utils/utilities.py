@@ -193,3 +193,7 @@ class Evaluator():
         else:
             return self.execute_trial(env, net, self.steps)
 
+def print_file(str):
+    with open("output.txt", "a") as fout:
+        fout.write(str)
+
