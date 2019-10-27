@@ -1,6 +1,7 @@
 import numpy as np
 from myenv import RewardShapingEnv
 import neat
+from MONEAT.fitness_obj import FitnessObj
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -171,6 +172,20 @@ class Evaluator():
         elif self.reward_type == 4:
             return self.get_reward_h(body_y, step_posx)
 
+    def multi_objective_trial(self, env, net, steps):
+        energy = 0
+        observation = env.get_observation()
+        for i in range(steps):
+            action = net.activate(observation)
+            action = self.add_action_for_3d(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            state_desc = env.get_state_desc()
+            for muscle in sorted(state_desc['muscles'].keys()):
+                energy += np.square(state_desc['muscles'][muscle]['activation'])
+            if done:
+                break
+        return FitnessObj(distance=env.get_state_desc()['body_pos']["pelvis"][0], energy=energy)
+
     def eval_genome(self, genome, config):
         env = RewardShapingEnv(visualize=self.visual, seed=1234, difficulty=2, old_input=self.old_input)
         env.change_model(model='2D', difficulty=2, seed=1234)
@@ -190,6 +205,8 @@ class Evaluator():
             return self.execute_trial_step_reward(env, net, self.steps)
         elif self.reward_type == 4:
             return self.execute_trial_step_reward(env, net, self.steps)
+        elif self.reward_type == 5:
+            return self.multi_objective_trial(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
 
