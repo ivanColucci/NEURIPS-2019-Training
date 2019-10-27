@@ -20,11 +20,15 @@ def to_arrays(vector):
 
 def mean_vector(vector):
     d, e = to_arrays(vector)
-    return (np.mean(d), np.mean(e))
+    return FitnessObj(np.mean(d), np.mean(e))
 
 def std_vector(vector):
     d, e = to_arrays(vector)
-    return (np.std(d), np.std(e))
+    return FitnessObj(np.std(d), np.std(e))
+
+def sum_vector(vector):
+    d, e = to_arrays(vector)
+    return FitnessObj(np.sum(d), np.sum(e))
 
 class MOPSO(GlobalBestPSO):
     def set_reporter_name(self, name):
