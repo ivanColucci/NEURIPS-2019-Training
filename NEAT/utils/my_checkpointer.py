@@ -5,6 +5,8 @@ import gzip
 import random
 import time
 
+from WeightAgnostic.time_population import TimePopulation
+
 try:
     import cPickle as pickle # pylint: disable=import-error
 except ImportError:
@@ -61,4 +63,4 @@ class MyCheckpointer(BaseReporter):
         with gzip.open(filename) as f:
             generation, config, population, species_set, rndstate = pickle.load(f)
             random.setstate(rndstate)
-            return Population(config, (population, species_set, generation))
+            return TimePopulation(config, (population, species_set, generation))

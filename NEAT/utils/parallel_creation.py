@@ -1,4 +1,5 @@
 from multiprocessing import Pool
+from NEAT.utils.utilities import print_file
 
 
 def default_create_function(reproduction, key, genome_type, genome_config):
@@ -12,7 +13,7 @@ class ParallelCreator(object):
         self.num_genomes = num_genomes
         self.create_function = create_function
         self.timeout = timeout
-        self.pool = Pool(num_genomes)
+        self.pool = Pool(None)
 
     def __del__(self):
         self.pool.close() # should this be terminate?
@@ -23,8 +24,10 @@ class ParallelCreator(object):
         keys = []
         new_genomes = {}
 
+        print_file("\n")
         for i in range(self.num_genomes):
-            keys.append(next(reproduction.genome_indexer))
+            k = next(reproduction.genome_indexer)
+            keys.append(k)
 
         for i in range(self.num_genomes):
             jobs.append(self.pool.apply_async(self.create_function, (reproduction, keys[i], genome_type, genome_config)))

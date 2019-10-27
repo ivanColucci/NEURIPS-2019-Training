@@ -79,7 +79,9 @@ class Evaluator():
         last_pelvis = env.get_state_desc()['body_pos']["pelvis"][0]
         pelvis_x = []
         for i in range(steps):
+            print_file(str(observation) + "\n", "obs.txt")
             action = net.activate(observation)
+            print_file(str(action) + "\n", "act.txt")
             action = self.add_action_for_3d(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             pelvis = env.get_state_desc()['body_pos']["pelvis"]
@@ -209,4 +211,8 @@ class Evaluator():
             return self.multi_objective_trial(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
+
+def print_file(str, file="output.txt"):
+    with open(file, "a") as fout:
+        fout.write(str)
 

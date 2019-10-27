@@ -8,6 +8,7 @@ from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 from NEAT.utils.parallel_creation import ParallelCreator
+from NEAT.utils.utilities import print_file
 import copy
 
 class TournamentReproduction(DefaultClassConfig):
@@ -174,18 +175,17 @@ class TournamentReproduction(DefaultClassConfig):
                     and ((generation - self.last_rigeneration) >= self.stagnation.stagnation_config.max_stagnation):
                 self.last_rigeneration = generation
                 prev_spawn = spawn
-                num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
-                n_hidden = np.random.randint(30, 300)
-                # new_config = copy.deepcopy(config)
-                config.num_hidden = n_hidden
+                num_stagnant_genomes = np.min(spawn)
+                prev_hidden = config.genome_config.num_hidden
+                n_hidden = np.random.randint(prev_hidden+1, 2*prev_hidden)
+                config.genome_config.num_hidden = n_hidden
                 new_genomes = self.get_new_genomes(num_stagnant_genomes, config)
                 for gid, genome in new_genomes.items():
                     new_population[gid] = genome
                 spawn -= len(new_genomes)
-                with open("output.txt", "a") as o:
-                    o.write("\nprev spawn: " + str(prev_spawn) + "\n")
-                    o.write("adding: " + str(len(new_genomes)) + " genomes" + "\n")
-                    o.write("new spawn: " + str(spawn) + "\n")
+                print_file("\nprev spawn: " + str(prev_spawn) + "\n")
+                print_file("adding: " + str(len(new_genomes)) + " genomes" + "\n")
+                print_file("new spawn: " + str(spawn) + "\n")
 
 
             # Randomly choose parents and produce the number of offspring allotted to the species.

@@ -8,6 +8,7 @@ import numpy as np
 from NEAT.utils.utilities import Evaluator
 from WeightAgnostic.time_population import TimePopulation
 from NEAT.utils.my_checkpointer import MyCheckpointer
+from WeightAgnostic.parallel_timeout import ParallelEvaluator
 
 # randomness
 random.seed(1234)
@@ -35,8 +36,12 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(MyCheckpointer(checkpoint_interval=50))
+    #   1 - distance metric
+    #   2 - area metric
+    #   3 - step reward with a bonus for staying with the pelvis between 0.84 and 0.94
+    #   4 - step reward
     evaluator = Evaluator(reward_type=1, old_input=False)
-    pe = neat.ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=300)
+    pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=300)
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
     with open(out_file, 'wb') as f:
