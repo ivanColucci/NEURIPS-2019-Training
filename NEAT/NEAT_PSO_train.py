@@ -18,12 +18,13 @@ np.random.seed(1234)
 evaluator = Evaluator(reward_type=1, old_input=False)
 
 # constants
-n_max_gen = 30
+n_max_gen = 20
 step_neat_gen = 50
 step_pso_gen = 50
 step_pso_pop = 15
 n_workers = None
-config_path = 'NEAT/Configs/config-osim_config0'
+local_dir = os.path.dirname(__file__)
+config_path = os.path.join(local_dir, 'config-osim_config0')
 bound_weight = 3
 
 
@@ -91,7 +92,7 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
         p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-35')
     else:
         p = pop_class(config)
-    name_run = "output_25_10_config0.txt"
+    name_run = "output.txt"
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, name_run))
@@ -127,7 +128,7 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
             p.population[p.best_genome.key] = insert_weights(pos, p.population[p.best_genome.key])
 
     # Save the winner
-    with open('winner_genome_25_10', 'wb') as f:
+    with open('winner_genome', 'wb') as f:
         pickle.dump(winner, f)
 
 

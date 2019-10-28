@@ -44,7 +44,7 @@ class TournamentReproduction(DefaultClassConfig):
         #     self.ancestors[key] = tuple()
         return new_genomes
 
-    def create_new_parallel(self, genome_type, genome_config, num_genomes):
+    def create_new_parallel(self, genome_type, genome_config, num_genomes, random_hidden=False):
         pc = ParallelCreator(num_genomes)
         new_genomes = pc.create_new(self, genome_type, genome_config)
         return new_genomes
@@ -110,8 +110,7 @@ class TournamentReproduction(DefaultClassConfig):
         # species adjusted fitness computation.
         min_fitness = min(all_fitnesses)
         max_fitness = max(all_fitnesses)
-        # Do not allow the fitness range to be zero, as we divide by it below.
-        # TODO: The ``1.0`` below is rather arbitrary, and should be configurable.
+
         fitness_range = max(1.0, max_fitness - min_fitness)
         for afs in remaining_species:
             # Compute adjusted fitness.
@@ -126,9 +125,6 @@ class TournamentReproduction(DefaultClassConfig):
         # Compute the number of new members for each species in the new generation.
         previous_sizes = [len(s.members) for s in remaining_species]
         min_species_size = self.reproduction_config.min_species_size
-        # Isn't the effective min_species_size going to be max(min_species_size,
-        # self.reproduction_config.elitism)? That would probably produce more accurate tracking
-        # of population sizes and relative fitnesses... doing. TODO: document.
         min_species_size = max(min_species_size,self.reproduction_config.elitism)
 
         spawn_amounts = self.compute_spawn(adjusted_fitnesses, previous_sizes,
@@ -175,11 +171,8 @@ class TournamentReproduction(DefaultClassConfig):
                     and ((generation - self.last_rigeneration) >= self.stagnation.stagnation_config.max_stagnation):
                 self.last_rigeneration = generation
                 prev_spawn = spawn
-                num_stagnant_genomes = np.min(spawn)
-                prev_hidden = config.genome_config.num_hidden
-                n_hidden = np.random.randint(prev_hidden+1, 2*prev_hidden)
-                config.genome_config.num_hidden = n_hidden
-                new_genomes = self.get_new_genomes(num_stagnant_genomes, config)
+                num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
+                new_genomes = self.get_new_genomes(num_stagnant_genomes, config, random_for_all=True)
                 for gid, genome in new_genomes.items():
                     new_population[gid] = genome
                 spawn -= len(new_genomes)
@@ -187,13 +180,12 @@ class TournamentReproduction(DefaultClassConfig):
                 print_file("adding: " + str(len(new_genomes)) + " genomes" + "\n")
                 print_file("new spawn: " + str(spawn) + "\n")
 
-
-            # Randomly choose parents and produce the number of offspring allotted to the species.
+            tournament_threshold = 0.2
             while spawn > 0:
                 spawn -= 1
 
                 if len(old_members) >= 2:
-                    parent1_id, parent1, parent2_id, parent2 = self.tournament(old_members)
+                    parent1_id, parent1, parent2_id, parent2 = self.tournament(old_members, tournament_threshold)
                 else:
                     parent1_id, parent1 = random.choice(old_members)
                     parent2_id, parent2 = random.choice(old_members)
@@ -209,16 +201,22 @@ class TournamentReproduction(DefaultClassConfig):
 
         return new_population
 
-    def get_new_genomes(self, num_stagnant_genomes, config):
+    def get_new_genomes(self, num_stagnant_genomes, config, random_for_all=True):
         threshold = 0.3
         num_of_new_genomes = int(math.ceil(threshold * num_stagnant_genomes))
-        new_genomes = self.create_new(config.genome_type, config.genome_config, num_of_new_genomes)
+
+        if not random_for_all:
+            prev_hidden = config.genome_config.num_hidden
+            n_hidden = np.random.randint(prev_hidden + 1, 2 * prev_hidden)
+            config.genome_config.num_hidden = n_hidden
+
+        new_genomes = self.create_new_parallel(config.genome_type, config.genome_config, num_of_new_genomes, random_hidden=random_for_all)
         return new_genomes
 
-    def tournament(self, members):
+    def tournament(self, members, tournament_threshold):
         "riceve il survival_threshold % della popolazione, restituisce 2 parent"
         spec_size = len(members)
-        num_of_element = round(0.5*spec_size) # 10%
+        num_of_element = round(tournament_threshold*spec_size)
         selected = random.sample(members, k=num_of_element)
         selected.sort(reverse=True, key=lambda x: x[1].fitness)
         parent1_id, parent1 = selected[:1][0]
