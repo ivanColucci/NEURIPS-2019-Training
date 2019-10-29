@@ -21,7 +21,7 @@ evaluator = Evaluator(reward_type=1, old_input=False)
 n_max_gen = 20
 step_neat_gen = 50
 step_pso_gen = 50
-step_pso_pop = 15
+step_pso_pop = 32
 n_workers = None
 local_dir = os.path.dirname(__file__)
 config_path = os.path.join(local_dir, 'config-osim_config0')
