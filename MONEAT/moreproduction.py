@@ -232,7 +232,7 @@ class MOReproduction(DefaultClassConfig):
     def tournament(self, members):
         "riceve il survival_threshold % della popolazione, restituisce 2 parent"
         spec_size = len(members)
-        num_of_element = round(0.2*spec_size)
+        num_of_element = max(2, round(0.2*spec_size))
         selected = random.sample(members, k=num_of_element)
         selected.sort(reverse=True, key=lambda x: x[1].fitness)
         parent1_id, parent1 = selected[:1][0]

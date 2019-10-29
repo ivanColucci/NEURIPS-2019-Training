@@ -204,7 +204,7 @@ class TournamentReproduction(DefaultClassConfig):
     def tournament(self, members, tournament_threshold):
         "riceve il survival_threshold % della popolazione, restituisce 2 parent"
         spec_size = len(members)
-        num_of_element = round(tournament_threshold*spec_size)
+        num_of_element = max(2, round(tournament_threshold*spec_size))
         selected = random.sample(members, k=num_of_element)
         selected.sort(reverse=True, key=lambda x: x[1].fitness)
         parent1_id, parent1 = selected[:1][0]
