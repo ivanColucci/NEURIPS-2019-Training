@@ -38,6 +38,7 @@ class TournamentReproduction(DefaultClassConfig):
     def create_new_parallel(self, genome_type, genome_config, num_genomes, random_hidden=False):
         pc = ParallelCreator(num_genomes, random_hidden=random_hidden)
         new_genomes = pc.create_new(self, genome_type, genome_config)
+        del pc
         return new_genomes
 
     @staticmethod
