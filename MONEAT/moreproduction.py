@@ -189,7 +189,7 @@ class MOReproduction(DefaultClassConfig):
                     and ((generation - self.last_rigeneration) >= self.stagnation.stagnation_config.max_stagnation):
                 self.last_rigeneration = generation
                 prev_spawn = spawn
-                num_stagnant_genomes = np.min(spawn)
+                num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
                 prev_hidden = config.genome_config.num_hidden
                 n_hidden = np.random.randint(prev_hidden + 1, 2 * prev_hidden)
                 config.genome_config.num_hidden = n_hidden
@@ -232,7 +232,7 @@ class MOReproduction(DefaultClassConfig):
     def tournament(self, members):
         "riceve il survival_threshold % della popolazione, restituisce 2 parent"
         spec_size = len(members)
-        num_of_element = round(0.5*spec_size) # 10%
+        num_of_element = round(0.2*spec_size)
         selected = random.sample(members, k=num_of_element)
         selected.sort(reverse=True, key=lambda x: x[1].fitness)
         parent1_id, parent1 = selected[:1][0]

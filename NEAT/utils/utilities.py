@@ -79,9 +79,7 @@ class Evaluator():
         last_pelvis = env.get_state_desc()['body_pos']["pelvis"][0]
         pelvis_x = []
         for i in range(steps):
-            print_file(str(observation) + "\n", "obs.txt")
             action = net.activate(observation)
-            print_file(str(action) + "\n", "act.txt")
             action = self.add_action_for_3d(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             pelvis = env.get_state_desc()['body_pos']["pelvis"]

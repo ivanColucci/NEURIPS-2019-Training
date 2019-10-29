@@ -53,4 +53,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint'):
     run(config_path, restore_checkpoint=restore_checkpoint, out_file=out_file, checkpoint=checkpoint)
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=True, checkpoint='neat-checkpoint-999')
+    start('winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint-999')

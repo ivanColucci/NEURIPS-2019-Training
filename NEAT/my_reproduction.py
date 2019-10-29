@@ -9,7 +9,6 @@ from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 from NEAT.utils.parallel_creation import ParallelCreator
 from NEAT.utils.utilities import print_file
-import copy
 
 class TournamentReproduction(DefaultClassConfig):
 
@@ -21,7 +20,6 @@ class TournamentReproduction(DefaultClassConfig):
                                    ConfigParameter('min_species_size', int, 2)])
 
     def __init__(self, config, reporters, stagnation, rigeneration=False):
-        # pylint: disable=super-init-not-called
         self.reproduction_config = config
         self.reporters = reporters
         self.genome_indexer = count(1)
@@ -35,17 +33,10 @@ class TournamentReproduction(DefaultClassConfig):
 
     def create_new(self, genome_type, genome_config, num_genomes):
         new_genomes = self.create_new_parallel(genome_type, genome_config, num_genomes)
-        # new_genomes = {}
-        # for i in range(num_genomes):
-        #     key = next(self.genome_indexer)
-        #     g = genome_type(key)
-        #     g.configure_new(genome_config)
-        #     new_genomes[key] = g
-        #     self.ancestors[key] = tuple()
         return new_genomes
 
     def create_new_parallel(self, genome_type, genome_config, num_genomes, random_hidden=False):
-        pc = ParallelCreator(num_genomes)
+        pc = ParallelCreator(num_genomes, random_hidden=random_hidden)
         new_genomes = pc.create_new(self, genome_type, genome_config)
         return new_genomes
 
@@ -82,11 +73,6 @@ class TournamentReproduction(DefaultClassConfig):
         return spawn_amounts
 
     def reproduce(self, config, species, pop_size, generation):
-        # Filter out stagnated species, collect the set of non-stagnated
-        # species members, and compute their average adjusted fitness.
-        # The average adjusted fitness scheme (normalized to the interval
-        # [0, 1]) allows the use of negative fitness values without
-        # interfering with the shared fitness scheme.
         all_fitnesses = []
         remaining_species = []
         num_stagnant_genomes = 0
@@ -158,7 +144,6 @@ class TournamentReproduction(DefaultClassConfig):
             repro_cutoff = int(math.ceil(self.reproduction_config.survival_threshold *
                                          len(old_members)))
 
-            # print("Membri totali: ", len(old_members), "\nMembri conservati interamente: ", len(new_population), "\nMembri sottoposti a crossover e mutazione: ", repro_cutoff)
             # Use at least two parents no matter what the threshold fraction result is.
             repro_cutoff = max(repro_cutoff, 2)
             old_members = old_members[:repro_cutoff]
@@ -166,9 +151,9 @@ class TournamentReproduction(DefaultClassConfig):
             # spawn = Pop_size - elit.
             # Pop_size - num_stagnant_genomes == evoluzione
             # num_stagnant_genomes == da rimpiazzare con genomi freschi
-            if self.rigeneration \
-                    and num_stagnant_genomes > 0 \
+            if self.rigeneration and num_stagnant_genomes > 0 \
                     and ((generation - self.last_rigeneration) >= self.stagnation.stagnation_config.max_stagnation):
+
                 self.last_rigeneration = generation
                 prev_spawn = spawn
                 num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
@@ -194,7 +179,9 @@ class TournamentReproduction(DefaultClassConfig):
                 # genetically identical clone of the parent (but with a different ID).
                 gid = next(self.genome_indexer)
                 child = config.genome_type(gid)
+                # print_file("p1 nodes: " + str(len(parent1.nodes)) + " p2 nodes: " + str(len(parent2.nodes)) + " ", file="prova.txt")
                 child.configure_crossover(parent1, parent2, config.genome_config)
+                # print_file("child nodes: " + str(len(child.nodes)) + "\n", file="prova.txt")
                 child.mutate(config.genome_config)
                 new_population[gid] = child
                 self.ancestors[gid] = (parent1_id, parent2_id)
