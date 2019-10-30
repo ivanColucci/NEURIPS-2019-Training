@@ -72,7 +72,7 @@ def get_bounds(num_of_weights):
 
 
 def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoint=False):
-
+    last_best_pso_cost = 0
     # Load configuration.
     if rep_type == 'Tournament':
         rep_class = TournamentReproduction
@@ -109,26 +109,27 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
     for i in range(n_max_gen):
         winner = p.run(pe.evaluate, step_neat_gen)
 
-        with open('last_winner', 'wb') as f:
-            pickle.dump(winner, f)
-        best_genome_weight = []
-        genome_key_set = []
-        for key_id in winner.connections.keys():
-            genome_key_set.append(key_id)
-            best_genome_weight.append(winner.connections[key_id].weight)
+        if last_best_pso_cost < winner.fitness:
+            with open('last_winner', 'wb') as f:
+                pickle.dump(winner, f)
+            best_genome_weight = []
+            genome_key_set = []
+            for key_id in winner.connections.keys():
+                genome_key_set.append(key_id)
+                best_genome_weight.append(winner.connections[key_id].weight)
 
-        fitness = fitness_manager
-        dimension = len(best_genome_weight)
-        bounds = get_bounds(dimension)
+            fitness = fitness_manager
+            dimension = len(best_genome_weight)
+            bounds = get_bounds(dimension)
 
-        options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
-        optimizer = MyGlobalBestPSO(n_particles=step_pso_pop, dimensions=dimension, options=options, bounds=bounds)
-        optimizer.set_reporter_name(name_run)
-        optimizer.swarm.position[0] = best_genome_weight
-        cost, pos = optimizer.optimize(fitness, iters=step_pso_gen)
-        print(cost, p.best_genome.fitness)
-        if -cost > p.best_genome.fitness:
-            p.population[p.best_genome.key] = insert_weights(pos, p.population[p.best_genome.key])
+            options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9, 'k': 2, 'p': 2}
+            optimizer = MyGlobalBestPSO(n_particles=step_pso_pop, dimensions=dimension, options=options, bounds=bounds)
+            optimizer.set_reporter_name(name_run)
+            optimizer.swarm.position[0] = best_genome_weight
+            cost, pos = optimizer.optimize(fitness, iters=step_pso_gen)
+            last_best_pso_cost = -cost
+            if -cost > p.best_genome.fitness:
+                p.population[p.best_genome.key] = insert_weights(pos, p.population[p.best_genome.key])
 
     # Save the winner
     with open('winner_genome', 'wb') as f:
