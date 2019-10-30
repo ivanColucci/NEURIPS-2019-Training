@@ -28,7 +28,7 @@ class Evaluator():
     #   4 - step reward,
     #   any other value - use the reward_function passed by argument
     # old_inputs set to True to use 339 inputs (state + v_tgt), to False to use 97 inputs (only state)
-    def __init__(self, reward_type=1, save_simulation=False, load_simulation=False,
+    def __init__(self, reward_type=1, save_simulation=False, load_simulation=False, file_to_load="actions",
                  reward_function=None, old_input=True, visual=False, is_a_net=False, steps=500):
         self.reward_type = reward_type
         self.reward_function = reward_function
@@ -38,9 +38,10 @@ class Evaluator():
         self.steps = steps
         self.load_simulation = load_simulation
         self.save_simulation = save_simulation
+        self.file_name = file_to_load
         if self.load_simulation:
             local_dir = os.path.dirname(__file__)
-            with open(os.path.join(local_dir, 'actions'), 'rb') as f:
+            with open(os.path.join(local_dir, self.file_name), 'rb') as f:
                 self.action_arr = pickle.load(f)
 
     @staticmethod
@@ -79,7 +80,7 @@ class Evaluator():
             if done:
                 break
         if self.save_simulation:
-            with open("actions", 'wb') as f:
+            with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
         return final_rew
 
@@ -98,7 +99,7 @@ class Evaluator():
             if done:
                 break
         if self.save_simulation:
-            with open("actions", 'wb') as f:
+            with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
         return env.get_state_desc()['body_pos']["pelvis"][0]
 
@@ -124,7 +125,7 @@ class Evaluator():
             if done:
                 break
         if self.save_simulation:
-            with open("actions", 'wb') as f:
+            with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
         return last_distance + in_range_rew/10
 
@@ -155,7 +156,7 @@ class Evaluator():
         for i in range(len(pelvis_x)):
             area += pelvis_x[i] * pelvis_heights[i]
         if self.save_simulation:
-            with open("actions", 'wb') as f:
+            with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
         return area
 
@@ -240,7 +241,7 @@ class Evaluator():
             if done:
                 break
         if self.save_simulation:
-            with open("actions", 'wb') as f:
+            with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
         if self.reward_type == 3:
             return self.get_reward(body_y, step_posx)
@@ -266,7 +267,7 @@ class Evaluator():
             if done:
                 break
         if self.save_simulation:
-            with open("actions", 'wb') as f:
+            with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
         return FitnessObj(distance=env.get_state_desc()['body_pos']["pelvis"][0], energy=energy)
 

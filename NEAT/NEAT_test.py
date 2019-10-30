@@ -19,7 +19,8 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
     else:
         config_path = os.path.join(local_dir, '../WeightAgnostic/config')
     config = neat.Config(neat.DefaultGenome, TournamentReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
-    evaluator = Evaluator(reward_type=2, visual=True, is_a_net=True, old_input=False)
+    evaluator = Evaluator(reward_type=2, visual=True, is_a_net=True, old_input=False,
+                          load_simulation=True, save_simulation=False, file_to_load="actions")
     if load_from_checkpoint:
         p = MyCheckpointer.restore_checkpoint(checkpoint)
         print(p.best_genome)
