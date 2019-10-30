@@ -32,8 +32,8 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
             winner = pickle.load(f)
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
     result = evaluator.eval_genome(winner_net, config)
-    print(result)
+    print("valore di fitness:", result)
 
 if __name__ == '__main__':
-    test(source='../winner_checkpoint_550', load_from_checkpoint=False, checkpoint='../neat-checkpoint-99')
+    test(source='../winner_genome', load_from_checkpoint=False, checkpoint='../neat-checkpoint-99')
     # test(source='winner_genome_distance', load_from_checkpoint=True, checkpoint='neat-checkpoint-232')

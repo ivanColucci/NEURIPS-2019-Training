@@ -2,6 +2,8 @@ import numpy as np
 from myenv import RewardShapingEnv
 import neat
 from MONEAT.fitness_obj import FitnessObj
+import pickle
+import os
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -26,15 +28,23 @@ class Evaluator():
     #   4 - step reward,
     #   any other value - use the reward_function passed by argument
     # old_inputs set to True to use 339 inputs (state + v_tgt), to False to use 97 inputs (only state)
-    def __init__(self, reward_type=1, reward_function=None, old_input = True, visual=False, is_a_net=False, steps=500):
+    def __init__(self, reward_type=1, save_simulation=False, load_simulation=False,
+                 reward_function=None, old_input=True, visual=False, is_a_net=False, steps=500):
         self.reward_type = reward_type
         self.reward_function = reward_function
         self.old_input = old_input
         self.visual = visual
         self.is_a_net = is_a_net
         self.steps = steps
+        self.load_simulation = load_simulation
+        self.save_simulation = save_simulation
+        if self.load_simulation:
+            local_dir = os.path.dirname(__file__)
+            with open(os.path.join(local_dir, 'actions'), 'rb') as f:
+                self.action_arr = pickle.load(f)
 
-    def add_action_for_3d(self, action):
+    @staticmethod
+    def add_action_for_3d(action):
         Fmax_ABD = 4460.290481
         Fmax_ADD = 3931.8
         r_leg, l_leg = action[:9], action[9:]
@@ -49,38 +59,90 @@ class Evaluator():
             full_action.append(el)
         return full_action
 
+    def load_next_action(self, i):
+        return self.action_arr[i]
 
     def execute_trial(self, env, net, steps):
         final_rew = 0
+        action_arr = []
         observation = env.get_observation()
         for i in range(steps):
-            action = net.activate(observation)
-            action = self.add_action_for_3d(action)
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             final_rew += reward
             if done:
                 break
+        if self.save_simulation:
+            with open("actions", 'wb') as f:
+                pickle.dump(action_arr, f)
         return final_rew
 
     def execute_trial_with_distance(self, env, net, steps):
         observation = env.get_observation()
+        action_arr = []
         for i in range(steps):
-            action = net.activate(observation)
-            action = self.add_action_for_3d(action)
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             if done:
                 break
+        if self.save_simulation:
+            with open("actions", 'wb') as f:
+                pickle.dump(action_arr, f)
         return env.get_state_desc()['body_pos']["pelvis"][0]
+
+    def execute_trial_with_body_in_range_distance(self, env, net, steps):
+        observation = env.get_observation()
+        action_arr = []
+        last_distance = 0.0
+        in_range_rew = 0.0
+        for i in range(steps):
+            body = env.get_state_desc()['body_pos']
+            h = body['pelvis'][1]
+            if 0.8 < h < 0.95:
+                in_range_rew += 1.0
+                last_distance = body['pelvis'][0]
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            if done:
+                break
+        if self.save_simulation:
+            with open("actions", 'wb') as f:
+                pickle.dump(action_arr, f)
+        return last_distance + in_range_rew/10
 
     def execute_trial_with_area(self, env, net, steps):
         final_rew = 0
         observation = env.get_observation()
+        action_arr = []
         pelvis_heights = []
         last_pelvis = env.get_state_desc()['body_pos']["pelvis"][0]
         pelvis_x = []
         for i in range(steps):
-            action = net.activate(observation)
-            action = self.add_action_for_3d(action)
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             pelvis = env.get_state_desc()['body_pos']["pelvis"]
             pelvis_heights.append(pelvis[1])
@@ -92,9 +154,13 @@ class Evaluator():
         area = 0
         for i in range(len(pelvis_x)):
             area += pelvis_x[i] * pelvis_heights[i]
+        if self.save_simulation:
+            with open("actions", 'wb') as f:
+                pickle.dump(action_arr, f)
         return area
 
-    def get_reward(self, body_y, step_posx):
+    @staticmethod
+    def get_reward(body_y, step_posx):
         dim = len(step_posx)
         total_rew = 0
         for h in body_y:
@@ -112,7 +178,8 @@ class Evaluator():
         total_rew += 100 * np.sum(rew)
         return total_rew
 
-    def get_reward_h(self, body_y, step_posx):
+    @staticmethod
+    def get_reward_h(body_y, step_posx):
         dim = len(step_posx)
         positions = []
         total_rew = 0
@@ -132,17 +199,22 @@ class Evaluator():
             total_rew += alfa * (0.7 - np.clip(np.abs(step_posx[i] - positions[i]), a_min=0.0, a_max=0.7))
         return total_rew
 
-
     def execute_trial_step_reward(self, env, net, steps):
         observation = env.get_observation()
         body_y = []
         step_posx = []
+        action_arr = []
         doing_stepr = False
         doing_stepl = False
         step_threshold = 0.02
         for i in range(steps):
-            action = net.activate(observation)
-            action = self.add_action_for_3d(action)
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             posy_r = env.get_state_desc()["body_pos"]["toes_r"][1]
             posy_l = env.get_state_desc()["body_pos"]["toes_l"][1]
@@ -167,6 +239,9 @@ class Evaluator():
                 doing_stepl = False
             if done:
                 break
+        if self.save_simulation:
+            with open("actions", 'wb') as f:
+                pickle.dump(action_arr, f)
         if self.reward_type == 3:
             return self.get_reward(body_y, step_posx)
         elif self.reward_type == 4:
@@ -175,15 +250,24 @@ class Evaluator():
     def multi_objective_trial(self, env, net, steps):
         energy = 0
         observation = env.get_observation()
+        action_arr = []
         for i in range(steps):
-            action = net.activate(observation)
-            action = self.add_action_for_3d(action)
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             state_desc = env.get_state_desc()
             for muscle in sorted(state_desc['muscles'].keys()):
                 energy += np.square(state_desc['muscles'][muscle]['activation'])
             if done:
                 break
+        if self.save_simulation:
+            with open("actions", 'wb') as f:
+                pickle.dump(action_arr, f)
         return FitnessObj(distance=env.get_state_desc()['body_pos']["pelvis"][0], energy=energy)
 
     def eval_genome(self, genome, config):
@@ -207,8 +291,13 @@ class Evaluator():
             return self.execute_trial_step_reward(env, net, self.steps)
         elif self.reward_type == 5:
             return self.multi_objective_trial(env, net, self.steps)
+        elif self.reward_type == 6:
+            return self.execute_trial_with_body_in_range_distance(env, net, self.steps)
+        elif self.reward_type == 7:
+            return self.execute_trial_load_sequence(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
+
 
 def print_file(str, file="output.txt"):
     with open(file, "a") as fout:

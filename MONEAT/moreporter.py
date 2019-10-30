@@ -66,8 +66,14 @@ class MOReporter(BaseReporter):
             fit_mean = mean(fitnesses)
             fit_std = stdev(fitnesses)
         elif type(fitnesses[0]) is FitnessObj:
-            fit_mean = mean_vector(fitnesses)
-            fit_std = std_vector(fitnesses)
+            try:
+                fit_mean = mean_vector(fitnesses)
+            except AttributeError:
+                fit_mean = 0
+            try:
+                fit_std = std_vector(fitnesses)
+            except AttributeError:
+                fit_std = 0
         best_species_id = species.get_species_id(best_genome.key)
         print('Population\'s average fitness: {0:3.5f} stdev: {1:3.5f}'.format(fit_mean, fit_std))
         print(
