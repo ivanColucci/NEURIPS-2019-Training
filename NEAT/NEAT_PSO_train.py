@@ -13,6 +13,8 @@ from PSO.algorithms.my_global_best_PSO import MyGlobalBestPSO
 from NEAT.my_genome import MyGenome
 from NEAT.my_population import MyPopulation
 from NEAT.utils.utilities import Evaluator
+from WeightAgnostic.time_population import TimePopulation
+
 random.seed(1234)
 np.random.seed(1234)
 evaluator = Evaluator(reward_type=1, old_input=False)
@@ -78,7 +80,7 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
         rep_class = neat.DefaultReproduction
     if gen_type == 'Default':
         gen_class = neat.DefaultGenome
-        pop_class = neat.Population
+        pop_class = TimePopulation
     else:
         gen_class = MyGenome
         pop_class = MyPopulation
@@ -92,6 +94,7 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
         p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-35')
     else:
         p = pop_class(config)
+        p.allow_rigeneration(False)
     name_run = "output.txt"
 
     # Add a stdout reporter to show progress in the terminal.

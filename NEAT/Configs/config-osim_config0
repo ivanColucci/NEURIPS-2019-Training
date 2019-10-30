@@ -42,11 +42,11 @@ feed_forward            = True
 initial_connection      = full_nodirect
 
 # node add/remove rates
-node_add_prob           = 0.8
+node_add_prob           = 0.7
 node_delete_prob        = 0.2
 
 # network parameters
-num_hidden              = 100
+num_hidden              = 150
 num_inputs              = 97
 num_outputs             = 18
 
@@ -69,7 +69,7 @@ weight_mutate_rate      = 0.8
 weight_replace_rate     = 0.1
 
 [DefaultSpeciesSet]
-compatibility_threshold = 3.0
+compatibility_threshold = 2.5
 
 [DefaultStagnation]
 species_fitness_func = max

@@ -29,7 +29,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         p = neat.Checkpointer.restore_checkpoint(checkpoint)
     else:
         p = TimePopulation(config)
-        p.allow_rigeneration(True)
+        p.allow_rigeneration(False)
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
     p.add_reporter(neat.StdOutReporter(True))
@@ -40,7 +40,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     #   2 - area metric
     #   3 - step reward with a bonus for staying with the pelvis between 0.84 and 0.94
     #   4 - step reward
-    evaluator = Evaluator(reward_type=2, old_input=False)
+    evaluator = Evaluator(reward_type=1, old_input=False)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
