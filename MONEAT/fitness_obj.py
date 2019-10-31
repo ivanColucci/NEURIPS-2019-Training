@@ -1,6 +1,9 @@
 import math
 import numpy as np
-from NEAT.utils.utilities import print_file
+
+def print_file(str, file="output.txt"):
+    with open(file, "a") as fout:
+        fout.write(str)
 
 def to_arrays(vector):
     distance_array = []
