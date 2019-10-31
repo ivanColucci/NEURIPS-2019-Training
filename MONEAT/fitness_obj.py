@@ -1,13 +1,16 @@
 import math
 import numpy as np
-
+from NEAT.utils.utilities import print_file
 
 def to_arrays(vector):
     distance_array = []
     energy_array = []
     for el in vector:
-        distance_array.append(el.distance)
-        energy_array.append(el.energy)
+        if type(el) is FitnessObj:
+            distance_array.append(el.distance)
+            energy_array.append(el.energy)
+        else:
+            print_file("WRONG TYPE: " + el, file="errors")
     return distance_array, energy_array
 
 def mean_vector(vector):
