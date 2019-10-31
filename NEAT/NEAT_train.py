@@ -38,7 +38,7 @@ def run(config_file, out_file='winner_genome', rep_type='Tournament', gen_type='
     config = neat.Config(gen_class, rep_class,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          config_file)
-    evaluator = Evaluator(reward_type=3, visual=True, is_a_net=True, old_input=False)
+    evaluator = Evaluator(reward_type=6, visual=False, is_a_net=True, old_input=False)
     # Create the population, which is the top-level object for a NEAT run.
     if restore_checkpoint:
         p = neat.Checkpointer.restore_checkpoint(checkpoint)

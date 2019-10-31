@@ -82,7 +82,7 @@ class Evaluator():
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
-        return final_rew
+        return (10000 - final_rew)/1000 + 10*env.get_state_desc()['body_pos']["pelvis"][0]
 
     def execute_trial_with_distance(self, env, net, steps):
         observation = env.get_observation()
@@ -112,7 +112,7 @@ class Evaluator():
             body = env.get_state_desc()['body_pos']
             h = body['pelvis'][1]
             if 0.8 < h < 0.95:
-                in_range_rew += 1.0
+                in_range_rew += 1.0 * (1.0 + body['pelvis'][0])
                 last_distance = body['pelvis'][0]
             if not self.load_simulation:
                 action = net.activate(observation)
@@ -127,7 +127,7 @@ class Evaluator():
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
-        return last_distance + in_range_rew/10
+        return last_distance + in_range_rew/100
 
     def execute_trial_with_area(self, env, net, steps):
         final_rew = 0
@@ -275,7 +275,7 @@ class Evaluator():
         env = RewardShapingEnv(visualize=self.visual, seed=1234, difficulty=2, old_input=self.old_input)
         env.change_model(model='2D', difficulty=2, seed=1234)
         if self.reward_function is None:
-            self.reward_function = env.keep_alive_reward
+            self.reward_function = env.energy_consumption_reward
         env.set_reward_function(self.reward_function)
         env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
         if not self.is_a_net:
@@ -294,8 +294,6 @@ class Evaluator():
             return self.multi_objective_trial(env, net, self.steps)
         elif self.reward_type == 6:
             return self.execute_trial_with_body_in_range_distance(env, net, self.steps)
-        elif self.reward_type == 7:
-            return self.execute_trial_load_sequence(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
 
