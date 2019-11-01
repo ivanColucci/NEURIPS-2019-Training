@@ -15,7 +15,9 @@ def to_arrays(vector):
             distance_array.append(el.distance)
             energy_array.append(el.energy_remaining)
         else:
-            print_file("WRONG TYPE: " + el, file="errors")
+            # timeout
+            distance_array.append(0.1)
+            energy_array.append(1)
     return distance_array, energy_array
 
 
