@@ -104,13 +104,13 @@ class TournamentReproduction(DefaultClassConfig):
 
         return parent1_id, parent1, parent2_id, parent2
 
-    # ********************************* REPRODUCTION *********************************
+    # ************************************* REPRODUCTION *************************************
     def reproduce(self, config, species, pop_size, generation):
         all_fitnesses = []
         remaining_species = []
         num_stagnant_genomes = 0
         max_stagnation = self.stagnation.stagnation_config.max_stagnation
-        # ********************************* EXTINCTION STAGNANT SPECIES *********************************
+        # **************************** EXTINCTION STAGNANT SPECIES ***************************
         for stag_sid, stag_s, stagnant in self.stagnation.update(species, generation):
             if stagnant:
                 self.reporters.species_stagnant(stag_sid, stag_s)
