@@ -45,6 +45,21 @@ class TournamentReproduction(DefaultClassConfig):
         return new_genomes
 
     @staticmethod
+    def compute_adjusted_fitness(all_fitnesses, remaining_species):
+        min_fitness = min(all_fitnesses)
+        max_fitness = max(all_fitnesses)
+
+        fitness_range = max(1.0, max_fitness - min_fitness)
+        for afs in remaining_species:
+            msf = mean([m.fitness for m in itervalues(afs.members)])
+            af = (msf - min_fitness) / fitness_range
+            afs.adjusted_fitness = af
+
+        adjusted_fitnesses = [s.adjusted_fitness for s in remaining_species]
+        avg_adjusted_fitness = mean(adjusted_fitnesses)
+        return adjusted_fitnesses, avg_adjusted_fitness
+
+    @staticmethod
     def compute_spawn(adjusted_fitness, previous_sizes, pop_size, min_species_size):
         """Compute the proper number of offspring per species (proportional to fitness)."""
         af_sum = sum(adjusted_fitness)
@@ -127,17 +142,7 @@ class TournamentReproduction(DefaultClassConfig):
             return {}
 
         # ********************************* ADJUSTED FITNESS *********************************
-        min_fitness = min(all_fitnesses)
-        max_fitness = max(all_fitnesses)
-
-        fitness_range = max(1.0, max_fitness - min_fitness)
-        for afs in remaining_species:
-            msf = mean([m.fitness for m in itervalues(afs.members)])
-            af = (msf - min_fitness) / fitness_range
-            afs.adjusted_fitness = af
-
-        adjusted_fitnesses = [s.adjusted_fitness for s in remaining_species]
-        avg_adjusted_fitness = mean(adjusted_fitnesses)  # type: float
+        adjusted_fitnesses, avg_adjusted_fitness = self.compute_adjusted_fitness(all_fitnesses, remaining_species)
         self.reporters.info("Average adjusted fitness: {:.3f}".format(avg_adjusted_fitness))
 
         # Compute the number of new members for each species in the new generation.
