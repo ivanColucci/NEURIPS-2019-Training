@@ -10,8 +10,6 @@ import numpy as np
 from PSO.algorithms.my_local_best_PSO import MyLocalBestPSO
 from PSO.algorithms.my_MOPSO import MOPSO
 from PSO.algorithms.my_global_best_PSO import MyGlobalBestPSO
-from NEAT.my_genome import MyGenome
-from NEAT.my_population import MyPopulation
 from NEAT.utils.utilities import Evaluator
 from WeightAgnostic.time_population import TimePopulation
 
@@ -71,19 +69,15 @@ def get_bounds(num_of_weights):
     return (bounds_down, bounds_up)
 
 
-def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoint=False):
+def run(config_file, rep_type='Tournament', restore_checkpoint=False):
     last_best_pso_cost = 0
     # Load configuration.
     if rep_type == 'Tournament':
         rep_class = TournamentReproduction
     else:
         rep_class = neat.DefaultReproduction
-    if gen_type == 'Default':
-        gen_class = neat.DefaultGenome
-        pop_class = TimePopulation
-    else:
-        gen_class = MyGenome
-        pop_class = MyPopulation
+    gen_class = neat.DefaultGenome
+    pop_class = TimePopulation
 
     config = neat.Config(gen_class, rep_class,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
@@ -137,4 +131,4 @@ def run(config_file, rep_type='Tournament', gen_type='Default', restore_checkpoi
 
 
 if __name__ == '__main__':
-    run(config_path, rep_type='Tournament', gen_type='Default', restore_checkpoint=False)
+    run(config_path, rep_type='Tournament', restore_checkpoint=False)
