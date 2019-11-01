@@ -94,6 +94,7 @@ class TournamentReproduction(DefaultClassConfig):
         for i, m in old_members[:self.reproduction_config.elitism]:
             new_population[i] = m
             spawn -= 1
+        return spawn
 
     def get_new_genomes(self, num_stagnant_genomes, config, random_for_all=True):
         num_new_genomes = int(math.ceil(self.regen_threshold * num_stagnant_genomes))
@@ -174,7 +175,7 @@ class TournamentReproduction(DefaultClassConfig):
 
             # ******************************** TRANSFER ELITES *******************************
             if self.reproduction_config.elitism > 0:
-                self.elitism_politic(old_members, new_population, spawn)
+                spawn = self.elitism_politic(old_members, new_population, spawn)
 
             if spawn <= 0:
                 continue

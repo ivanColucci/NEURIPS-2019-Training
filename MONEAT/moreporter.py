@@ -30,10 +30,10 @@ class MOReporter(BaseReporter):
                 f.write('Population of {0:d} members in {1:d} species:\n'.format(ng, ns))
                 sids = list(iterkeys(species_set.species))
                 sids.sort()
-                print("   ID   age  size  fitness  adj fit  stag")
-                print("  ====  ===  ====  =======  =======  ====")
-                f.write("   ID   age  size  fitness  adj fit  stag\n")
-                f.write("  ====  ===  ====  =======  =======  ====\n")
+                print("   ID   age  size       fitness           adj fit      stag")
+                print("  ====  ===  ====  ================  ================  ====")
+                f.write("   ID   age  size       fitness           adj fit      stag\n")
+                f.write("  ====  ===  ====  ================  ================  ====\n")
                 for sid in sids:
                     s = species_set.species[sid]
                     a = self.generation - s.created
@@ -42,9 +42,9 @@ class MOReporter(BaseReporter):
                     af = "--" if s.adjusted_fitness is None else "{}".format(round(s.adjusted_fitness, 3))
                     st = self.generation - s.last_improved
                     print(
-                        "  {: >4}  {: >3}  {: >4}  {: >7}  {: >7}  {: >4}".format(sid, a, n, fi, af, st))
+                        "  {: >4}  {: >3}  {: >4}  {: >16}  {: >16}  {: >4}".format(sid, a, n, fi, af, st))
                     f.write(
-                        "  {: >4}  {: >3}  {: >4}  {: >7}  {: >7}  {: >4}\n".format(sid, a, n, fi, af, st))
+                        "  {: >4}  {: >3}  {: >4}  {: >16}  {: >16}  {: >4}\n".format(sid, a, n, fi, af, st))
             else:
                 print('Population of {0:d} members in {1:d} species'.format(ng, ns))
                 f.write('Population of {0:d} members in {1:d} species\n'.format(ng, ns))

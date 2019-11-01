@@ -6,6 +6,7 @@ from neat.six_util import iteritems, itervalues
 
 from NEAT.my_reproduction import TournamentReproduction
 from MONEAT.fitness_obj import mean_vector, sum_vector, FitnessObj, split_genomes
+from NEAT.utils.utilities import print_file
 
 
 class MOReproduction(TournamentReproduction):
@@ -80,6 +81,37 @@ class MOReproduction(TournamentReproduction):
 
     def elitism_politic(self, old_members, new_population, spawn):
         pareto, dominated = split_genomes(old_members)
-        for i, m in pareto:
-            new_population[i] = m
+        id_dist, g_dist = self.get_best_distance(pareto)
+        new_population[id_dist] = g_dist
+        print_file("\nbest distance: " + str(g_dist.fitness) + "\n")
+        spawn -= 1
+        id_en, g_en = self.get_best_energy(pareto)
+        if id_en != id_dist:
+            new_population[id_en] = g_en
+            print_file("best energy: " + str(g_en.fitness) + "\n")
             spawn -= 1
+        id, g = old_members[-1]
+        if id != id_dist and id != id_en:
+            new_population[id] = g
+            spawn -= 1
+        return spawn
+
+    @staticmethod
+    def get_best_distance(pareto):
+        best_distance = 0.0
+        current_best = None
+        for i, g in pareto:
+            if g.fitness.distance > best_distance:
+                current_best = (i, g)
+                best_distance = g.fitness.distance
+        return current_best
+
+    @staticmethod
+    def get_best_energy(pareto):
+        best_energy = 10000.0
+        current_best = None
+        for i, g in pareto:
+            if g.fitness.energy_dissipated < best_energy:
+                current_best = (i, g)
+                best_energy = g.fitness.distance
+        return current_best

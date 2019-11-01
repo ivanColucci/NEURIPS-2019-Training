@@ -75,6 +75,11 @@ class FitnessObj():
     def __lt__(self, other):
         if type(other) is float or type(other) is int:
             return self.distance < other
+
+        if self.dominate(other):
+            return False
+        if other.dominate(self):
+            return True
         my_pareto_dist = math.sqrt(math.pow(self.distance, 2) + math.pow(self.energy_remaining, 2))
         other_pareto_dist = math.sqrt(math.pow(other.distance, 2) + math.pow(other.energy_remaining, 2))
         return my_pareto_dist < other_pareto_dist
@@ -82,6 +87,9 @@ class FitnessObj():
     def __eq__(self, other):
         if type(other) is float or type(other) is int:
             return self.distance == other
+
+        if self.dominate(other) or other.dominate(self):
+            return False
         my_pareto_dist = math.sqrt(math.pow(self.distance, 2) + math.pow(self.energy_remaining, 2))
         other_pareto_dist = math.sqrt(math.pow(other.distance, 2) + math.pow(other.energy_remaining, 2))
         return my_pareto_dist == other_pareto_dist
