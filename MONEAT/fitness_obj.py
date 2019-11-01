@@ -34,6 +34,23 @@ def sum_vector(vector):
     return FitnessObj(np.sum(d), np.sum(e))
 
 
+def split_genomes(genomes):
+    pareto_front = []
+    dominated_genomes = []
+
+    for i1, g1 in genomes:
+        is_dominated = False
+        for i2, g2 in genomes:
+            if g2.fitness.dominate(g1.fitness):
+                is_dominated = True
+                dominated_genomes.append((i1, g1))
+                break
+        if not is_dominated:
+            pareto_front.append((i1, g1))
+
+    return pareto_front, dominated_genomes
+
+
 MAX_ENERGY = 10000
 MAX_DISTANCE = 5
 
@@ -50,6 +67,11 @@ class FitnessObj():
         return MAX_DISTANCE * (MAX_ENERGY - energy_dissipated) / MAX_ENERGY
 
     # ************** COMPARATIVE OPERATORS *******************
+    def dominate(self, other):
+        if self.distance == other.distance and self.energy_dissipated == other.energy_dissipated:
+            return False
+        return self.distance >= other.distance and self.energy_dissipated <= other.energy_dissipated
+
     def __lt__(self, other):
         if type(other) is float or type(other) is int:
             return self.distance < other

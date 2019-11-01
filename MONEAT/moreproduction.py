@@ -5,7 +5,7 @@ from neat.math_util import mean
 from neat.six_util import iteritems, itervalues
 
 from NEAT.my_reproduction import TournamentReproduction
-from MONEAT.fitness_obj import mean_vector, sum_vector, FitnessObj
+from MONEAT.fitness_obj import mean_vector, sum_vector, FitnessObj, split_genomes
 
 
 class MOReproduction(TournamentReproduction):
@@ -22,7 +22,7 @@ class MOReproduction(TournamentReproduction):
         min_fitness = min(all_fitnesses)
         max_fitness = max(all_fitnesses)
         # Do not allow the fitness range to be zero, as we divide by it below.
-        fitness_range = max(1.0, max_fitness - min_fitness)
+        fitness_range = max(FitnessObj(0.1, 1), max_fitness - min_fitness)
         for afs in remaining_species:
             # Compute adjusted fitness.
             array = [m.fitness for m in itervalues(afs.members)]
@@ -77,3 +77,9 @@ class MOReproduction(TournamentReproduction):
         spawn_amounts = [max(min_species_size, int(round(n * norm))) for n in spawn_amounts]
 
         return spawn_amounts
+
+    def elitism_politic(self, old_members, new_population, spawn):
+        pareto, dominated = split_genomes(old_members)
+        for i, m in pareto:
+            new_population[i] = m
+            spawn -= 1

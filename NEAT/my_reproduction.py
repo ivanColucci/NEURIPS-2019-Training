@@ -1,5 +1,4 @@
 from __future__ import division
-
 import math
 import random
 from itertools import count
@@ -91,6 +90,11 @@ class TournamentReproduction(DefaultClassConfig):
 
         return spawn_amounts
 
+    def elitism_politic(self, old_members, new_population, spawn):
+        for i, m in old_members[:self.reproduction_config.elitism]:
+            new_population[i] = m
+            spawn -= 1
+
     def get_new_genomes(self, num_stagnant_genomes, config, random_for_all=True):
         num_new_genomes = int(math.ceil(self.regen_threshold * num_stagnant_genomes))
 
@@ -170,9 +174,7 @@ class TournamentReproduction(DefaultClassConfig):
 
             # ******************************** TRANSFER ELITES *******************************
             if self.reproduction_config.elitism > 0:
-                for i, m in old_members[:self.reproduction_config.elitism]:
-                    new_population[i] = m
-                    spawn -= 1
+                self.elitism_politic(old_members, new_population, spawn)
 
             if spawn <= 0:
                 continue
