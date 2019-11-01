@@ -1,9 +1,11 @@
 import math
 import numpy as np
 
+
 def print_file(str, file="output.txt"):
     with open(file, "a") as fout:
         fout.write(str)
+
 
 def to_arrays(vector):
     distance_array = []
@@ -16,25 +18,30 @@ def to_arrays(vector):
             print_file("WRONG TYPE: " + el, file="errors")
     return distance_array, energy_array
 
+
 def mean_vector(vector):
     d, e = to_arrays(vector)
     return FitnessObj(np.mean(d), np.mean(e))
+
 
 def std_vector(vector):
     d, e = to_arrays(vector)
     return FitnessObj(np.std(d), np.std(e))
 
+
 def sum_vector(vector):
     d, e = to_arrays(vector)
     return FitnessObj(np.sum(d), np.sum(e))
 
+
 MAX_ENERGY = 10000
+MAX_DISTANCE = 5
 
 class FitnessObj():
 
     def __init__(self, distance, energy):
         self.distance = distance
-        self.energy = MAX_ENERGY-energy
+        self.energy = MAX_DISTANCE*(MAX_ENERGY-energy)/MAX_ENERGY
 
     #**************COMPARATIVE OPERATORS*******************
     def __lt__(self, other):
