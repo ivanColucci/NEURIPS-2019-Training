@@ -88,7 +88,7 @@ def run(config_file, rep_type='Tournament', restore_checkpoint=False):
         p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-35')
     else:
         p = pop_class(config)
-        p.allow_rigeneration(False)
+        p.allow_regeneration(False)
     name_run = "output.txt"
 
     # Add a stdout reporter to show progress in the terminal.

@@ -13,7 +13,7 @@ def to_arrays(vector):
     for el in vector:
         if type(el) is FitnessObj:
             distance_array.append(el.distance)
-            energy_array.append(el.energy)
+            energy_array.append(el.energy_remaining)
         else:
             print_file("WRONG TYPE: " + el, file="errors")
     return distance_array, energy_array

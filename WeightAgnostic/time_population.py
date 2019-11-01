@@ -8,8 +8,8 @@ import numpy as np
 
 class TimePopulation(Population):
 
-    def allow_rigeneration(self, value):
-        self.reproduction.allow_rigeneration(value)
+    def allow_regeneration(self, value):
+        self.reproduction.allow_regeneration(value)
 
     def run(self, fitness_function, n=None):
         #Variables needed to save winner
