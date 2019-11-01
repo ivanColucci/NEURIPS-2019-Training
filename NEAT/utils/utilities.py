@@ -298,7 +298,7 @@ class Evaluator():
             return self.execute_trial(env, net, self.steps)
 
 
-def print_file(str, file="output.txt"):
-    with open(file, "a") as fout:
-        fout.write(str)
+def print_file(string, file="output.txt"):
+    with open(file, "a") as file_out:
+        file_out.write(string)
 
