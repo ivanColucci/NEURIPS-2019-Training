@@ -8,6 +8,10 @@ import numpy as np
 
 class TimePopulation(Population):
 
+    def __init__(self, config, initial_state=None, initial_best=False):
+        super().__init__(config, initial_state)
+        self.initial_best = initial_best
+
     def allow_regeneration(self, value):
         self.reproduction.allow_regeneration(value)
 
@@ -28,6 +32,8 @@ class TimePopulation(Population):
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(self.population)), self.config)
+            if self.initial_best:
+                self.species.speciate(self.config, self.population, self.generation)
 
             with open("output.txt", "a") as f:
                 f.write("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")

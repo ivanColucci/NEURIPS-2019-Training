@@ -70,8 +70,9 @@ class FitnessObj():
         return self.distance >= other.distance and self.energy_dissipated <= other.energy_dissipated
 
     def __lt__(self, other):
-        # if type(other) is float or type(other) is int:
-        #     return self.distance < other
+        # per il fitness threshold
+        if type(other) is float or type(other) is int:
+            return self.distance < other
 
         if self.dominate(other):
             return False
@@ -82,8 +83,9 @@ class FitnessObj():
         return my_pareto_dist < other_pareto_dist
 
     def __eq__(self, other):
-        # if type(other) is float or type(other) is int:
-        #     return self.distance == other
+        # per il fitness threshold
+        if type(other) is float or type(other) is int:
+            return self.distance == other
 
         if self.dominate(other) or other.dominate(self):
             return False
@@ -116,16 +118,18 @@ class FitnessObj():
                           energy=(self.energy_dissipated - other.energy_dissipated))
 
     def __truediv__(self, other):
-        # if type(other) is float or type(other) is int:
-        #     return FitnessObj(distance=(self.distance.__truediv__(other)),
-        #                       energy=self.energy_dissipated)
+        # constant div
+        if type(other) is float or type(other) is int:
+            return FitnessObj(distance=(self.distance.__truediv__(other)),
+                              energy=self.energy_dissipated)
         return FitnessObj(distance=(self.distance.__truediv__(other.distance)),
                           energy=self.energy_dissipated.__truediv__(other.energy_dissipated))
 
     def __mul__(self, other):
-        # if type(other) is float or type(other) is int:
-        #     return FitnessObj(distance=(self.distance.__mul__(other)),
-        #                       energy=self.energy_dissipated)
+        # constant mul
+        if type(other) is float or type(other) is int:
+            return FitnessObj(distance=(self.distance.__mul__(other)),
+                              energy=self.energy_dissipated.__mul__(other))
         return FitnessObj(distance=(self.distance.__mul__(other.distance)),
                           energy=self.energy_dissipated.__mul__(other.energy_dissipated))
 
