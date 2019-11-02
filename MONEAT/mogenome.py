@@ -8,6 +8,7 @@ from neat.genes import DefaultConnectionGene, DefaultNodeGene
 from neat.graphs import creates_cycle
 from neat.six_util import iteritems, iterkeys
 from neat.genome import DefaultGenomeConfig
+from itertools import count
 
 
 class MOGenome(object):
@@ -36,7 +37,7 @@ class MOGenome(object):
     def parse_config(cls, param_dict):
         param_dict['node_gene_type'] = DefaultNodeGene
         param_dict['connection_gene_type'] = DefaultConnectionGene
-        return DefaultGenomeConfig(param_dict)
+        return MyDefaultGenomeConfig(param_dict)
 
     @classmethod
     def write_config(cls, f, config):
@@ -446,3 +447,23 @@ class MOGenome(object):
         for input_id, output_id in all_connections[:num_to_add]:
             connection = self.create_connection(config, input_id, output_id)
             self.connections[connection.key] = connection
+
+
+class MyDefaultGenomeConfig(DefaultGenomeConfig):
+
+    def __init__(self, params):
+        super().__init__(params)
+        print(self)
+
+    def get_new_node_key(self, node_dict):
+        if self.node_indexer is None:
+            self.node_indexer = count(max(list(iterkeys(node_dict))) + 1)
+
+        new_id = next(self.node_indexer)
+        if new_id in node_dict:
+            self.node_indexer = count(max(list(iterkeys(node_dict))) + 1)
+            new_id = next(self.node_indexer)
+
+        assert new_id not in node_dict
+
+        return new_id

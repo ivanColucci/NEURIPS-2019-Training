@@ -104,16 +104,18 @@ class FitnessObj():
 
     # *************** MATHEMATICAL OPERATORS **********************
     def __add__(self, other):
-        # if type(other) is float or type(other) is int:
-        #     return FitnessObj(distance=(self.distance + other),
-        #                       energy=self.energy_dissipated)
+        # compute_spawn
+        if type(other) is float or type(other) is int:
+            return FitnessObj(distance=(self.distance + other),
+                              energy=self.energy_dissipated)
         return FitnessObj(distance=(self.distance + other.distance),
                           energy=(self.energy_dissipated + other.energy_dissipated))
 
     def __sub__(self, other):
-        # if type(other) is float or type(other) is int:
-        #     return FitnessObj(distance=(self.distance - other),
-        #                       energy=self.energy_dissipated)
+        # compute_spawn
+        if type(other) is float or type(other) is int:
+            return FitnessObj(distance=(self.distance - other),
+                              energy=self.energy_dissipated)
         return FitnessObj(distance=(self.distance - other.distance),
                           energy=(self.energy_dissipated - other.energy_dissipated))
 
