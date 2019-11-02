@@ -9,7 +9,7 @@ import numpy as np
 from NEAT.utils.utilities import Evaluator
 from WeightAgnostic.time_population import TimePopulation
 from NEAT.utils.my_checkpointer import MyCheckpointer
-from WeightAgnostic.parallel_timeout import ParallelEvaluator
+from MONEAT.parallel_timeout_fitnessObj import ParallelEvaluator
 
 # randomness
 random.seed(1234)
