@@ -19,7 +19,6 @@ np.random.seed(1234)
 n_max_gen = 1000
 n_workers = None
 
-
 def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint-49'):
     config = neat.Config(MOGenome, MOReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
@@ -30,12 +29,13 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         p = neat.Checkpointer.restore_checkpoint(checkpoint)
     else:
         p = TimePopulation(config, initial_best=False)
-        p.allow_regeneration(False)
+        p.allow_regeneration(True)
         if p.initial_best:
             with open(out_file, "rb") as rf:
                 best = pickle.load(rf)
             best.key = 1
-            p.population[1] = best
+            best.fitness = None
+            p.population[best.key] = best
 
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(MOReporter(True, "output.txt"))
@@ -55,4 +55,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint-49'):
     run(config_path, restore_checkpoint=restore_checkpoint, out_file=out_file, checkpoint=checkpoint)
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False)
+    start('../winner_genome', restore_checkpoint=False)

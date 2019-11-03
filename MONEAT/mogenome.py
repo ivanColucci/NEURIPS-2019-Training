@@ -453,7 +453,6 @@ class MyDefaultGenomeConfig(DefaultGenomeConfig):
 
     def __init__(self, params):
         super().__init__(params)
-        print(self)
 
     def get_new_node_key(self, node_dict):
         if self.node_indexer is None:
