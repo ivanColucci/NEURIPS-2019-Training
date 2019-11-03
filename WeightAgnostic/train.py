@@ -9,6 +9,7 @@ from NEAT.utils.utilities import Evaluator
 from WeightAgnostic.time_population import TimePopulation
 from NEAT.utils.my_checkpointer import MyCheckpointer
 from WeightAgnostic.parallel_timeout import ParallelEvaluator
+from NEAT.my_genome import MyGenome
 
 # randomness
 random.seed(1234)
@@ -20,7 +21,7 @@ n_workers = None
 
 
 def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint'):
-    config = neat.Config(neat.DefaultGenome, TournamentReproduction,
+    config = neat.Config(MyGenome, TournamentReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          config_file)
 
@@ -29,7 +30,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         p = neat.Checkpointer.restore_checkpoint(checkpoint)
     else:
         p = TimePopulation(config)
-        p.allow_regeneration(False)
+        p.allow_regeneration(True)
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
     p.add_reporter(neat.StdOutReporter(True))
