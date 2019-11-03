@@ -128,17 +128,12 @@ class TournamentReproduction(DefaultClassConfig):
     def reproduce(self, config, species, pop_size, generation):
         all_fitnesses = []
         remaining_species = []
-        num_stagnant_genomes = 0
         max_stagnation = self.stagnation.stagnation_config.max_stagnation
         # **************************** EXTINCTION STAGNANT SPECIES ***************************
         for stag_sid, stag_s, stagnant in self.stagnation.update(species, generation):
             if stagnant:
                 self.reporters.species_stagnant(stag_sid, stag_s)
-                num_stagnant_genomes += len(stag_s.members)
             else:
-                stagnant_time = generation - stag_s.last_improved
-                if stagnant_time > max_stagnation:
-                    num_stagnant_genomes += len(stag_s.members)
                 all_fitnesses.extend(m.fitness for m in itervalues(stag_s.members))
                 remaining_species.append(stag_s)
 
@@ -159,6 +154,7 @@ class TournamentReproduction(DefaultClassConfig):
                                            pop_size, min_species_size)
         new_population = {}
         species.species = {}
+        re_spawn = False
         for spawn, s in zip(spawn_amounts, remaining_species):
             # If elitism is enabled, each species always at least gets to retain its elites.
             spawn = max(spawn, self.reproduction_config.elitism)
@@ -189,18 +185,18 @@ class TournamentReproduction(DefaultClassConfig):
             old_members = old_members[:repro_cutoff]
 
             # ********************************* REGENERATION *********************************
-            if self.regeneration and num_stagnant_genomes > 0 and (
-                    (generation - self.last_regeneration) >= max_stagnation):
-                self.last_regeneration = generation
-                prev_spawn = spawn
-                num_stagnant_genomes = np.min([num_stagnant_genomes, spawn])
-                new_genomes = self.get_new_genomes(num_stagnant_genomes, config, random_for_all=True)
-                for gid, genome in new_genomes.items():
-                    new_population[gid] = genome
-                spawn -= len(new_genomes)
-                print_file("\nprev spawn: " + str(prev_spawn) + "\n")
-                print_file("adding: " + str(len(new_genomes)) + " genomes" + "\n")
-                print_file("new spawn: " + str(spawn) + "\n")
+            if self.regeneration and ((generation - self.last_regeneration) >= max_stagnation):
+                stagnant_time = generation - s.last_improved
+                if stagnant_time > max_stagnation:
+                    re_spawn = True
+                    prev_spawn = spawn
+                    new_genomes = self.get_new_genomes(prev_spawn, config, random_for_all=True)
+                    for gid, genome in new_genomes.items():
+                        new_population[gid] = genome
+                    spawn -= len(new_genomes)
+                    print_file("\nprev spawn: " + str(prev_spawn) + "\n")
+                    print_file("adding: " + str(len(new_genomes)) + " genomes" + "\n")
+                    print_file("new spawn: " + str(spawn) + "\n")
 
             # **************************** CROSSOVER AND MUTATION ****************************
             while spawn > 0:
@@ -219,4 +215,6 @@ class TournamentReproduction(DefaultClassConfig):
                 new_population[gid] = child
                 self.ancestors[gid] = (parent1_id, parent2_id)
 
+        if re_spawn:
+            self.last_regeneration = generation
         return new_population
