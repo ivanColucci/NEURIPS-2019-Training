@@ -302,3 +302,9 @@ def print_file(string, file="output.txt"):
     with open(file, "a") as file_out:
         file_out.write(string)
 
+
+def from_list_to_dict(l):
+    d = {}
+    for gid, g in l:
+        d[gid] = g
+    return d
