@@ -1,14 +1,15 @@
 from neat.six_util import iteritems, itervalues
 from neat.population import Population, CompleteExtinctionException
-from NEAT.utils.utilities import print_file
+from NEAT.utils.utilities import print_file, from_list_to_dict
 import time
 import pickle
 
 
 class ElitePopulation(Population):
 
-    def __init__(self, config, initial_state=None):
+    def __init__(self, config, initial_state=None, random_replace=False):
         super().__init__(config, initial_state)
+        self.random_replace = random_replace
 
     def allow_regeneration(self, value):
         self.reproduction.allow_regeneration(value)
@@ -40,15 +41,22 @@ class ElitePopulation(Population):
 
             fitness_function(list(iteritems(not_evaluated)), self.config)
 
-            i = 0
-            self.population = {}
-            for gid, g in not_evaluated.items():
-
-                if len(evaluated) <= i or g.fitness > evaluated[i][1].fitness:
-                    self.population[gid] = g
-                else:
-                    self.population[evaluated[i][0]] = evaluated[i][1]
-                i = i + 1
+            if self.random_replace:
+                i = 0
+                self.population = {}
+                for gid, g in not_evaluated.items():
+                    if len(evaluated) <= i or g.fitness > evaluated[i][1].fitness:
+                        self.population[gid] = g
+                    else:
+                        self.population[evaluated[i][0]] = evaluated[i][1]
+                    i = i + 1
+            else:
+                self.population = []
+                self.population += evaluated
+                for k, v in not_evaluated.items():
+                    self.population.append((k, v))
+                self.population.sort(reverse=True, key=lambda x: x[1].fitness)
+                self.population = from_list_to_dict(self.population[:self.config.pop_size])
 
             print_file("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
 

@@ -27,7 +27,7 @@ class EliteReproduction(DefaultClassConfig):
         self.ancestors = {}
         self.regeneration = regeneration
         self.last_regeneration = 0
-        self.tournament_threshold = 0.2
+        self.tournament_threshold = 0.1
         self.regen_threshold = 0.3
 
     def allow_regeneration(self, value):
@@ -181,7 +181,7 @@ class EliteReproduction(DefaultClassConfig):
             while spawn > 0:
                 spawn -= 1
 
-                if len(old_members) >= 2:
+                if len(old_members) > 2:
                     parent1_id, parent1, parent2_id, parent2 = self.tournament(old_members, self.tournament_threshold)
                 else:
                     parent1_id, parent1 = random.choice(old_members)
