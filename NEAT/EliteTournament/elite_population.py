@@ -53,8 +53,8 @@ class ElitePopulation(Population):
             else:
                 self.population = []
                 self.population += evaluated
-                for k, v in not_evaluated.items():
-                    self.population.append((k, v))
+                for key, v in not_evaluated.items():
+                    self.population.append((key, v))
                 self.population.sort(reverse=True, key=lambda x: x[1].fitness)
                 self.population = from_list_to_dict(self.population[:self.config.pop_size])
 
