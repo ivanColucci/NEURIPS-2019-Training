@@ -20,7 +20,7 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
         config_path = os.path.join(local_dir, '../WeightAgnostic/config')
     config = neat.Config(neat.DefaultGenome, TournamentReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
     evaluator = Evaluator(reward_type=2, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=True, save_simulation=False, file_to_load="actions_wnode01")
+                          load_simulation=True, save_simulation=False, file_to_load="actions_step")
     if load_from_checkpoint:
         p = MyCheckpointer.restore_checkpoint(checkpoint)
         print(p.best_genome)
@@ -35,13 +35,14 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
     result = evaluator.eval_genome(winner_net, config)
     print("valore di fitness:", result)
 
+
 def load_simulation():
-    evaluator = Evaluator(reward_type=2, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=True, save_simulation=False, file_to_load="actions_wnode01")
+    evaluator = Evaluator(reward_type=5, visual=True, is_a_net=True, old_input=False,
+                          load_simulation=True, save_simulation=False, file_to_load="actions_wnode03")
     result = evaluator.eval_genome(None, None)
     print("valore di fitness:", result)
+
 
 if __name__ == '__main__':
     load_simulation()
     # test(source='../winner_genome', load_from_checkpoint=False, checkpoint='../neat-checkpoint-99')
-    # test(source='winner_genome_distance', load_from_checkpoint=True, checkpoint='neat-checkpoint-232')
