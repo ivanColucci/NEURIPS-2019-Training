@@ -4,7 +4,7 @@ import neat
 import pickle
 
 from NEAT.utils.utilities import Evaluator
-from NEAT.my_reproduction import TournamentReproduction
+from NEAT.DefaultTournament.my_reproduction import TournamentReproduction
 from NEAT.utils.my_checkpointer import MyCheckpointer
 import numpy as np
 
@@ -38,7 +38,7 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
 
 def load_simulation():
     evaluator = Evaluator(reward_type=5, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=True, save_simulation=False, file_to_load="actions_wnode03")
+                          load_simulation=True, save_simulation=False, file_to_load="actions/actions_wnode03")
     result = evaluator.eval_genome(None, None)
     print("valore di fitness:", result)
 

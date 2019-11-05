@@ -7,7 +7,7 @@ import neat
 import pickle
 import numpy as np
 from NEAT.utils.utilities import Evaluator
-from WeightAgnostic.time_population import TimePopulation
+from NEAT.DefaultTournament.time_population import TimePopulation
 from NEAT.utils.my_checkpointer import MyCheckpointer
 from MONEAT.parallel_timeout_fitnessObj import ParallelEvaluator
 

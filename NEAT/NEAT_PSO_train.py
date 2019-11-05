@@ -5,13 +5,11 @@ from NEAT.utils.my_checkpointer import MyCheckpointer
 from NEAT.utils.filereporter import FileReporter
 import neat
 import pickle
-from NEAT.my_reproduction import TournamentReproduction
+from NEAT.DefaultTournament.my_reproduction import TournamentReproduction
 import numpy as np
-from PSO.algorithms.my_local_best_PSO import MyLocalBestPSO
-from PSO.algorithms.my_MOPSO import MOPSO
 from PSO.algorithms.my_global_best_PSO import MyGlobalBestPSO
 from NEAT.utils.utilities import Evaluator
-from WeightAgnostic.time_population import TimePopulation
+from NEAT.DefaultTournament.time_population import TimePopulation
 
 random.seed(1234)
 np.random.seed(1234)

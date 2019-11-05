@@ -3,16 +3,14 @@ import random
 from NEAT.utils.filereporter import FileReporter
 import neat
 import pickle
-from NEAT.my_reproduction import TournamentReproduction
 
 import numpy as np
 from NEAT.utils.utilities import Evaluator
-from WeightAgnostic.time_population import TimePopulation
 from NEAT.utils.my_checkpointer import MyCheckpointer
-from WeightAgnostic.parallel_timeout import ParallelEvaluator
-from NEAT.my_genome import MyGenome
-from NEAT.elite_population import ElitePopulation
-from  NEAT.elite_reproduction import EliteReproduction
+from NEAT.utils.parallel_timeout import ParallelEvaluator
+from NEAT.DefaultTournament.my_genome import MyGenome
+from NEAT.EliteTournament.elite_population import ElitePopulation
+from NEAT.EliteTournament.elite_reproduction import EliteReproduction
 
 # randomness
 random.seed(1234)

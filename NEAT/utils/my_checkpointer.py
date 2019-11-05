@@ -3,16 +3,14 @@ from __future__ import print_function
 
 import gzip
 import random
-import time
 
-from WeightAgnostic.time_population import TimePopulation
+from NEAT.DefaultTournament.time_population import TimePopulation
 
 try:
     import cPickle as pickle # pylint: disable=import-error
 except ImportError:
     import pickle # pylint: disable=import-error
 
-from neat.population import Population
 from neat.reporting import BaseReporter
 
 

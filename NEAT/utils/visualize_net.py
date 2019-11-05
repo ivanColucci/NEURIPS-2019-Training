@@ -2,7 +2,7 @@ from NEAT.utils.visualize import draw_net
 import neat
 import os
 import pickle
-from NEAT.my_reproduction import TournamentReproduction
+from NEAT.DefaultTournament.my_reproduction import TournamentReproduction
 
 
 local_dir = os.path.dirname(__file__)

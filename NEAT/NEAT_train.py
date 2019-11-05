@@ -3,7 +3,7 @@ import random
 from NEAT.utils.filereporter import FileReporter
 import neat
 import pickle
-from NEAT.my_reproduction import TournamentReproduction
+from NEAT.DefaultTournament.my_reproduction import TournamentReproduction
 import numpy as np
 from NEAT.utils.utilities import Evaluator
 

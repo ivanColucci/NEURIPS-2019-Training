@@ -2,9 +2,9 @@ from __future__ import division
 
 from neat.config import ConfigParameter, DefaultClassConfig
 from neat.math_util import mean
-from neat.six_util import iteritems, itervalues
+from neat.six_util import itervalues
 
-from NEAT.my_reproduction import TournamentReproduction
+from NEAT.DefaultTournament.my_reproduction import TournamentReproduction
 from MONEAT.fitness_obj import mean_vector, sum_vector, FitnessObj, split_genomes
 from NEAT.utils.utilities import print_file
 
