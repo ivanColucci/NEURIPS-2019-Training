@@ -4,6 +4,9 @@ import neat
 from MONEAT.fitness_obj import FitnessObj
 import pickle
 import os
+MEAN_H = 0.9
+MAX_H = 0.95
+MIN_H = 0.85
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -106,14 +109,16 @@ class Evaluator():
     def execute_trial_with_body_in_range_distance(self, env, net, steps):
         observation = env.get_observation()
         action_arr = []
-        last_distance = 0.0
-        in_range_rew = 0.0
+        total_reward = 0.0
         for i in range(steps):
             body = env.get_state_desc()['body_pos']
+            # height
             h = body['pelvis'][1]
-            if 0.8 < h < 0.95:
-                in_range_rew += 1.0 * (1.0 + body['pelvis'][0])
-                last_distance = body['pelvis'][0]
+            # distance
+            d = body['pelvis'][0]
+            # reward
+            total_reward += gaussian(h)*(1.0 * d)
+            # save & load block
             if not self.load_simulation:
                 action = net.activate(observation)
                 action = self.add_action_for_3d(action)
@@ -121,13 +126,15 @@ class Evaluator():
                 action = self.load_next_action(i)
             if self.save_simulation:
                 action_arr.append(action)
+            # submit action
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             if done:
                 break
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
-        return last_distance + in_range_rew/100
+
+        return total_reward
 
     def execute_trial_with_area(self, env, net, steps):
         final_rew = 0
@@ -154,7 +161,14 @@ class Evaluator():
                 break
         area = 0
         for i in range(len(pelvis_x)):
-            area += pelvis_x[i] * pelvis_heights[i]
+            h = pelvis_heights[i]
+            if h < MIN_H:
+                final_h = h
+            elif h > MAX_H:
+                final_h = MEAN_H - (h - MEAN_H)
+            else:
+                final_h = MEAN_H
+            area += pelvis_x[i] * final_h
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
@@ -308,3 +322,7 @@ def from_list_to_dict(l):
     for gid, g in l:
         d[gid] = g
     return d
+
+
+def gaussian(x, mu=MEAN_H, sig=0.1):
+    return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
