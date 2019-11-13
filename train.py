@@ -44,7 +44,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     #   4 - step reward
     #   5 - MO distance and energy
     #   6 - body in range incremental
-    evaluator = Evaluator(reward_type=1, old_input=False, steps=1000)
+    evaluator = Evaluator(reward_type=6, old_input=False, steps=1000)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner

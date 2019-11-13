@@ -20,7 +20,7 @@ class MyCheckpointer(BaseReporter):
     A reporter class that performs checkpointing using `pickle`
     to save and restore populations (and other aspects of the simulation state).
     """
-    def __init__(self, checkpoint_interval=100, filename_prefix='neat-checkpoint-', overwrite=False):
+    def __init__(self, checkpoint_interval=100, filename_prefix='neat-checkpoint-', pop_type=ElitePopulation, overwrite=False):
         """
         Saves the current state (at the end of a generation) every ``generation_interval`` generations or
         ``time_interval_seconds``, whichever happens first.
@@ -60,9 +60,9 @@ class MyCheckpointer(BaseReporter):
             pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
-    def restore_checkpoint(filename, pop=ElitePopulation):
+    def restore_checkpoint(filename, pop_type=ElitePopulation):
         """Resumes the simulation from a previous saved point."""
         with gzip.open(filename) as f:
             generation, config, population, species_set, rndstate = pickle.load(f)
             random.setstate(rndstate)
-            return pop(config, (population, species_set, generation))
+            return pop_type(config, (population, species_set, generation))
