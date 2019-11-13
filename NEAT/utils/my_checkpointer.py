@@ -5,6 +5,7 @@ import gzip
 import random
 
 from NEAT.DefaultTournament.time_population import TimePopulation
+from NEAT.EliteTournament.elite_population import ElitePopulation
 
 try:
     import cPickle as pickle # pylint: disable=import-error
@@ -19,7 +20,7 @@ class MyCheckpointer(BaseReporter):
     A reporter class that performs checkpointing using `pickle`
     to save and restore populations (and other aspects of the simulation state).
     """
-    def __init__(self, checkpoint_interval=100, filename_prefix='neat-checkpoint-'):
+    def __init__(self, checkpoint_interval=100, filename_prefix='neat-checkpoint-', overwrite=False):
         """
         Saves the current state (at the end of a generation) every ``generation_interval`` generations or
         ``time_interval_seconds``, whichever happens first.
@@ -32,7 +33,7 @@ class MyCheckpointer(BaseReporter):
         """
         self.checkpoint_interval = checkpoint_interval
         self.filename_prefix = filename_prefix
-
+        self.overwrite = overwrite
         self.current_generation = None
         self.last_generation_checkpoint = -1
 
@@ -48,7 +49,10 @@ class MyCheckpointer(BaseReporter):
 
     def save_checkpoint(self, config, population, species_set, generation):
         """ Save the current simulation state. """
-        filename = '{0}{1}'.format(self.filename_prefix, generation)
+        if self.overwrite:
+            filename = self.filename_prefix
+        else:
+            filename = '{0}{1}'.format(self.filename_prefix, generation)
         print("Saving checkpoint to {0}".format(filename))
 
         with gzip.open(filename, 'w', compresslevel=5) as f:
@@ -56,9 +60,9 @@ class MyCheckpointer(BaseReporter):
             pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
-    def restore_checkpoint(filename):
+    def restore_checkpoint(filename, pop=ElitePopulation):
         """Resumes the simulation from a previous saved point."""
         with gzip.open(filename) as f:
             generation, config, population, species_set, rndstate = pickle.load(f)
             random.setstate(rndstate)
-            return TimePopulation(config, (population, species_set, generation))
+            return pop(config, (population, species_set, generation))

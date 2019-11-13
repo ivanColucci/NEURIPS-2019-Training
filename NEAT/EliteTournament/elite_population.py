@@ -7,9 +7,10 @@ import pickle
 
 class ElitePopulation(Population):
 
-    def __init__(self, config, initial_state=None, random_replace=False):
+    def __init__(self, config, initial_state=None, random_replace=False, overwrite=True):
         super().__init__(config, initial_state)
         self.random_replace = random_replace
+        self.overwrite = overwrite
 
     def allow_regeneration(self, value):
         self.reproduction.allow_regeneration(value)
@@ -87,6 +88,14 @@ class ElitePopulation(Population):
             # Track the best genome ever seen.
             if self.best_genome is None or best.fitness > self.best_genome.fitness:
                 self.best_genome = best
+                # Code to save the best after winner_interval generations
+                if self.overwrite:
+                    filename = winner_name_prefix
+                else:
+                    filename = '{0}{1}'.format(winner_name_prefix, self.generation)
+                last_winner_checkpoint = self.generation
+                with open(filename, 'wb') as f:
+                    pickle.dump(self.best_genome, f)
 
             if not self.config.no_fitness_termination:
                 # End if the fitness threshold is reached.
@@ -102,14 +111,6 @@ class ElitePopulation(Population):
                                                           self.config.pop_size, self.generation)
 
             self.generation += 1
-            # Code to save the best after winner_interval generations
-            if winner_interval is not None:
-                dg = self.generation - last_winner_checkpoint
-                if dg >= winner_interval:
-                    filename = '{0}{1}'.format(winner_name_prefix, self.generation)
-                    last_winner_checkpoint = self.generation
-                    with open(filename, 'wb') as f:
-                        pickle.dump(self.best_genome, f)
 
             print_file("\nGen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
 
