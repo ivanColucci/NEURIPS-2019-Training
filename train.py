@@ -21,10 +21,21 @@ n_max_gen = None
 n_workers = None
 
 
+def step_activation(z):
+    if z > 0:
+        return 1
+    return 0
+
+
+def reverse_activation(z):
+    return -z
+
 def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint'):
     config = neat.Config(MyGenome, EliteReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          config_file)
+    config.genome_config.add_activation('step', step_activation)
+    config.genome_config.add_activation('reverse', reverse_activation)
 
     # Create the population, which is the top-level object for a NEAT run.
     if restore_checkpoint:

@@ -265,40 +265,41 @@ class Evaluator():
 
     def execute_trial_progressive_reward(self, env, net, steps):
         observation = env.get_observation()
+        fall_penalty = 0
         left = []
         right = []
         action_arr = []
         posture_rew = 0
         objective_distance = 10.0
-        objective_variance = 60
+        objective_variance = 18.0
         objective_rmse = 0.1
         objective_posture = 7.0
         for i in range(steps):
             if not self.load_simulation:
                 action = net.activate(observation)
+                action_arr.append(action)
                 action = self.add_action_for_3d(action)
             else:
                 action = self.load_next_action(i)
-            if self.save_simulation:
-                action_arr.append(action)
+
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
             rf = env.get_state_desc()["body_pos"]["toes_r"][0]
             lf = env.get_state_desc()["body_pos"]["toes_l"][0]
-            curr_torso = env.get_body_com("torso")[0]
-            l1_x = env.get_observation_dict()['l_leg']['knee'][0]
-            l2_x = env.get_observation_dict()['r_leg']['knee'][0]
+            curr_torso = env.get_state_desc()["body_pos"]["pelvis"][0]
+            l1_x = env.get_state_desc()["joint_pos"]["knee_l"][0]
+            l2_x = env.get_state_desc()["joint_pos"]["knee_r"][0]
             legs = [l1_x, l2_x]
             legs.sort()
             interval = legs[1] - legs[0]
             posture_rew += gaussian(curr_torso, interval / 2 + legs[0], interval / 2) * 0.01
 
-            if lf < 0 or rf < 0:
-                done = True
             if curr_torso > 0.5:
                 right.append(rf)
                 left.append(lf)
 
             if done:
+                if i < steps - 1:
+                    fall_penalty = 1
                 break
 
         dist, max_error = calculate_sin(array_diff(left, right))
@@ -309,7 +310,7 @@ class Evaluator():
             error = 0
             weight = 0
 
-        dist = env.get_body_com("torso")[0]
+        dist = env.get_state_desc()["body_pos"]["pelvis"][0]
 
         actions_std = np.std(action_arr, axis=0)
         action_space = len(action_arr[0])
@@ -317,23 +318,25 @@ class Evaluator():
         for k in range(action_space):
             # avoid fixed output
             if actions_std[k] >= 0.01:
-                variance_rew += 10
+                variance_rew += 1
 
         if variance_rew < objective_variance:
             outer_rew = variance_rew
         elif dist < objective_distance:
             outer_rew = objective_variance + dist
         elif weight == 0 or error > objective_rmse:
-            outer_rew = objective_distance + variance_rew + weight * (max_error - error)
+            outer_rew = objective_distance + objective_variance + weight * (max_error - error)
         elif posture_rew < objective_posture:
-            outer_rew = objective_distance + variance_rew + weight * (max_error - objective_rmse) + posture_rew
+            outer_rew = objective_distance + objective_variance + weight * (max_error - objective_rmse) + posture_rew
         else:
-            outer_rew = dist + weight * (max_error - error) + variance_rew + posture_rew
+            outer_rew = dist + weight * (max_error - error) + \
+                        objective_distance + objective_variance + objective_posture
 
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
-        return outer_rew
+
+        return outer_rew + fall_penalty
 
     def multi_objective_trial(self, env, net, steps):
         energy = 0
