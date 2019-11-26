@@ -4,6 +4,7 @@ import neat
 from MONEAT.fitness_obj import FitnessObj
 import pickle
 import os
+from NEAT.utils.rmse import calculate_sin, array_diff, rmse
 MEAN_H = 0.9
 MAX_H = 0.95
 MIN_H = 0.85
@@ -262,6 +263,78 @@ class Evaluator():
         elif self.reward_type == 4:
             return self.get_reward_h(body_y, step_posx)
 
+    def execute_trial_progressive_reward(self, env, net, steps):
+        observation = env.get_observation()
+        left = []
+        right = []
+        action_arr = []
+        posture_rew = 0
+        objective_distance = 10.0
+        objective_variance = 60
+        objective_rmse = 0.1
+        objective_posture = 7.0
+        for i in range(steps):
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            rf = env.get_state_desc()["body_pos"]["toes_r"][0]
+            lf = env.get_state_desc()["body_pos"]["toes_l"][0]
+            curr_torso = env.get_body_com("torso")[0]
+            l1_x = env.get_observation_dict()['l_leg']['knee'][0]
+            l2_x = env.get_observation_dict()['r_leg']['knee'][0]
+            legs = [l1_x, l2_x]
+            legs.sort()
+            interval = legs[1] - legs[0]
+            posture_rew += gaussian(curr_torso, interval / 2 + legs[0], interval / 2) * 0.01
+
+            if lf < 0 or rf < 0:
+                done = True
+            if curr_torso > 0.5:
+                right.append(rf)
+                left.append(lf)
+
+            if done:
+                break
+
+        dist, max_error = calculate_sin(array_diff(left, right))
+        if max_error != 0:
+            error = rmse(array_diff(left, right), dist)
+            weight = 10.0 / (max_error - objective_rmse)
+        else:
+            error = 0
+            weight = 0
+
+        dist = env.get_body_com("torso")[0]
+
+        actions_std = np.std(action_arr, axis=0)
+        action_space = len(action_arr[0])
+        variance_rew = 0
+        for k in range(action_space):
+            # avoid fixed output
+            if actions_std[k] >= 0.01:
+                variance_rew += 10
+
+        if variance_rew < objective_variance:
+            outer_rew = variance_rew
+        elif dist < objective_distance:
+            outer_rew = objective_variance + dist
+        elif weight == 0 or error > objective_rmse:
+            outer_rew = objective_distance + variance_rew + weight * (max_error - error)
+        elif posture_rew < objective_posture:
+            outer_rew = objective_distance + variance_rew + weight * (max_error - objective_rmse) + posture_rew
+        else:
+            outer_rew = dist + weight * (max_error - error) + variance_rew + posture_rew
+
+        if self.save_simulation:
+            with open(self.file_name, 'wb') as f:
+                pickle.dump(action_arr, f)
+        return outer_rew
+
     def multi_objective_trial(self, env, net, steps):
         energy = 0
         observation = env.get_observation()
@@ -296,6 +369,8 @@ class Evaluator():
             net = neat.nn.FeedForwardNetwork.create(genome, config)
         else:
             net = genome
+        if self.reward_type == 0:
+            return self.execute_trial_progressive_reward(env, net, self.steps)
         if self.reward_type == 1:
             return self.execute_trial_with_distance(env, net, self.steps)
         elif self.reward_type == 2:
@@ -324,5 +399,5 @@ def from_list_to_dict(l):
     return d
 
 
-def gaussian(x, mu=MEAN_H, sig=0.1):
+def gaussian(x, mu, sig=0.1):
     return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
