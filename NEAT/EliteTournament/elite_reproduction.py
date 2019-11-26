@@ -34,7 +34,15 @@ class EliteReproduction(DefaultClassConfig):
         self.regeneration = value
 
     def create_new(self, genome_type, genome_config, num_genomes):
-        new_genomes = self.create_new_parallel(genome_type, genome_config, num_genomes)
+        # new_genomes = self.create_new_parallel(genome_type, genome_config, num_genomes)
+        new_genomes = {}
+        for i in range(num_genomes):
+            key = next(self.genome_indexer)
+            g = genome_type(key)
+            g.configure_new(genome_config)
+            new_genomes[key] = g
+            self.ancestors[key] = tuple()
+
         return new_genomes
 
     def create_new_parallel(self, genome_type, genome_config, num_genomes, random_hidden=False):
