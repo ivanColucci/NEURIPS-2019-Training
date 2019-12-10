@@ -358,6 +358,51 @@ class Evaluator():
                 pickle.dump(action_arr, f)
         return FitnessObj(distance=env.get_state_desc()['body_pos']["pelvis"][0], energy=energy)
 
+    def execute_trial_definitive(self, env, net, steps):
+        final_rew = 0
+        variables = dict()
+        variables['prev_distance'] = max(get_x(env, left=True), get_x(env))
+        variables['left_rew'] = 0.0
+        variables['right_rew'] = 0.0
+        variables['fly_steps'] = 0.0
+        observation = env.get_observation()
+        for i in range(steps):
+            action = net.activate(observation)
+            action = self.add_action_for_3d(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+
+            correct = False
+            lf_h, rf_h = env.get_state_desc()['body_pos']['toes_l'][1], env.get_state_desc()['body_pos']['toes_r'][1]
+
+            # CORRECT IF 1 FOOT DOWN
+            if lf_h <= 0.05 or rf_h <= 0.05:
+                correct = True
+
+            current_distance = max(get_x(env, left=True), get_x(env))
+            h_pelvis = env.get_state_desc()['body_pos']['pelvis'][1]
+            if current_distance > variables['prev_distance']:
+                distance = current_distance - variables['prev_distance']
+                # distance = variables['info']['forward_reward']
+                diff = get_x(env, left=True) - get_x(env)
+                if max(get_y(env, left=True), get_y(env)) < h_pelvis:
+                    rew = abs(distance * diff)
+                    if diff > 0:
+                        variables['left_rew'] += rew
+                    else:
+                        variables['right_rew'] += rew
+
+                variables['prev_distance'] = current_distance
+
+            final_rew += reward
+            if done:
+                break
+
+        rr = variables['right_rew']
+        lr = variables['left_rew']
+        final_rew = rr + lr - abs(rr - lr)
+
+        return final_rew
+
     def eval_genome(self, genome, config):
         env = RewardShapingEnv(visualize=self.visual, seed=1234, difficulty=2, old_input=self.old_input)
         env.change_model(model='2D', difficulty=2, seed=1234)
@@ -380,8 +425,10 @@ class Evaluator():
         elif self.reward_type == 4:
             return self.execute_trial_step_reward(env, net, self.steps)
         elif self.reward_type == 5:
-            return self.multi_objective_trial(env, net, self.steps)
+            return self.execute_trial_definitive(env, net, self.steps)
         elif self.reward_type == 6:
+            return self.multi_objective_trial(env, net, self.steps)
+        elif self.reward_type == 7:
             return self.execute_trial_with_body_in_range_distance(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
@@ -397,6 +444,18 @@ def from_list_to_dict(l):
     for gid, g in l:
         d[gid] = g
     return d
+
+
+def get_x(env, left=False):
+    if left:
+        return env.get_state_desc()['body_pos']['tibia_l'][0]
+    return env.get_state_desc()['body_pos']['tibia_r'][0]
+
+
+def get_y(env, left=False):
+    if left:
+        return env.get_state_desc()['body_pos']['tibia_l'][1]
+    return env.get_state_desc()['body_pos']['tibia_r'][1]
 
 
 def gaussian(x, mu, sig=0.1):
