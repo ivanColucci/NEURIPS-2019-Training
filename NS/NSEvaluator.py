@@ -46,6 +46,22 @@ class NSEvaluator:
             with open(os.path.join(local_dir, self.file_name), 'rb') as f:
                 self.action_arr = pickle.load(f)
 
+    @staticmethod
+    def add_action_for_3d(action):
+        Fmax_ABD = 4460.290481
+        Fmax_ADD = 3931.8
+        r_leg, l_leg = action[:9], action[9:]
+        full_action = []
+        full_action.append(0.1)
+        full_action.append(0.1 * Fmax_ADD / Fmax_ABD)
+        for el in r_leg:
+            full_action.append(el)
+        full_action.append(0.1)
+        full_action.append(0.1 * Fmax_ADD / Fmax_ABD)
+        for el in l_leg:
+            full_action.append(el)
+        return full_action
+
     def observation_reduction(self, observation):
         if self.model == 'Ant-v3':
             return observation[:27]
@@ -72,8 +88,8 @@ class NSEvaluator:
         for i in range(steps):
 
             if not self.load_simulation:
-                action = net.activate(self.observation_reduction(observation))
-                action = np.clip(action, -1, 1)
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
             else:
                 action = self.load_next_action(i)
 
