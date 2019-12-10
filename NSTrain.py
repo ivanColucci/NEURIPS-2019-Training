@@ -13,7 +13,7 @@ from NS.NSGenome import NSGenome
 from NS.NSElitePopulation import NSElitePopulation
 from NS.NSEliteReproduction import NSEliteReproduction
 from NS.NSCheckpointer import NSCheckpointer
-from NEAT.utils.parallel_timeout import ParallelEvaluator
+from NS.NSParallelEvaluator import ParallelEvaluator
 
 
 def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, checkpoint=None, winner='', seed=1234,
