@@ -65,7 +65,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
 
 def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint'):
     local_dir = os.path.dirname(__file__)
-    config_path = os.path.join(local_dir, 'config')
+    config_path = os.path.join(local_dir, 'config_human0')
     run(config_path, restore_checkpoint=restore_checkpoint, out_file=out_file, checkpoint=checkpoint)
 
 

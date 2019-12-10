@@ -1,15 +1,18 @@
-from osim.env import L2M2019Env
 import numpy as np
+from osim.env import L2M2019Env
+
 
 class RewardShapingEnv(L2M2019Env):
-    def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None, reward_function=None, old_input = False):
+    def __init__(self, visualize=True, integrator_accuracy=5e-5, difficulty=2, seed=0, report=None,
+                 reward_function=None, old_input=False):
         self.prev_distance = 0
         self.old_input = old_input
         if reward_function is None:
             self.reward_function = self.get_reward_1
         else:
             self.reward_function = reward_function
-        super(RewardShapingEnv, self).__init__(visualize=visualize, integrator_accuracy=integrator_accuracy, difficulty=difficulty, seed=seed, report=report)
+        super(RewardShapingEnv, self).__init__(visualize=visualize, integrator_accuracy=integrator_accuracy,
+                                               difficulty=difficulty, seed=seed, report=report)
 
     def get_reward(self):
         return self.reward_function()
@@ -38,7 +41,7 @@ class RewardShapingEnv(L2M2019Env):
         pass
 
     def distance_and_energy(self):
-        return 100*self.distance_reward() - self.energy_consumption_reward()/22
+        return 100 * self.distance_reward() - self.energy_consumption_reward() / 22
 
     def get_observation(self):
         if self.old_input:
@@ -72,7 +75,7 @@ class RewardShapingEnv(L2M2019Env):
                     res.append(obs_dict[leg][MUS]['l'])
                     res.append(obs_dict[leg][MUS]['v'])
             return res
-        
+
     def standard_reward(self):
         state_desc = self.get_state_desc()
         if not self.get_prev_state_desc():
@@ -89,8 +92,8 @@ class RewardShapingEnv(L2M2019Env):
         ACT2 = 0
         for muscle in sorted(state_desc['muscles'].keys()):
             ACT2 += np.square(state_desc['muscles'][muscle]['activation'])
-        self.d_reward['effort'] += ACT2*dt
-        self.d_reward['footstep']['effort'] += ACT2*dt
+        self.d_reward['effort'] += ACT2 * dt
+        self.d_reward['footstep']['effort'] += ACT2 * dt
 
         self.d_reward['footstep']['del_t'] += dt
 
@@ -100,22 +103,23 @@ class RewardShapingEnv(L2M2019Env):
         v_body = [state_desc['body_vel']['pelvis'][0], -state_desc['body_vel']['pelvis'][2]]
         v_tgt = self.vtgt.get_vtgt(p_body).T
 
-        self.d_reward['footstep']['del_v'] += (v_body - v_tgt)*dt
+        self.d_reward['footstep']['del_v'] += (v_body - v_tgt) * dt
 
         # footstep reward (when made a new step)
         if self.footstep['new']:
             # footstep reward: so that solution does not avoid making footsteps
             # scaled by del_t, so that solution does not get higher rewards by making unnecessary (small) steps
-            reward_footstep_0 = self.d_reward['weight']['footstep']*self.d_reward['footstep']['del_t']
+            reward_footstep_0 = self.d_reward['weight']['footstep'] * self.d_reward['footstep']['del_t']
 
             # deviation from target velocity
             # the average velocity a step (instead of instantaneous velocity) is used
             # as velocity fluctuates within a step in normal human walking
-            #reward_footstep_v = -self.reward_w['v_tgt']*(self.footstep['del_vx']**2)
-            reward_footstep_v = -self.d_reward['weight']['v_tgt']*np.linalg.norm(self.d_reward['footstep']['del_v'])/self.LENGTH0
+            # reward_footstep_v = -self.reward_w['v_tgt']*(self.footstep['del_vx']**2)
+            reward_footstep_v = -self.d_reward['weight']['v_tgt'] * np.linalg.norm(
+                self.d_reward['footstep']['del_v']) / self.LENGTH0
 
             # panalize effort
-            reward_footstep_e = -self.d_reward['weight']['effort']*self.d_reward['footstep']['effort']
+            reward_footstep_e = -self.d_reward['weight']['effort'] * self.d_reward['footstep']['effort']
 
             self.d_reward['footstep']['del_t'] = 0
             self.d_reward['footstep']['del_v'] = 0
@@ -124,10 +128,11 @@ class RewardShapingEnv(L2M2019Env):
             reward += reward_footstep_0 + reward_footstep_v + reward_footstep_e
 
         # success bonus
-        if not self.is_done() and (self.osim_model.istep >= self.spec.timestep_limit): #and self.failure_mode is 'success':
+        if not self.is_done() and (
+                self.osim_model.istep >= self.spec.timestep_limit):  # and self.failure_mode is 'success':
             # retrieve reward (i.e. do not penalize for the simulation terminating in a middle of a step)
-            #reward_footstep_0 = self.d_reward['weight']['footstep']*self.d_reward['footstep']['del_t']
-            #reward += reward_footstep_0 + 100
+            # reward_footstep_0 = self.d_reward['weight']['footstep']*self.d_reward['footstep']['del_t']
+            # reward += reward_footstep_0 + 100
             reward += 10
 
         return reward
@@ -151,8 +156,6 @@ class RewardShapingEnv(L2M2019Env):
             for joint in ['ankle_l', 'ankle_r', 'back', 'ground_pelvis',
                           'hip_l', 'hip_r', 'knee_l', 'knee_r']:
                 res += state_desc[info_type][joint]
-
-
 
         # Muscle Observations
         for muscle in ['abd_l', 'abd_r',
