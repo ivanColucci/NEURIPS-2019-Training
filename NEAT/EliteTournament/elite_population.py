@@ -7,9 +7,10 @@ import pickle
 
 class ElitePopulation(Population):
 
-    def __init__(self, config, initial_state=None, random_replace=False, overwrite=True):
+    def __init__(self, config, initial_state=None, random_replace=False, mu_lambda=True, overwrite=True):
         super().__init__(config, initial_state)
         self.random_replace = random_replace
+        self.mu_lambda = mu_lambda
         self.overwrite = overwrite
 
     def allow_regeneration(self, value):
@@ -51,19 +52,35 @@ class ElitePopulation(Population):
                     else:
                         self.population[evaluated[i][0]] = evaluated[i][1]
                     i = i + 1
-            else:
+                self.species.speciate(self.config, self.population, self.generation)
+            elif self.mu_lambda:
                 self.population = []
                 self.population += evaluated
                 for key, v in not_evaluated.items():
                     self.population.append((key, v))
                 self.population.sort(reverse=True, key=lambda x: x[1].fitness)
                 self.population = from_list_to_dict(self.population[:self.config.pop_size])
+                self.species.speciate(self.config, self.population, self.generation)
+            else:
+                self.species.speciate(self.config, self.population, self.generation)
+                dim = 0
+                max_spec_dim = 0
+                max_sid = -1
+                for sid, s in iteritems(self.species):
+                    s.members = self.get_best_half_members(s.members)
+                    d = len(s.members)
+                    if d > max_spec_dim:
+                        max_spec_dim = d
+                        max_sid = sid
+                    dim += d
+                diff = dim - self.config.pop_size
+                if diff > 0 and diff > max_spec_dim:
+                    s = self.species[max_sid]
+                    s.members = s.members[:len(s.members) - diff]
 
             print_file("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
 
             start_time_gen = time.time()
-
-            self.species.speciate(self.config, self.population, self.generation)
 
             # Check for complete extinction.
             if not self.species.species:
@@ -118,3 +135,16 @@ class ElitePopulation(Population):
             self.reporters.found_solution(self.config, self.generation, self.best_genome)
 
         return self.best_genome
+
+    def get_best_half_members(self, members):
+        temp_list = []
+        for gid in members:
+            temp_list.append((gid, self.population[gid]))
+
+        temp_list.sort(reverse=True, key=lambda x: x[1].fitness)
+
+        half_members = []
+        for item in temp_list[:round(len(temp_list)/2)]:
+            half_members.append(item[0])
+
+        return half_members
