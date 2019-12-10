@@ -1,7 +1,6 @@
 from neat.six_util import iteritems, itervalues
 from neat.population import Population, CompleteExtinctionException
 from sklearn.neighbors import NearestNeighbors
-from NEAT.utils.evaluator import from_list_to_dict
 import numpy as np
 import pickle
 
@@ -162,3 +161,10 @@ class NSElitePopulation(Population):
         for key, elem in list(iteritems(population)):
             elem.dist = np.mean(distances[i])
             i += 1
+
+
+def from_list_to_dict(l):
+    d = {}
+    for gid, g in l:
+        d[gid] = g
+    return d
