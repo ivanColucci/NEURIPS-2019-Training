@@ -141,6 +141,7 @@ class NSEvaluator:
     def eval_genome(self, genome, config):
         env = RewardShapingEnv(visualize=self.visual, seed=1234, difficulty=2)
         env.change_model(model='2D', difficulty=2, seed=1234)
+        env.set_reward_function(env.energy_consumption_reward)
         env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
         if not self.is_a_net:
             net = neat.nn.FeedForwardNetwork.create(genome, config)
