@@ -47,13 +47,13 @@ def test(source='winner_checkpoint_', load_from_checkpoint=False, checkpoint='ne
 
 
 def load_simulation():
-    evaluator = Evaluator(reward_type=5, visual=True, is_a_net=True, old_input=False,
+    evaluator = Evaluator(reward_type=1, visual=True, is_a_net=True, old_input=False,
                           load_simulation=True, save_simulation=False,
-                          file_to_load="actions_leg", steps=1000)
+                          file_to_load="../../actions_leg", steps=1000)
     result = evaluator.eval_genome(None, None)
     print("valore di fitness:", result)
 
 
 if __name__ == '__main__':
-    # load_simulation()
-    test(source='../winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint-')
+    load_simulation()
+    #test(source='../winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint-')
