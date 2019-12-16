@@ -4,23 +4,33 @@ import neat
 import pickle
 
 from NEAT.utils.utilities import Evaluator
-from NEAT.DefaultTournament.my_reproduction import TournamentReproduction
 from NEAT.utils.my_checkpointer import MyCheckpointer
+from NEAT.DefaultTournament.my_genome import MyGenome
+from NEAT.EliteTournament.elite_reproduction import EliteReproduction
 import numpy as np
 
 random.seed(1234)
 np.random.seed(1234)
 
 
-def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint', old_input=False):
-    local_dir = os.path.dirname(__file__)
-    if old_input:
-        config_path = os.path.join(local_dir, 'Configs/config-osim')
-    else:
-        config_path = os.path.join(local_dir, '../WeightAgnostic/config')
-    config = neat.Config(neat.DefaultGenome, TournamentReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
-    evaluator = Evaluator(reward_type=2, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=True, save_simulation=False, file_to_load="actions_step")
+def step_activation(z):
+    if z > 0:
+        return 1
+    return 0
+
+
+def reverse_activation(z):
+    return -z
+
+
+def test(source='winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint'):
+    config = neat.Config(MyGenome, EliteReproduction,
+                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
+                         '../config_human0')
+    config.genome_config.add_activation('step', step_activation)
+    config.genome_config.add_activation('reverse', reverse_activation)
+    evaluator = Evaluator(reward_type=1, visual=True, is_a_net=True, old_input=False,
+                          load_simulation=False, save_simulation=True, file_to_load="actions_leg")
     if load_from_checkpoint:
         p = MyCheckpointer.restore_checkpoint(checkpoint)
         print(p.best_genome)
@@ -38,11 +48,12 @@ def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-ch
 
 def load_simulation():
     evaluator = Evaluator(reward_type=5, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=True, save_simulation=False, file_to_load="actions/actions_wnode03")
+                          load_simulation=True, save_simulation=False,
+                          file_to_load="actions_leg", steps=1000)
     result = evaluator.eval_genome(None, None)
     print("valore di fitness:", result)
 
 
 if __name__ == '__main__':
-    load_simulation()
-    # test(source='../winner_genome', load_from_checkpoint=False, checkpoint='../neat-checkpoint-99')
+    # load_simulation()
+    test(source='../winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint-')
