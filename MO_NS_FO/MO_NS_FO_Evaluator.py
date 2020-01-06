@@ -1,13 +1,11 @@
 import os
 import pickle
-import time
 import matplotlib.pyplot as plt
 import neat
 import numpy as np
 from myenv import RewardShapingEnv
-from gym.wrappers.monitoring.video_recorder import VideoRecorder
 
-from NEAT.utils.rmse import calculate_sin, get_sin_function, array_diff, rmse
+from NEAT.utils.rmse import calculate_sin, array_diff
 
 INIT_POSE = np.array([
     1.699999999999999956e+00, # forward speed
@@ -23,8 +21,9 @@ INIT_POSE = np.array([
     -8.041966456860847323e-01, # knee extend
     -1.745329251994329478e-01])
 
+
 class Evaluator:
-    def __init__(self, model_name='Humanoid-v3', save_simulation=False, load_simulation=False, plot=False,
+    def __init__(self, save_simulation=False, load_simulation=False, plot=False,
                  file_to_load="actions", visual=False, is_a_net=False, steps=1000, video=False, my_env=False,
                  done=True, seed=1234):
         self.visual = visual
@@ -33,7 +32,6 @@ class Evaluator:
         self.load_simulation = load_simulation
         self.save_simulation = save_simulation
         self.file_name = file_to_load
-        self.model = model_name
         self.make_video = video
         self.video = None
         self.my_env = my_env
@@ -46,13 +44,9 @@ class Evaluator:
             with open(os.path.join(local_dir, self.file_name), 'rb') as f:
                 self.action_arr = pickle.load(f)
 
-    def observation_reduction(self, observation):
-        if self.model == 'Ant-v3':
-            return observation[:27]
-        elif self.model == 'Humanoid-v3':
-            return observation[:45]
-        else:
-            return observation[:97]
+    @staticmethod
+    def observation_reduction(observation):
+        return observation[:97]
 
     def get_plot(self):
         self.plot = True
@@ -77,7 +71,9 @@ class Evaluator:
         return full_action
 
     def execute_trial(self, env, net, steps):
+        # Env reset
         observation = env.reset(project=True, seed=1234, obs_as_dict=False, init_pose=INIT_POSE)
+        # init variables
         action_arr = []
         phenotype = []
         speed_arr = []
@@ -87,6 +83,8 @@ class Evaluator:
         fall = 0
         variables = dict()
         distance = 0.0
+
+        # simulation
         for i in range(steps):
 
             if not self.load_simulation:
@@ -108,32 +106,15 @@ class Evaluator:
             curr_speed = diff_dist/t
             speed_arr.append(curr_speed)
 
-            if self.model == "Walker2d-v3":
-                torso_y.append(env.get_body_com("torso")[2])
-                left.append(env.get_body_com("foot_left")[0])
-                right.append(env.get_body_com("foot")[0])
-                inner_rew = hook_inner(env, variables)
-            elif self.model == "Humanoid-v3":
-                torso_y.append(env.get_body_com("pelvis")[2])
-                left.append(env.get_body_com("left_shin")[0])
-                right.append(env.get_body_com("right_shin")[0])
-                inner_rew = hook_inner(env, variables)
-            else:
-                torso_y.append(env.get_state_desc()['body_pos']['pelvis'][1])
-                left.append(get_x(env, left=True))
-                right.append(get_x(env))
-                inner_rew = hook_inner(env, variables)
+            torso_y.append(env.get_state_desc()['body_pos']['pelvis'][1])
+            left.append(get_x(env, left=True))
+            right.append(get_x(env))
 
             if self.done and done:
                 fall = 1
                 break
 
-        if self.model == "Walker2d-v3":
-            distance = env.get_body_com("torso")[0]
-        elif self.model == "Humanoid-v3":
-            distance = env.get_body_com("pelvis")[0]
-        else:
-            distance = env.get_state_desc()['body_pos']['pelvis'][0]
+        distance = env.get_state_desc()['body_pos']['pelvis'][0]
 
         diff_arr = array_diff(left, right)
         info = calculate_sin(diff_arr, params_only=True)

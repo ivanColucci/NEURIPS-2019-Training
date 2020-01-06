@@ -23,14 +23,14 @@ def reverse_activation(z):
     return -z
 
 
-def test(source='winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint'):
+def test(source='winner_checkpoint_1', load_from_checkpoint=False, checkpoint='neat-checkpoint', save=False):
     config = neat.Config(MyGenome, EliteReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
                          '../config_human0')
     config.genome_config.add_activation('step', step_activation)
     config.genome_config.add_activation('reverse', reverse_activation)
     evaluator = Evaluator(reward_type=1, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=False, save_simulation=True, file_to_load="actions_leg")
+                          load_simulation=False, save_simulation=save, file_to_load="actions_leg")
     if load_from_checkpoint:
         p = MyCheckpointer.restore_checkpoint(checkpoint)
         print(p.best_genome)
@@ -41,6 +41,7 @@ def test(source='winner_checkpoint_', load_from_checkpoint=False, checkpoint='ne
     else:
         with open(source, 'rb') as f:
             winner = pickle.load(f)
+
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
     result = evaluator.eval_genome(winner_net, config)
     print("valore di fitness:", result)
@@ -54,6 +55,14 @@ def load_simulation():
     print("valore di fitness:", result)
 
 
+def save_simulation(source="../winner_checkpoint_", cp=False):
+    if cp:
+        test(load_from_checkpoint=cp, checkpoint=source, save=True)
+    else:
+        test(source=source, save=True)
+
+
 if __name__ == '__main__':
     load_simulation()
-    #test(source='../winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint-')
+    # save_simulation(source="../winner_checkpoint_", cp=False)
+    # test(source='../winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint-')
