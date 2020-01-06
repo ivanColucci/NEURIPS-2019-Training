@@ -84,25 +84,23 @@ def array_diff(x, y):
     return a
 
 
-def calculate_sin(x):
+def calculate_sin(x, params_only=False):
     peaks_value = []
     peaks_time = []
+    info = dict()
     possible_peak = dict()
     possible_peak['value'] = 0
     possible_peak['time'] = 0
     signs = np.sign(x)
     first_sign = 1
     for i in range(len(x)-1):
-        #aggiungi condizione per lo startup
         if signs[i] != signs[i+1]:
-            # print("zero!")
             peaks_value.append(abs(possible_peak['value']))
             if len(peaks_time) > 0:
                 peaks_time.append(possible_peak['time'] - sum(peaks_time))
             else:
                 peaks_time.append(possible_peak['time'])
                 first_sign = signs[possible_peak['time']]
-            # print("Picco trovato: ({}, {})".format(possible_peak, i))
             possible_peak['value'] = 0
             possible_peak['time'] = 0
         if signs[i] == 1 and possible_peak['value'] < x[i] or signs[i] == -1 and possible_peak['value'] > x[i]:
@@ -112,44 +110,63 @@ def calculate_sin(x):
     if len(peaks_time) > 0:
         peaks_value.append(abs(possible_peak['value']))
         peaks_time.append(possible_peak['time'] - sum(peaks_time))
-        #version 0
-        # useless_values = x[:peaks_time[0]]
-        #version 1
         first_peak_time = peaks_time[0]
-        interval = np.mean(peaks_time)
-        if round(interval) == 0:
-            interval = 1
-        value = np.mean(peaks_value)
-        max_value = max(peaks_value)
+        info['interval'] = np.mean(peaks_time)
+        if round(info['interval']) == 0:
+            info['interval'] = 1
+        info['value'] = np.mean(peaks_value)
+        info['max_value'] = max(peaks_value)
+        info.update(mean_peak_variance(peaks_value))
+        temp = first_peak_time / (2 * info['interval'])
+        info['phase_shift'] = -2 * np.pi * (temp - np.floor(temp))
+        if first_sign == -1:
+            info['phase_shift'] += np.pi
     else:
-        interval = 1
-        value = 0
-        first_peak_time = 0
-        max_value = 1
-    return get_sin_function(len(x), first_peak_time, interval, value, first_sign, max_value)
+        info['interval'] = 1
+        info['value'] = 0
+        info['max_value'] = 1
+        info['phase_shift'] = 0
+    if params_only:
+        return info
+    else:
+        return get_sin_function(len(x), info)
 
 
-def get_sin_function(steps, first_peak_time, interval, value, sign, max_value):
-    if value == 0:
+def get_sin_function(steps, param):
+    if param['value'] == 0:
         return [], 0
-    if value < 0.5:
-        value = 0.5
     a = []
-    temp = first_peak_time/(2*interval)
-    offset = (temp-np.floor(temp))*2*interval
     for i in range(steps):
-        a.append(sign*value*np.sin(np.pi/interval*i+np.pi/2-np.pi/interval*offset))
-    b = [max_value for i in range(len(a[:steps]))]
+        a.append(param['value']*np.sin(np.pi/param['interval']*i+np.pi/2+param['phase_shift']))
+    b = [param['max_value'] for _ in range(len(a[:steps]))]
     return a[:steps], rmse(b, a[:steps])
 
+def mean_peak_variance(peaks_value):
+    top = []
+    down = []
+    info = dict()
+    for i in range(len(peaks_value)):
+        if i % 2 == 0:
+            top.append(peaks_value[i])
+        else:
+            down.append(peaks_value[i])
+    info['mean+'] = np.mean(np.array(top))
+    info['mean-'] = np.mean(np.array(down))
+    info['var+'] = np.std(np.array(top))
+    info['var-'] = np.std(np.array(down))
 
-# a, error = get_sin_function(1000, 200, 200, 0.5, -1, 0.5)
-# plt.title("Error: "+str(error))
-# plt.plot(a, label="expected")
-# b = [0.5 for i in range(len(a))]
-# plt.plot(b, label="real")
-# plt.ylabel('distance')
-# plt.xlabel('#steps')
-# plt.legend()
-# plt.grid()
-# plt.show()
+    return info
+
+if __name__ == '__main__':
+    temp = 600 / (2 * 200)
+    a, error = get_sin_function(1000, {'max_value': 0.5, 'interval': 200,
+                                       'value': 0.5, 'phase_shift': -2*np.pi*(temp - np.floor(temp))})
+    plt.title("Error: "+str(error))
+    plt.plot(a, label="expected")
+    b = [0.5 for i in range(len(a))]
+    plt.plot(b, label="real")
+    plt.ylabel('distance')
+    plt.xlabel('#steps')
+    plt.legend()
+    plt.grid()
+    plt.show()
