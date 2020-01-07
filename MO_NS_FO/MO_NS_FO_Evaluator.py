@@ -105,6 +105,7 @@ class Evaluator:
             distance = curr_dist
             curr_speed = diff_dist/t
             speed_arr.append(curr_speed)
+            inner_rew = hook_inner(env, variables)
 
             torso_y.append(env.get_state_desc()['body_pos']['pelvis'][1])
             left.append(get_x(env, left=True))
