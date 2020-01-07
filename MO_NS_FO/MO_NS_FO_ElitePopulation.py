@@ -48,24 +48,24 @@ class ElitePopulation(Population):
             self.KNNdistances(self.population, self.n_neighbors)
             self.calculateDifferentRanks()
 
-            fig = plt.figure()
-            ax = fig.add_subplot(111, label='')
-            for elem in self.population.items():
-                if elem[1].rank == 0:
-                    front.append(elem)
-                    ax.scatter(elem[1].fitness, elem[1].dist, color='orange')
-                    ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
-                else:
-                    ax.scatter(elem[1].fitness, elem[1].dist, color='blue')
-                    ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
-
-            ax.set_xlabel('Fitness')
-            # ax.set_ylabel('Mean Height Pelvis')
-            ax.set_ylabel('Mean Diversity')
-            plt.axis((0, plt.axis()[1], 0, plt.axis()[3]))
-            plt.title('MO_NS_FO: POP=' + str(len(self.population)))
-            plt.savefig('MO_NS_FO/Figures/Figure'+str(self.generation)+'.png')
-            plt.close(fig)
+            # fig = plt.figure()
+            # ax = fig.add_subplot(111, label='')
+            # for elem in self.population.items():
+            #     if elem[1].rank == 0:
+            #         front.append(elem)
+            #         ax.scatter(elem[1].fitness, elem[1].dist, color='orange')
+            #         ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
+            #     else:
+            #         ax.scatter(elem[1].fitness, elem[1].dist, color='blue')
+            #         ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
+            #
+            # ax.set_xlabel('Fitness')
+            # # ax.set_ylabel('Mean Height Pelvis')
+            # ax.set_ylabel('Mean Diversity')
+            # plt.axis((0, plt.axis()[1], 0, plt.axis()[3]))
+            # plt.title('MO_NS_FO: POP=' + str(len(self.population)))
+            # plt.savefig('MO_NS_FO/Figures/Figure'+str(self.generation)+'.png')
+            # plt.close(fig)
 
             population = []
             for gid, g in self.population.items():
