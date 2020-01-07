@@ -27,7 +27,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
                              SpeciesSet, Stagnation,
                              config_file)
 
-    evaluator = Evaluator(my_env=False, steps=5000, done=True, seed=seed)
+    evaluator = Evaluator(my_env=False, steps=1000, done=True, seed=seed)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
     if checkpoint is not None:
         p = Checkpointer.restore_checkpoint(checkpoint)
@@ -57,10 +57,10 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
-            run(config_path, out_file=out_file, checkpoint=checkpoint, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=1000, checkpoint=checkpoint, winner=str(i), elite=elite)
         else:
-            run(config_path, out_file=out_file, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=1000, winner=str(i), elite=elite)
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=1, elite=True)
+    start('winner_genome', restore_checkpoint=False, trials=10, elite=True)
