@@ -374,18 +374,10 @@ class Evaluator():
             action = self.add_action_for_3d(action)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
 
-            correct = False
-            lf_h, rf_h = env.get_state_desc()['body_pos']['toes_l'][1], env.get_state_desc()['body_pos']['toes_r'][1]
-
-            # CORRECT IF 1 FOOT DOWN
-            if lf_h <= 0.05 or rf_h <= 0.05:
-                correct = True
-
             current_distance = max(get_x(env, left=True), get_x(env))
             h_pelvis = env.get_state_desc()['body_pos']['pelvis'][1]
             if current_distance > variables['prev_distance']:
                 distance = current_distance - variables['prev_distance']
-                # distance = variables['info']['forward_reward']
                 diff = get_x(env, left=True) - get_x(env)
                 if max(get_y(env, left=True), get_y(env)) < h_pelvis:
                     rew = abs(distance * diff)

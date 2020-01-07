@@ -30,6 +30,7 @@ def step_activation(z):
 def reverse_activation(z):
     return -z
 
+
 def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint'):
     config = neat.Config(MyGenome, EliteReproduction,
                          neat.DefaultSpeciesSet, neat.DefaultStagnation,
@@ -53,9 +54,9 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     #   2 - area metric
     #   3 - step reward with a bonus for staying with the pelvis between 0.84 and 0.94
     #   4 - step reward
-    #   5 - MO distance and energy
+    #   5 - Definitive
     #   6 - body in range incremental
-    evaluator = Evaluator(reward_type=5, visual=False, old_input=False, steps=1000)
+    evaluator = Evaluator(reward_type=5, visual=False, old_input=False, steps=5000)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner

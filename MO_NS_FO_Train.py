@@ -27,7 +27,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
                              SpeciesSet, Stagnation,
                              config_file)
 
-    evaluator = Evaluator(model_name=model, my_env=False, steps=5000, done=True, seed=seed)
+    evaluator = Evaluator(my_env=False, steps=5000, done=True, seed=seed)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
     if checkpoint is not None:
         p = Checkpointer.restore_checkpoint(checkpoint)
@@ -49,7 +49,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
         pickle.dump(winner, f)
 
 
-def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trials=1, elite=False, human=True):
+def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trials=1, elite=False):
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'MO_NS_FO_EliteHumanoidConfig')
     for i in range(trials):
@@ -57,10 +57,10 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
-            run(config_path, out_file=out_file, checkpoint=checkpoint, winner=str(i), elite=elite, model=None)
+            run(config_path, out_file=out_file, checkpoint=checkpoint, winner=str(i), elite=elite)
         else:
-            run(config_path, out_file=out_file, winner=str(i), elite=elite, model=None)
+            run(config_path, out_file=out_file, winner=str(i), elite=elite)
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=1, elite=True, human=True)
+    start('winner_genome', restore_checkpoint=False, trials=1, elite=True)
