@@ -1,4 +1,6 @@
 import numpy as np
+from osim.env import L2M2019Env
+
 from myenv import RewardShapingEnv
 import neat
 from MONEAT.fitness_obj import FitnessObj
@@ -370,8 +372,11 @@ class Evaluator():
         variables['fly_steps'] = 0.0
         observation = env.get_observation()
         for i in range(steps):
-            action = net.activate(observation)
-            action = self.add_action_for_3d(action)
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
             observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
 
             current_distance = max(get_x(env, left=True), get_x(env))
@@ -398,7 +403,55 @@ class Evaluator():
 
         return final_rew
 
+    def execute_trial_independent_2(self, env, net, steps):
+        final_rew = 0
+        variables = dict()
+        variables['prev_distance'] = max(get_x(env, left=True), get_x(env))
+        variables['left_rew'] = 0.0
+        variables['right_rew'] = 0.0
+        variables['fly_steps'] = 0.0
+        observation = env.get_observation()
+
+        for i in range(steps):
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            observation, _, done, info = env.step(action, project=True, obs_as_dict=False)
+
+            current_distance = max(get_x(env, left=True), get_x(env))
+            h_pelvis = env.get_state_desc()['body_pos']['pelvis'][1]
+            if current_distance > variables['prev_distance']:
+                distance = current_distance - variables['prev_distance']
+                diff = get_x(env, left=True) - get_x(env)
+                if max(get_y(env, left=True), get_y(env)) < h_pelvis:
+                    rew = abs(distance * diff)
+
+                    toes_l = env.get_state_desc()["body_pos"]["toes_l"][1]
+                    toes_r = env.get_state_desc()["body_pos"]["toes_r"][1]
+
+                    if toes_r > -0.02 and toes_l > -0.02:
+                        if diff > 0:
+                            variables['left_rew'] += rew
+                        else:
+                            variables['right_rew'] += rew
+                    else:
+                        print('Punta: {0:3.3f} Reward {1:3.3f}'.format(min(toes_l, toes_r), rew))
+
+                variables['prev_distance'] = current_distance
+
+            if done:
+                break
+
+        rr = variables['right_rew']
+        lr = variables['left_rew']
+        final_rew = rr + lr - abs(rr - lr)
+
+        return final_rew
+
     def eval_genome(self, genome, config):
+        # env = L2M2019Env(visualize=self.visual, seed=1234, difficulty=2, integrator_accuracy=0.003)
         env = RewardShapingEnv(visualize=self.visual, seed=1234, difficulty=2, old_input=self.old_input)
         env.change_model(model='2D', difficulty=2, seed=1234)
         if self.reward_function is None:
@@ -425,6 +478,8 @@ class Evaluator():
             return self.multi_objective_trial(env, net, self.steps)
         elif self.reward_type == 7:
             return self.execute_trial_with_body_in_range_distance(env, net, self.steps)
+        elif self.reward_type == 8:
+            return self.execute_trial_independent_2(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
 

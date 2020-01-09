@@ -23,14 +23,17 @@ def reverse_activation(z):
     return -z
 
 
-def test(source='winner_checkpoint_1', load_from_checkpoint=False, checkpoint='neat-checkpoint', save=False):
-    config = neat.Config(MyGenome, EliteReproduction,
-                         neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                         '../config_human0')
+def test(source='winner_genome', load_from_checkpoint=False, checkpoint='neat-checkpoint', old_input=False):
+    local_dir = os.path.dirname(__file__)
+    if old_input:
+        config_path = os.path.join(local_dir, 'Configs/config-osim')
+    else:
+        config_path = os.path.join(local_dir, '../config_human0')
+    config = neat.Config(MyGenome, EliteReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
     config.genome_config.add_activation('step', step_activation)
     config.genome_config.add_activation('reverse', reverse_activation)
-    evaluator = Evaluator(reward_type=1, visual=True, is_a_net=True, old_input=False,
-                          load_simulation=False, save_simulation=save, file_to_load="actions_leg")
+    evaluator = Evaluator(reward_type=5, visual=True, is_a_net=True, old_input=False,
+                          load_simulation=False, save_simulation=False, file_to_load="actions_6")
     if load_from_checkpoint:
         p = MyCheckpointer.restore_checkpoint(checkpoint)
         print(p.best_genome)
@@ -41,28 +44,19 @@ def test(source='winner_checkpoint_1', load_from_checkpoint=False, checkpoint='n
     else:
         with open(source, 'rb') as f:
             winner = pickle.load(f)
-
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
     result = evaluator.eval_genome(winner_net, config)
     print("valore di fitness:", result)
 
 
 def load_simulation():
-    evaluator = Evaluator(reward_type=1, visual=True, is_a_net=True, old_input=False,
+    evaluator = Evaluator(reward_type=8, visual=True, is_a_net=True, old_input=False,
                           load_simulation=True, save_simulation=False,
-                          file_to_load="../../actions_leg", steps=1000)
+                          file_to_load="../../actions_6.4", steps=1000)
     result = evaluator.eval_genome(None, None)
     print("valore di fitness:", result)
 
 
-def save_simulation(source="../winner_checkpoint_", cp=False):
-    if cp:
-        test(load_from_checkpoint=cp, checkpoint=source, save=True)
-    else:
-        test(source=source, save=True)
-
-
 if __name__ == '__main__':
     load_simulation()
-    # save_simulation(source="../winner_checkpoint_", cp=False)
-    # test(source='../winner_checkpoint_', load_from_checkpoint=False, checkpoint='neat-checkpoint-')
+    # test(source='../winner_checkpoint_6', load_from_checkpoint=False, checkpoint='../neat-checkpoint-99')
