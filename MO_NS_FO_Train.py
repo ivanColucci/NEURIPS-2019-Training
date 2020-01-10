@@ -28,13 +28,15 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
                              config_file)
 
     evaluator = Evaluator(my_env=False, steps=1000, done=True, seed=seed)
-    pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
+    pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=240)
     if checkpoint is not None:
         p = Checkpointer.restore_checkpoint(checkpoint)
         for gid, g in p.population.items():
             g.fitness = None
     else:
         if elite:
+            # Per usare l'archivio decommentare la seguente istruzione e commentare quella successiva
+            # p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
             p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
         else:
             p = Population(config, n_neighbors=config.pop_size, winner=winner)
