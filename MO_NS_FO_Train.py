@@ -17,7 +17,7 @@ from MO_NS_FO.MO_NS_FO_ParallelEvaluator import ParallelEvaluator
 
 
 def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, checkpoint=None, winner='', seed=1234,
-        elite=False, model='Walker2d-v3'):
+        elite=False):
     if elite:
         config = neat.Config(Genome, EliteReproduction,
                              SpeciesSet, Stagnation,
@@ -44,14 +44,14 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     p.add_reporter(Reporter(True, "output" + winner + ".txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(Checkpointer(checkpoint_interval=50, overwrite=True, filename_prefix='NS-checkpoint-' + winner))
+    p.add_reporter(Checkpointer(checkpoint_interval=50, overwrite=True, filename_prefix='MO_NS_FO-checkpoint-' + winner))
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)
 
 
-def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trials=1, elite=False):
+def start(out_file, restore_checkpoint=False, checkpoint='MO_NS_FO-checkpoint-', trials=1, elite=False):
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'MO_NS_FO_EliteHumanoidConfig')
     for i in range(trials):
@@ -59,10 +59,10 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
-            run(config_path, out_file=out_file, n_max_gen=1000, checkpoint=checkpoint, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=500, checkpoint=checkpoint, winner=str(i), elite=elite)
         else:
-            run(config_path, out_file=out_file, n_max_gen=1000, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=500, winner=str(i), elite=elite)
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=10, elite=True)
+    start('winner_genome', restore_checkpoint=False, trials=5, elite=True)

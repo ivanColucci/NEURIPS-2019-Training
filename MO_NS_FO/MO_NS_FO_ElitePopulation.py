@@ -48,6 +48,8 @@ class ElitePopulation(Population):
                     self.novelty_archive.append(g)
                     self.n_add_archive += 1
                     self.last_archive_modified = self.generation
+                    with open("archive_"+self.winner_name, "wb") as f:
+                        pickle.dump(self.novelty_archive, f)
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(not_evaluated)), self.config)
