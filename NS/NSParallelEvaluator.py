@@ -24,5 +24,6 @@ class ParallelEvaluator(object):
                 genome.fitness, genome.phenotype = job.get(timeout=self.timeout)
             except multiprocessing.TimeoutError:
                 genome.fitness = [0, 0]
+                genome.phenotype = [0, 0]
                 with open("output.txt", "a") as fout:
                     fout.write("\ngenome_id: " + str(ignored_genome_id) + " TIMEOUT\n")

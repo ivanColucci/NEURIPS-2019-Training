@@ -41,7 +41,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
         else:
             p = Population(config, n_neighbors=config.pop_size, winner=winner)
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(Reporter(True, "output" + winner + ".txt"))
+    p.add_reporter(Reporter(True, "MO_NS_FO_output" + winner + ".txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(Checkpointer(checkpoint_interval=50, overwrite=True, filename_prefix='MO_NS_FO-checkpoint-' + winner))

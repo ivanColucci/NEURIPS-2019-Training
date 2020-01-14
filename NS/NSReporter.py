@@ -104,7 +104,7 @@ class NSReporter(BaseReporter):
     def info(self, msg):
         with open(self.filename, "a+") as f:
             print(msg)
-            f.write(msg)
+            f.write(str(msg)+"\n")
 
     def compute_sparseness(self, population):
         pop = [elem.phenotype for elem in list(itervalues(population))]

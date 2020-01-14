@@ -40,7 +40,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
         else:
             p = NSPopulation(config, n_neighbors=15, novelty_threshold=0.05, winner=winner)
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(NSReporter(True, "output" + winner + ".txt"))
+    p.add_reporter(NSReporter(True, "NS_output" + winner + ".txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(NSCheckpointer(checkpoint_interval=50, overwrite=True, filename_prefix='NS-checkpoint-' + winner))
