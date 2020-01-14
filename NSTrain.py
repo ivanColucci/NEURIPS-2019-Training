@@ -56,7 +56,7 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
         config_path = os.path.join(local_dir, 'NSEliteHumanoidConfig')
     else:
         config_path = os.path.join(local_dir, 'NSHumanoidConfig0')
-    for i in range(1, trials):
+    for i in range(trials):
         seed = 1234 + i
         random.seed(seed)
         np.random.seed(seed)
