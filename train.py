@@ -46,7 +46,6 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         p.allow_regeneration(False)
     # Add a stdout reporter to show progress in the terminal.
     p.add_reporter(FileReporter(True, "output.txt"))
-    p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(MyCheckpointer(checkpoint_interval=50, overwrite=True))

@@ -1,7 +1,12 @@
 from neat.genome import DefaultGenome, DefaultNodeGene, DefaultConnectionGene
 from MONEAT.mogenome import MyDefaultGenomeConfig
 
+
 class MyGenome(DefaultGenome):
+
+    def __init__(self, key):
+        super().__init__(key)
+        self.phenotype = None
 
     @classmethod
     def parse_config(cls, param_dict):

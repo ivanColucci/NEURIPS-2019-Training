@@ -148,11 +148,11 @@ class NSEvaluator:
         else:
             net = genome
 
-        final_reward, action_arr = self.execute_trial(env, net, self.steps)
+        phenotype, action_arr = self.execute_trial(env, net, self.steps)
 
         if self.plot:
             plot_actions(action_arr)
-        return final_reward
+        return phenotype, phenotype
 
 
 def print_file(string, file="output.txt"):

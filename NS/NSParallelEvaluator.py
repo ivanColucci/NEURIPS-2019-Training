@@ -21,7 +21,7 @@ class ParallelEvaluator(object):
         # assign the fitness back to each genome
         for job, (ignored_genome_id, genome) in zip(jobs, genomes):
             try:
-                genome.fitness = job.get(timeout=self.timeout)
+                genome.fitness, genome.phenotype = job.get(timeout=self.timeout)
             except multiprocessing.TimeoutError:
                 genome.fitness = [0, 0]
                 with open("output.txt", "a") as fout:

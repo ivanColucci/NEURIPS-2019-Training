@@ -366,6 +366,7 @@ class Evaluator():
     def execute_trial_definitive(self, env, net, steps):
         final_rew = 0
         variables = dict()
+        phenotype = []
         variables['prev_distance'] = max(get_x(env, left=True), get_x(env))
         variables['left_rew'] = 0.0
         variables['right_rew'] = 0.0
@@ -401,7 +402,10 @@ class Evaluator():
         lr = variables['left_rew']
         final_rew = rr + lr - abs(rr - lr)
 
-        return final_rew
+        phenotype.append(final_rew)
+        phenotype.append(np.clip(env.get_state_desc()['body_pos']['pelvis'][0] / 10, 0, 1))
+
+        return final_rew, phenotype
 
     def execute_trial_independent_2(self, env, net, steps):
         final_rew = 0
