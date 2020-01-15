@@ -48,7 +48,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     p.add_reporter(FileReporter(True, "output.txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(MyCheckpointer(checkpoint_interval=50, overwrite=True))
+    p.add_reporter(MyCheckpointer(checkpoint_interval=5, overwrite=True))
     #   1 - distance metric
     #   2 - area metric
     #   3 - step reward with a bonus for staying with the pelvis between 0.84 and 0.94

@@ -44,7 +44,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     p.add_reporter(Reporter(True, "MO_NS_FO_output" + winner + ".txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(Checkpointer(checkpoint_interval=50, overwrite=True, filename_prefix='MO_NS_FO-checkpoint-' + winner))
+    p.add_reporter(Checkpointer(checkpoint_interval=5, overwrite=True, filename_prefix='MO_NS_FO-checkpoint-' + winner))
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
     with open(out_file, 'wb') as f:

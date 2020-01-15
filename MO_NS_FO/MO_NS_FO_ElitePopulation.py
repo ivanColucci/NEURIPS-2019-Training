@@ -62,9 +62,9 @@ class ElitePopulation(Population):
 
             # fig = plt.figure()
             # ax = fig.add_subplot(111, label='')
-            # for elem in self.population.items():
-            #     if elem[1].rank == 0:
-            #         front.append(elem)
+            for elem in self.population.items():
+                if elem[1].rank == 0:
+                    front.append(elem)
             #         ax.scatter(elem[1].fitness, elem[1].dist, color='orange')
             #         ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
             #     else:
