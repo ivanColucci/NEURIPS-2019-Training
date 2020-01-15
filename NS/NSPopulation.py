@@ -107,7 +107,10 @@ class NSPopulation(Population):
             if time_diff > 30:
                 self.n_add_archive = 0
 
-            self.reporters.info("Novelty's archive size: {}\n".format(len(self.novelty_archive)))
+            self.reporters.info("Novelty's archive size: {}".format(len(self.novelty_archive)))
+            if len(self.novelty_archive) > 0:
+                self.reporters.info("Archive's best: {}".format(
+                    max(self.novelty_archive, key=lambda x: x.fitness[0]).fitness[0]))
             self.generation += 1
 
         if self.config.no_fitness_termination:

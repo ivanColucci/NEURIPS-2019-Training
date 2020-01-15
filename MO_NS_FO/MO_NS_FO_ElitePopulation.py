@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 class ElitePopulation(Population):
 
-    def __init__(self, config, initial_state=None, overwrite=True, winner="", n_neighbors=5):
+    def __init__(self, config, initial_state=None, overwrite=True, winner="", n_neighbors=5, novelty_threshold=0.5, use_archive=False):
         super().__init__(config, initial_state)
         self.overwrite = overwrite
         self.winner_name = winner
@@ -18,6 +18,9 @@ class ElitePopulation(Population):
         self.last_genome_added = None
         self.last_archive_modified = 0
         self.n_add_archive = 0
+        self.novelty_archive = []
+        self.use_archive = use_archive
+        self.novelty_threshold = novelty_threshold
 
     def run(self, fitness_function, n=None):
         # Variables needed to save archive on each update
@@ -41,18 +44,27 @@ class ElitePopulation(Population):
                     not_evaluated[gid] = g
                 else:
                     evaluated.append((gid, g))
+                if self.use_archive and g not in self.novelty_archive and g.dist is not None and g.dist > self.novelty_threshold:
+                    self.novelty_archive.append(g)
+                    self.n_add_archive += 1
+                    self.last_archive_modified = self.generation
+                    with open("archive_"+self.winner_name, "wb") as f:
+                        pickle.dump(self.novelty_archive, f)
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(not_evaluated)), self.config)
             # calculate distance on 2*pop_size
-            self.KNNdistances(self.population, self.n_neighbors)
+            if self.use_archive:
+                self.KNNdistances(self.population, self.n_neighbors, archive=self.novelty_archive)
+            else:
+                self.KNNdistances(self.population, self.n_neighbors)
             self.calculateDifferentRanks()
 
             # fig = plt.figure()
             # ax = fig.add_subplot(111, label='')
-            # for elem in self.population.items():
-            #     if elem[1].rank == 0:
-            #         front.append(elem)
+            for elem in self.population.items():
+                if elem[1].rank == 0:
+                    front.append(elem)
             #         ax.scatter(elem[1].fitness, elem[1].dist, color='orange')
             #         ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
             #     else:
@@ -125,6 +137,20 @@ class ElitePopulation(Population):
                 else:
                     raise CompleteExtinctionException()
 
+            if self.use_archive:
+                time_diff = self.generation - self.last_archive_modified
+
+                if time_diff > 60:
+                    self.novelty_threshold -= self.novelty_threshold * 0.05
+
+                if self.n_add_archive > 4 and time_diff <= 30:
+                    self.novelty_threshold += self.novelty_threshold * 0.05
+                    self.n_add_archive = 0
+
+                if time_diff > 30:
+                    self.n_add_archive = 0
+
+                self.reporters.info("Novelty's archive size: {}\n".format(len(self.novelty_archive)))
             self.reporters.info("Front size: {}\n".format(len(front)))
             self.generation += 1
 
@@ -133,13 +159,20 @@ class ElitePopulation(Population):
 
         return front
 
-    def KNNdistances(self, population, n_neighbors):
+    def KNNdistances(self, population, n_neighbors, archive=None):
         pop = []
         for elem in list(itervalues(population)):
             if elem.phenotype is not None:
                 pop.append(elem.phenotype)
             else:
-                pop.append([0, 0, 0, 1])
+                pop.append([0, 0])
+
+        if archive is not None:
+            for elem in archive:
+                if elem.phenotype is not None:
+                    pop.append(elem.phenotype)
+                else:
+                    pop.append([0, 0])
 
         nbrs = NearestNeighbors(n_neighbors=n_neighbors, algorithm='auto', metric='euclidean').fit(np.array(pop))
 

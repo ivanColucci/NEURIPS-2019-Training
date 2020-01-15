@@ -124,10 +124,11 @@ class Evaluator:
 
         mean_speed = np.mean(speed_arr)
 
+        phenotype.append(outer_rew)
         phenotype.append(np.clip(distance / 10, 0, 1))
-        phenotype.append(np.clip(mean_speed / 5, 0, 1))
-        phenotype.append(np.clip(info['value'], 0, 1))
-        phenotype.append(fall)
+        # phenotype.append(np.clip(mean_speed / 5, 0, 1))
+        # phenotype.append(np.clip(info['value'], 0, 1))
+        # phenotype.append(fall)
 
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:

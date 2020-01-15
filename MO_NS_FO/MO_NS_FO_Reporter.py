@@ -2,7 +2,8 @@ import time
 from neat.reporting import BaseReporter
 from neat.math_util import mean, stdev
 from neat.six_util import itervalues, iterkeys
-
+from sklearn.neighbors import NearestNeighbors
+import numpy as np
 
 class Reporter(BaseReporter):
 
@@ -61,6 +62,7 @@ class Reporter(BaseReporter):
                 f.write("Generation time: {0:.3f} sec\n".format(elapsed))
 
     def post_evaluate(self, config, population, species, best_genome):
+        sparse_mean, sparse_dev = self.compute_sparseness(population)
         fitnesses = [c.fitness for c in itervalues(population)]
         fit_mean = mean(fitnesses)
         fit_std = stdev(fitnesses)
@@ -73,6 +75,8 @@ class Reporter(BaseReporter):
             f.write('Population\'s average fitness: {0:3.5f} stdev: {1:3.5f}\n'.format(fit_mean, fit_std))
             print('Population\'s diversity: {0:3.5f} stdev: {1:3.5f}'.format(dist_mean, dist_std))
             f.write('Population\'s diversity: {0:3.5f} stdev: {1:3.5f}\n'.format(dist_mean, dist_std))
+            print('Population\'s sparseness: {0:3.5f} stdev: {1:3.5f}'.format(sparse_mean, sparse_dev))
+            f.write('Population\'s sparseness: {0:3.5f} stdev: {1:3.5f}\n'.format(sparse_mean, sparse_dev))
             print('Best fitness: {}'.format(best_genome.fitness))
             print('Best distance: {0:3.5f}\nSize: {1!r} - species {2} - id {3}'.format(best_genome.dist, best_genome.size(),
                                                                                    best_species_id,
@@ -105,3 +109,10 @@ class Reporter(BaseReporter):
         with open(self.filename, "a+") as f:
             print(msg)
             f.write(msg)
+
+    def compute_sparseness(self, population):
+        pop = [elem.phenotype for elem in list(itervalues(population))]
+        nbrs = NearestNeighbors(n_neighbors=len(pop), algorithm='auto', metric='euclidean').fit(np.array(pop))
+        distances, _ = nbrs.kneighbors(np.array(pop))
+
+        return np.mean(distances), np.std(distances)

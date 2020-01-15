@@ -7,6 +7,7 @@ class NSGenome(DefaultGenome):
     def __init__(self, key):
         super().__init__(key)
         self.dist = None
+        self.phenotype = None
 
     def configure_crossover(self, genome1, genome2, config):
         """ Configure a new genome by crossover from two parent genomes. """

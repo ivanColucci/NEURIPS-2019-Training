@@ -28,8 +28,8 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
                              config_file)
 
     train_num = ''
-    evaluator = NSEvaluator(model_name=model, my_env=False, steps=5000, done=True, seed=seed)
-    pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=500)
+    evaluator = NSEvaluator(model_name=model, my_env=False, steps=1000, done=True, seed=seed)
+    pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=240)
     if checkpoint is not None:
         p = NSCheckpointer.restore_checkpoint(checkpoint)
         for gid, g in p.population.items():
@@ -40,10 +40,10 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
         else:
             p = NSPopulation(config, n_neighbors=15, novelty_threshold=0.05, winner=winner)
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(NSReporter(True, "output" + train_num + ".txt"))
+    p.add_reporter(NSReporter(True, "NS_output" + winner + ".txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(NSCheckpointer(checkpoint_interval=50, overwrite=True, filename_prefix='NS-checkpoint-' + train_num))
+    p.add_reporter(NSCheckpointer(checkpoint_interval=5, overwrite=True, filename_prefix='NS-checkpoint-' + winner))
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
     with open(out_file, 'wb') as f:
@@ -61,10 +61,10 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
-            run(config_path, out_file=out_file, checkpoint=checkpoint, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=500, checkpoint=checkpoint, winner=str(i), elite=elite)
         else:
-            run(config_path, out_file=out_file, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=500, winner=str(i), elite=elite)
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=1, elite=False)
+    start('winner_genome', restore_checkpoint=False, trials=5, elite=False)
