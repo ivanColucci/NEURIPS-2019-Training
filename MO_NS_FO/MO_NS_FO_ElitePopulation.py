@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 
 class ElitePopulation(Population):
 
-    def __init__(self, config, initial_state=None, overwrite=True, winner="", n_neighbors=5, novelty_threshold=0.5, use_archive=False):
+    def __init__(self, config, initial_state=None, overwrite=True, winner="", n_neighbors=5, novelty_threshold=0.05,
+                 use_archive=False):
         super().__init__(config, initial_state)
         self.overwrite = overwrite
         self.winner_name = winner
@@ -44,12 +45,6 @@ class ElitePopulation(Population):
                     not_evaluated[gid] = g
                 else:
                     evaluated.append((gid, g))
-                if self.use_archive and g not in self.novelty_archive and g.dist is not None and g.dist > self.novelty_threshold:
-                    self.novelty_archive.append(g)
-                    self.n_add_archive += 1
-                    self.last_archive_modified = self.generation
-                    with open("archive_"+self.winner_name, "wb") as f:
-                        pickle.dump(self.novelty_archive, f)
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(not_evaluated)), self.config)
@@ -59,6 +54,14 @@ class ElitePopulation(Population):
             else:
                 self.KNNdistances(self.population, self.n_neighbors)
             self.calculateDifferentRanks()
+
+            for gid, g in self.population.items():
+                if self.use_archive and g not in self.novelty_archive and g.dist is not None and g.dist > self.novelty_threshold:
+                    self.novelty_archive.append(g)
+                    self.n_add_archive += 1
+                    self.last_archive_modified = self.generation
+                    with open("archive_" + self.winner_name, "wb") as f:
+                        pickle.dump(self.novelty_archive, f)
 
             # fig = plt.figure()
             # ax = fig.add_subplot(111, label='')

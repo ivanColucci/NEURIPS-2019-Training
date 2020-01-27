@@ -27,7 +27,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
                              SpeciesSet, Stagnation,
                              config_file)
 
-    evaluator = Evaluator(my_env=False, steps=1000, done=True, seed=seed)
+    evaluator = Evaluator(my_env=False, steps=5000, done=True, seed=seed)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=240)
     if checkpoint is not None:
         p = Checkpointer.restore_checkpoint(checkpoint)
@@ -36,15 +36,15 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     else:
         if elite:
             # Per usare l'archivio decommentare la seguente istruzione e commentare quella successiva
-            # p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
-            p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
+            p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
+            # p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
         else:
             p = Population(config, n_neighbors=config.pop_size, winner=winner)
     # Add a stdout reporter to show progress in the terminal.
-    p.add_reporter(Reporter(True, "MO_NS_FO_output" + winner + ".txt"))
+    p.add_reporter(Reporter(True, "MO_NS_FO_Archive_output" + winner + ".txt"))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(Checkpointer(checkpoint_interval=5, overwrite=True, filename_prefix='MO_NS_FO-checkpoint-' + winner))
+    p.add_reporter(Checkpointer(checkpoint_interval=5, overwrite=True, filename_prefix='MO_NS_FO_Archive-checkpoint-' + winner))
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
     with open(out_file, 'wb') as f:
@@ -65,4 +65,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='MO_NS_FO-checkpoint-',
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=5, elite=True)
+    start('winner_genome', restore_checkpoint=False, trials=2, elite=True)
