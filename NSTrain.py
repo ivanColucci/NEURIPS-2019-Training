@@ -50,21 +50,21 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
         pickle.dump(winner, f)
 
 
-def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trials=1, elite=False):
+def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trials=1, elite=False, offset=0):
     local_dir = os.path.dirname(__file__)
     if elite:
         config_path = os.path.join(local_dir, 'NSEliteHumanoidConfig')
     else:
         config_path = os.path.join(local_dir, 'NSHumanoidConfig0')
     for i in range(trials):
-        seed = 1234 + i
+        seed = 1234 + i + offset
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
-            run(config_path, out_file=out_file, n_max_gen=500, checkpoint=checkpoint, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=500, checkpoint=checkpoint, winner=str(i+offset), elite=elite)
         else:
-            run(config_path, out_file=out_file, n_max_gen=500, winner=str(i), elite=elite)
+            run(config_path, out_file=out_file, n_max_gen=500, winner=str(i+offset), elite=elite)
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=5, elite=False)
+    start('winner_genome', restore_checkpoint=False, trials=5, elite=False, offset=2)
