@@ -60,14 +60,17 @@ class Checkpointer(BaseReporter):
             pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
-    def restore_checkpoint(filename, elite=True):
+    def restore_checkpoint(filename, elite=True, archive_name="archive_", n_neighbors=15, use_archive=True, winner=""):
         """Resumes the simulation from a previous saved point."""
         with gzip.open(filename) as f:
             generation, config, population, species_set, rndstate = pickle.load(f)
             random.setstate(rndstate)
+
             if elite:
-                pop = ElitePopulation(config, (population, species_set, generation))
+                pop = ElitePopulation(config, (population, species_set, generation), n_neighbors=n_neighbors,
+                                      use_archive=use_archive, winner=winner)
             else:
                 pop = Population(config, (population, species_set, generation))
-            
+            with open(archive_name, "rb") as fp:
+                pop.novelty_archive = pickle.load(fp)
             return pop
