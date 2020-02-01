@@ -64,7 +64,7 @@ class NSReporter(BaseReporter):
 
     def post_evaluate(self, config, population, species, best_genome):
         sparse_mean, sparse_dev = self.compute_sparseness(population)
-        fitnesses = [c.dist for c in itervalues(population)]
+        fitnesses = [c.fitness[0] for c in itervalues(population)]
         fit_mean = mean(fitnesses)
         fit_std = stdev(fitnesses)
         best_species_id = species.get_species_id(best_genome.key)
