@@ -3,6 +3,7 @@ from neat.population import Population, CompleteExtinctionException
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
 import pickle
+import time
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -19,6 +20,7 @@ class NSPopulation(Population):
         self.last_genome_added = None
         self.last_archive_modified = 0
         self.n_add_archive = 0
+        self.sum_times = 0
 
     def run(self, fitness_function, n=None):
         # Variables needed to save archive on each update
@@ -35,6 +37,7 @@ class NSPopulation(Population):
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(self.population)), self.config)
+            start_time_gen = time.time()
             self.KNNdistances(self.population, self.novelty_archive, self.n_neighbors)
 
             # Gather and report statistics.
@@ -113,8 +116,14 @@ class NSPopulation(Population):
                     max(self.novelty_archive, key=lambda x: x.fitness[0]).fitness[0]))
             self.generation += 1
 
+            diff = round(time.time() - start_time_gen, 3)
+            self.sum_times += diff
+            self.reporters.info("\nGen: " + str(k) + " tempo: " + str(diff) + " sec\n")
+
         if self.config.no_fitness_termination:
             self.reporters.found_solution(self.config, self.generation, self.best_genome)
+
+        self.reporters.info("Computation mean time: " + str(self.sum_times / (self.generation + 1)))
 
         return self.novelty_archive
 
