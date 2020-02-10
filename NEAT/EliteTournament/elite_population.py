@@ -12,6 +12,7 @@ class ElitePopulation(Population):
         self.random_replace = random_replace
         self.mu_lambda = mu_lambda
         self.overwrite = overwrite
+        self.sum_times = 0
 
     def allow_regeneration(self, value):
         self.reproduction.allow_regeneration(value)
@@ -41,8 +42,12 @@ class ElitePopulation(Population):
                 else:
                     evaluated.append((gid, g))
 
+            diff = round(time.time() - start_time_gen, 3)
+            self.sum_times += diff
+
             fitness_function(list(iteritems(not_evaluated)), self.config)
 
+            start_time_gen = time.time()
             if self.random_replace:
                 i = 0
                 self.population = {}
@@ -77,10 +82,6 @@ class ElitePopulation(Population):
                 if diff > 0 and diff > max_spec_dim:
                     s = self.species[max_sid]
                     s.members = s.members[:len(s.members) - diff]
-
-            print_file("Gen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
-
-            start_time_gen = time.time()
 
             # Check for complete extinction.
             if not self.species.species:
@@ -130,9 +131,14 @@ class ElitePopulation(Population):
             self.generation += 1
 
             print_file("\nGen: " + str(k) + " tempo: " + str(round(time.time() - start_time_gen,3)) + " sec\n")
+            diff = round(time.time() - start_time_gen, 3)
+            self.sum_times += diff
+            self.reporters.info("\nGen: " + str(k) + " tempo: " + str(diff) + " sec\n")
 
         if self.config.no_fitness_termination:
             self.reporters.found_solution(self.config, self.generation, self.best_genome)
+
+        self.reporters.info("Computation mean time: " + str(self.sum_times / (self.generation + 1)))
 
         return self.best_genome
 

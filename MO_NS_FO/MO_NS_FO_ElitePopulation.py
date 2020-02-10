@@ -1,5 +1,5 @@
 import pickle
-import math
+import time
 import numpy as np
 from neat.population import Population, CompleteExtinctionException
 from neat.six_util import iteritems, itervalues
@@ -22,6 +22,7 @@ class ElitePopulation(Population):
         self.novelty_archive = []
         self.use_archive = use_archive
         self.novelty_threshold = novelty_threshold
+        self.sum_times = 0
 
     def run(self, fitness_function, n=None):
         # Variables needed to save archive on each update
@@ -48,6 +49,8 @@ class ElitePopulation(Population):
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(not_evaluated)), self.config)
+            start_time_gen = time.time()
+
             # calculate distance on 2*pop_size
             if self.use_archive:
                 self.KNNdistances(self.population, self.n_neighbors, archive=self.novelty_archive)
@@ -63,24 +66,24 @@ class ElitePopulation(Population):
                     with open("archive_" + self.winner_name, "wb") as f:
                         pickle.dump(self.novelty_archive, f)
 
-            # fig = plt.figure()
-            # ax = fig.add_subplot(111, label='')
+            fig = plt.figure()
+            ax = fig.add_subplot(111, label='')
             for elem in self.population.items():
                 if elem[1].rank == 0:
                     front.append(elem)
-            #         ax.scatter(elem[1].fitness, elem[1].dist, color='orange')
-            #         ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
-            #     else:
-            #         ax.scatter(elem[1].fitness, elem[1].dist, color='blue')
-            #         ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
-            #
-            # ax.set_xlabel('Fitness')
-            # # ax.set_ylabel('Mean Height Pelvis')
-            # ax.set_ylabel('Mean Diversity')
-            # plt.axis((0, plt.axis()[1], 0, plt.axis()[3]))
-            # plt.title('MO_NS_FO: POP=' + str(len(self.population)))
-            # plt.savefig('MO_NS_FO/Figures/Figure'+str(self.generation)+'.png')
-            # plt.close(fig)
+                    ax.scatter(elem[1].fitness, elem[1].dist, color='orange')
+                    ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
+                else:
+                    ax.scatter(elem[1].fitness, elem[1].dist, color='blue')
+                    ax.annotate(elem[1].rank, (elem[1].fitness, elem[1].dist))
+
+            ax.set_xlabel('Fitness')
+            # ax.set_ylabel('Mean Height Pelvis')
+            ax.set_ylabel('Mean Diversity')
+            plt.axis((0, plt.axis()[1], 0, plt.axis()[3]))
+            plt.title('MO_NS_FO: POP=' + str(len(self.population)))
+            plt.savefig('MO_NS_FO/Figures/Figure'+str(self.generation)+'.png')
+            plt.close(fig)
 
             population = []
             for gid, g in self.population.items():
@@ -157,8 +160,15 @@ class ElitePopulation(Population):
             self.reporters.info("Front size: {}\n".format(len(front)))
             self.generation += 1
 
+            diff = round(time.time() - start_time_gen, 3)
+            self.sum_times += diff
+            self.reporters.info(
+                "\nGen: " + str(k) + " tempo: " + str(diff) + " sec\n")
+
         if self.config.no_fitness_termination:
             self.reporters.found_solution(self.config, self.generation, self.best_genome)
+
+        self.reporters.info("Computation mean time: " + str(self.sum_times / (self.generation + 1)))
 
         return front
 
