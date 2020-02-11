@@ -109,7 +109,7 @@ class Evaluator():
         if self.save_simulation:
             with open(self.file_name, 'wb') as f:
                 pickle.dump(action_arr, f)
-        return final_rew
+        return final_rew, [0, 0]
 
     def execute_trial_with_distance(self, env, net, steps):
         observation = env.get_observation()
