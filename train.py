@@ -49,14 +49,14 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    p.add_reporter(MyCheckpointer(checkpoint_interval=50, filename_prefix='neat-checkpoint-' + winner, overwrite=True))
+    p.add_reporter(MyCheckpointer(checkpoint_interval=5, filename_prefix='neat-checkpoint-' + winner, overwrite=True))
     #   1 - distance metric
     #   2 - area metric
     #   3 - step reward with a bonus for staying with the pelvis between 0.84 and 0.94
     #   4 - step reward
     #   5 - Definitive
     #   6 - body in range incremental
-    evaluator = Evaluator(reward_type=5, visual=False, old_input=False, steps=1000)
+    evaluator = Evaluator(reward_type=9, visual=False, old_input=False, steps=5000)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=240)
     winner = p.run(pe.evaluate, n_max_gen)
     # Save the winner
@@ -72,9 +72,9 @@ def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint', tria
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
-            run(config_path, out_file=out_file, checkpoint=checkpoint, winner=str(i))
+            run(config_path, restore_checkpoint=restore_checkpoint, out_file=out_file, checkpoint=checkpoint, winner=str(i))
         else:
             run(config_path, out_file=out_file, winner=str(i))
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint-', trials=5)
+    start('winner_genome', restore_checkpoint=True, checkpoint='neat-checkpoint-0', trials=1)
