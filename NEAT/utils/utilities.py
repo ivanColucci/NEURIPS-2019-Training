@@ -90,6 +90,27 @@ class Evaluator():
                 pickle.dump(action_arr, f)
         return (10000 - final_rew)/1000 + 10*env.get_state_desc()['body_pos']["pelvis"][0]
 
+    def execute_trial_default(self, env, net, steps):
+        final_rew = 0
+        action_arr = []
+        observation = env.get_observation()
+        for i in range(steps):
+            if not self.load_simulation:
+                action = net.activate(observation)
+                action = self.add_action_for_3d(action)
+            else:
+                action = self.load_next_action(i)
+            if self.save_simulation:
+                action_arr.append(action)
+            observation, reward, done, info = env.step(action, project=True, obs_as_dict=False)
+            final_rew += reward
+            if done:
+                break
+        if self.save_simulation:
+            with open(self.file_name, 'wb') as f:
+                pickle.dump(action_arr, f)
+        return final_rew, [0, 0]
+
     def execute_trial_with_distance(self, env, net, steps):
         observation = env.get_observation()
         action_arr = []
@@ -484,6 +505,8 @@ class Evaluator():
             return self.execute_trial_with_body_in_range_distance(env, net, self.steps)
         elif self.reward_type == 8:
             return self.execute_trial_independent_2(env, net, self.steps)
+        elif self.reward_type == 9:
+            return self.execute_trial_default(env, net, self.steps)
         else:
             return self.execute_trial(env, net, self.steps)
 

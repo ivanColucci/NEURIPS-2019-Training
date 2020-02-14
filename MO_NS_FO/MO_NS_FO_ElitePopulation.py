@@ -1,5 +1,5 @@
 import pickle
-import math
+import time
 import numpy as np
 from neat.population import Population, CompleteExtinctionException
 from neat.six_util import iteritems, itervalues
@@ -22,6 +22,7 @@ class ElitePopulation(Population):
         self.novelty_archive = []
         self.use_archive = use_archive
         self.novelty_threshold = novelty_threshold
+        self.sum_times = 0
 
     def run(self, fitness_function, n=None):
         # Variables needed to save archive on each update
@@ -48,6 +49,8 @@ class ElitePopulation(Population):
 
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(iteritems(not_evaluated)), self.config)
+            start_time_gen = time.time()
+
             # calculate distance on 2*pop_size
             if self.use_archive:
                 self.KNNdistances(self.population, self.n_neighbors, archive=self.novelty_archive)
@@ -157,8 +160,15 @@ class ElitePopulation(Population):
             self.reporters.info("Front size: {}\n".format(len(front)))
             self.generation += 1
 
+            diff = round(time.time() - start_time_gen, 3)
+            self.sum_times += diff
+            self.reporters.info(
+                "\nGen: " + str(k) + " tempo: " + str(diff) + " sec\n")
+
         if self.config.no_fitness_termination:
             self.reporters.found_solution(self.config, self.generation, self.best_genome)
+
+        self.reporters.info("Computation mean time: " + str(self.sum_times / (self.generation + 1)))
 
         return front
 
