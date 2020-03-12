@@ -64,11 +64,12 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
         pickle.dump(winner, f)
 
 
-def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint', trials=1):
+def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint', trials=1, offset=0):
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config_human0')
-    for i in range(trials):
+    for i in range(offset, trials):
         seed = 1234 + i
+        print(seed)
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
@@ -77,4 +78,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='neat-checkpoint', tria
             run(config_path, out_file=out_file, winner=str(i))
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=True, checkpoint='neat-checkpoint-0', trials=1)
+    start('winner_genome', restore_checkpoint=False, checkpoint='neat-checkpoint-0', trials=10, offset=4)
