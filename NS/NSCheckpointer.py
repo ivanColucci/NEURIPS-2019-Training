@@ -59,13 +59,13 @@ class NSCheckpointer(BaseReporter):
             pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     @staticmethod
-    def restore_checkpoint(filename):
+    def restore_checkpoint(filename, archive_name):
         """Resumes the simulation from a previous saved point."""
         with gzip.open(filename) as f:
             generation, config, population, species_set, rndstate = pickle.load(f)
             random.setstate(rndstate)
             pop = NSPopulation(config, (population, species_set, generation))
-            with open("archive_checkpoint_", "rb") as f:
+            with open(archive_name, "rb") as f:
                 archive = pickle.load(f)
                 pop.novelty_archive = archive
             return pop
