@@ -1,7 +1,7 @@
 from neat.six_util import iteritems, itervalues
 from neat.population import Population, CompleteExtinctionException
 from sklearn.neighbors import NearestNeighbors
-from NEAT.utils.evaluator import from_list_to_dict
+from NEAT.utils.utilities import from_list_to_dict
 import numpy as np
 import pickle
 import math
