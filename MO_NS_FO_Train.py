@@ -65,4 +65,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='MO_NS_FO_Archive-check
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=True, trials=10, elite=True, offset=2)
+    start('winner_genome', restore_checkpoint=False, trials=10, elite=True, offset=2)
