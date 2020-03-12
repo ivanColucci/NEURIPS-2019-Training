@@ -36,8 +36,8 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     else:
         if elite:
             # Per usare l'archivio decommentare la seguente istruzione e commentare quella successiva
-            # p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
-            p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
+            p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
+            # p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
         else:
             p = Population(config, n_neighbors=config.pop_size, winner=winner)
     # Add a stdout reporter to show progress in the terminal.
