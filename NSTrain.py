@@ -44,7 +44,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(NSCheckpointer(checkpoint_interval=5, overwrite=True, filename_prefix='NS-checkpoint-' + winner))
-    winner = p.run(pe.evaluate, n_max_gen)
+    winner = p.run(pe.evaluate, n_max_gen-p.generation)
     # Save the winner
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)
@@ -56,8 +56,8 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
         config_path = os.path.join(local_dir, 'NSEliteHumanoidConfig')
     else:
         config_path = os.path.join(local_dir, 'NSHumanoidConfig0')
-    for i in range(trials):
-        seed = 1234 + i + offset
+    for i in range(offset, trials):
+        seed = 1234 + i
         random.seed(seed)
         np.random.seed(seed)
         if restore_checkpoint:
@@ -67,4 +67,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=10, elite=True, offset=0)
+    start('winner_genome', restore_checkpoint=False, trials=10, elite=False, offset=2)

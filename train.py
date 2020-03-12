@@ -58,7 +58,7 @@ def run(config_file, out_file='winner_genome', restore_checkpoint=False, checkpo
     #   6 - body in range incremental
     evaluator = Evaluator(reward_type=9, visual=False, old_input=False, steps=5000)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=240)
-    winner = p.run(pe.evaluate, n_max_gen)
+    winner = p.run(pe.evaluate, n_max_gen-p.generation)
     # Save the winner
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)

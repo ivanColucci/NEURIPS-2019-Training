@@ -71,6 +71,7 @@ class Checkpointer(BaseReporter):
                                       use_archive=use_archive, winner=winner)
             else:
                 pop = Population(config, (population, species_set, generation))
-            with open(archive_name, "rb") as fp:
-                pop.novelty_archive = pickle.load(fp)
+            if use_archive:
+                with open(archive_name, "rb") as fp:
+                    pop.novelty_archive = pickle.load(fp)
             return pop

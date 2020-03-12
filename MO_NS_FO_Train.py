@@ -36,8 +36,8 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     else:
         if elite:
             # Per usare l'archivio decommentare la seguente istruzione e commentare quella successiva
-            p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
-            # p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
+            # p = ElitePopulation(config, n_neighbors=15, use_archive=True, winner=winner)
+            p = ElitePopulation(config, n_neighbors=config.pop_size, winner=winner)
         else:
             p = Population(config, n_neighbors=config.pop_size, winner=winner)
     # Add a stdout reporter to show progress in the terminal.
@@ -45,16 +45,16 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
     p.add_reporter(Checkpointer(checkpoint_interval=5, overwrite=True, filename_prefix='MO_NS_FO_Archive-checkpoint-' + winner))
-    winner = p.run(pe.evaluate, n_max_gen)
+    winner = p.run(pe.evaluate, n_max_gen-p.generation)
     # Save the winner
     with open(out_file, 'wb') as f:
         pickle.dump(winner, f)
 
 
-def start(out_file, restore_checkpoint=False, checkpoint='MO_NS_FO_Archive-checkpoint-0', trials=1, elite=False):
+def start(out_file, restore_checkpoint=False, checkpoint='MO_NS_FO_Archive-checkpoint-0', trials=1, elite=False, offset=0):
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'MO_NS_FO_EliteHumanoidConfig')
-    for i in range(trials):
+    for i in range(offset, trials):
         seed = 1234 + i
         random.seed(seed)
         np.random.seed(seed)
@@ -65,4 +65,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='MO_NS_FO_Archive-check
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=True, trials=1, elite=True)
+    start('winner_genome', restore_checkpoint=True, trials=10, elite=True, offset=2)
