@@ -1,8 +1,10 @@
 from neat.six_util import iteritems, itervalues
 from neat.population import Population, CompleteExtinctionException
 from sklearn.neighbors import NearestNeighbors
+from NEAT.utils.evaluator import from_list_to_dict
 import numpy as np
 import pickle
+import math
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -44,15 +46,32 @@ class NSElitePopulation(Population):
                     evaluated.append((gid, g))
 
             # Evaluate all genomes using the user-provided function.
-            fitness_function(list(iteritems(self.population)), self.config)
+            fitness_function(list(iteritems(not_evaluated)), self.config)
             self.KNNdistances(self.population, self.novelty_archive, self.n_neighbors)
 
-            self.population = []
-            self.population += evaluated
-            for key, v in not_evaluated.items():
-                self.population.append((key, v))
-            self.population.sort(reverse=True, key=lambda x: x[1].dist)
-            self.population = from_list_to_dict(self.population[:self.config.pop_size])
+            if len(evaluated) != 0:
+                self.species.speciate(self.config, self.population, self.generation)
+                dim = 0
+                max_spec_dim = 0
+                max_sid = -1
+                for sid, s in iteritems(self.species.species):
+
+                    s.members = self.get_best_n_members(s.members, math.ceil(len(s.members) / 2))
+                    d = len(s.members)
+                    if d > max_spec_dim:
+                        max_spec_dim = d
+                        max_sid = sid
+                    dim += d
+                diff = dim - self.config.pop_size
+                if diff > 0 and diff > max_spec_dim:
+                    s = self.species.species[max_sid]
+                    s.members = self.get_best_n_members(s.members, len(s.members) - diff)
+
+                new_population = {}
+                for sid, s in iteritems(self.species.species):
+                    for gid, g in s.members.items():
+                        new_population[gid] = g
+                self.population = new_population
 
             self.species.speciate(self.config, self.population, self.generation)
 
@@ -127,6 +146,11 @@ class NSElitePopulation(Population):
                 self.n_add_archive = 0
 
             self.reporters.info("Novelty's archive size: {}\n".format(len(self.novelty_archive)))
+            if len(self.novelty_archive) > 0:
+                self.reporters.info("Archive's best: {}".format(
+                    max(self.novelty_archive, key=lambda x: x.fitness[0]).fitness[0]))
+            else:
+                self.reporters.info("Archive's best: 0")
             self.generation += 1
 
         if self.config.no_fitness_termination:
@@ -162,9 +186,13 @@ class NSElitePopulation(Population):
             elem.dist = np.mean(distances[i])
             i += 1
 
+    @staticmethod
+    def get_best_n_members(members, n):
+        half_members = []
 
-def from_list_to_dict(l):
-    d = {}
-    for gid, g in l:
-        d[gid] = g
-    return d
+        for gid, g in members.items():
+            half_members.append((gid, g))
+
+        half_members.sort(reverse=True, key=lambda x: x[1].fitness)
+
+        return from_list_to_dict(half_members[:n])

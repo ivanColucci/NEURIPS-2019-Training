@@ -4,7 +4,7 @@ import random
 from neat.math_util import mean
 from neat.reproduction import DefaultReproduction
 from neat.six_util import iteritems, itervalues
-from NS.NSElitePopulation import from_list_to_dict
+from NEAT.utils.evaluator import from_list_to_dict
 random.seed(1234)
 
 

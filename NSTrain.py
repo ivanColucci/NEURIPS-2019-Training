@@ -67,4 +67,4 @@ def start(out_file, restore_checkpoint=False, checkpoint='NS-checkpoint-', trial
 
 
 if __name__ == '__main__':
-    start('winner_genome', restore_checkpoint=False, trials=5, elite=False, offset=2)
+    start('winner_genome', restore_checkpoint=False, trials=10, elite=True, offset=0)
