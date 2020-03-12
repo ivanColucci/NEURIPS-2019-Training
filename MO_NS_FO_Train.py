@@ -30,7 +30,7 @@ def run(config_file, out_file='winner_genome', n_workers=None, n_max_gen=None, c
     evaluator = Evaluator(my_env=False, steps=5000, done=True, seed=seed)
     pe = ParallelEvaluator(n_workers, evaluator.eval_genome, timeout=240)
     if checkpoint is not None:
-        p = Checkpointer.restore_checkpoint(checkpoint, archive_name="archive_0", n_neighbors=15, use_archive=True, winner=winner)
+        p = Checkpointer.restore_checkpoint(checkpoint, archive_name="archive_"+str(winner), n_neighbors=15, use_archive=True, winner=winner)
         for gid, g in p.population.items():
             g.fitness = None
     else:
